@@ -7,9 +7,10 @@ namespace Gameplay.Scripts.Factory
         public override GameObject ConfigCube(GameObject cubePrefab)
         {
             GameObject newObject = Instantiate(cubePrefab);
-            newObject.AddComponent<CubeBehavior_Movement>();
-            newObject.AddComponent<CubeBehavior_Victory>();
-            finalCube = newObject.GetComponent<CubeCore>();
+            finalCube = newObject.GetComponent<Cube_Core>();
+            finalCube.OnSpawn(
+                newObject.AddComponent<CubeBehavior_Movement>(),
+                newObject.AddComponent<CubeBehavior_Victory>());
             return newObject;
         }
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class AbstractCubeFactory : MonoBehaviour
 {
-    protected CubeCore finalCube;
+    protected Cube_Core finalCube;
     public abstract GameObject ConfigCube(GameObject cubePrefab);
     public virtual void PositionCube(int index) =>  finalCube._index = index;
 }

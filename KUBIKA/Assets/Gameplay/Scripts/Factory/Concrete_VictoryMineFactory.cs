@@ -5,10 +5,11 @@ class Concrete_VictoryMineFactory : AbstractCubeFactory
     public override GameObject ConfigCube(GameObject cubePrefab)
     {
         GameObject newObject = Instantiate(cubePrefab);
-        newObject.AddComponent<CubeBehavior_Movement>();
-        newObject.AddComponent<CubeBehavior_Victory>();
-        newObject.AddComponent<CubeBehavior_Mine>();
-        finalCube = newObject.GetComponent<CubeCore>();
+        finalCube = newObject.GetComponent<Cube_Core>();
+        finalCube.OnSpawn(
+            newObject.AddComponent<CubeBehavior_Movement>(), 
+            newObject.AddComponent<CubeBehavior_Victory>(), 
+            newObject.AddComponent<CubeBehavior_Mine>());
         return newObject;
     }
 }
