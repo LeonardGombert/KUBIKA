@@ -1,13 +1,11 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class CubePoolManager : MonoBehaviour
+public class CubePoolManager : SerializedMonoBehaviour
 {
-    [SerializeField] AbstractCubeFactory[] _cubeFactories;
-
-    [SerializeField]  GameObject cubePrefab;
+    // Use CubeType to access matching Cube Factory
+    [SerializeField] Dictionary<CubeType, AbstractCubeFactory> _cubeFactories = new Dictionary<CubeType, AbstractCubeFactory>();
     
     private List<Cube_Core> allCubes;
     
@@ -24,14 +22,6 @@ public class CubePoolManager : MonoBehaviour
     private List<CubeBehavior> switcherCubes;
     private List<CubeBehavior> switcherVictoryCubes;
     private List<CubeBehavior> rotatorCubes;
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            _cubeFactories[0].ConfigCube(cubePrefab);
-        }
-    }
 
     public void AssembleLevel()
     {

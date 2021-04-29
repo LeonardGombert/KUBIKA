@@ -14,19 +14,17 @@ public class Cube_Core : MonoBehaviour
         }
     }
 
-    [ShowInInspector] CubeBehavior[] cubehaviors;
-
-    public void OnSpawn(params CubeBehavior[] list) => cubehaviors = list;
-
+    [SerializeField] private CubeBehavior[] cubeBehaviors;
+    
     void OnDestroyed()
     {
     }
 
     public void ResetCube()
     {
-        for (int i = 0; i < cubehaviors.Length; i++)
+        for (int i = 0; i < cubeBehaviors.Length; i++)
         {
-            cubehaviors[i].ResetBehavior();
+            cubeBehaviors[i].ResetBehavior();
         }
     }
 }

@@ -1,9 +1,3 @@
-﻿using UnityEngine;
-
-class Concrete_RotatorFactory : AbstractCubeFactory
+﻿class Concrete_RotatorFactory : AbstractCubeFactory
 {
-    public override GameObject ConfigCube(GameObject cubePrefab)
-    {
-        throw new System.NotImplementedException();
-    }
 }
