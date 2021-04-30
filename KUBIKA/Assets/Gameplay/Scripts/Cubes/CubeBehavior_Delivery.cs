@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CubeBehavior_Delivery : CubeBehavior
+public class CubeBehavior_Delivery : AbstractCubeBehavior
 {
     public override void InitBehavior()
     {

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9156231567387331277}
   - component: {fileID: -3555031861905551652}
   m_Layer: 0
-  m_Name: CounterCube
+  m_Name: Cube_Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,3 +44,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _index: 0
+  _type: 0
+  cubeBehaviors: []

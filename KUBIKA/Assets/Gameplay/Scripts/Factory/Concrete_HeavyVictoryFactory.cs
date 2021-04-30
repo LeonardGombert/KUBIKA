@@ -1,3 +1,3 @@
-﻿public class Concrete_HeavyVictoryFactory : AbstractCubeFactory
+﻿public class Concrete_HeavyVictoryFactory : Abstract_CubeFactory
 {
 }

@@ -1,3 +1,3 @@
-public class Concrete_HeavyFactory : AbstractCubeFactory
+public class Concrete_HeavyFactory : Abstract_CubeFactory
 {
 }

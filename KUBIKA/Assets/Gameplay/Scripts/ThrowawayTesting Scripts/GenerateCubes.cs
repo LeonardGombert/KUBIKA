@@ -8,9 +8,8 @@ namespace Kubika.Testing
     public class GenerateCubes : SerializedMonoBehaviour
     {
         public CubeType cubeType;
-        [SerializeField] Dictionary<CubeType, AbstractCubeFactory> _cubeFactories = new Dictionary<CubeType, AbstractCubeFactory>();
+        [SerializeField] Dictionary<CubeType, Abstract_CubeFactory> _cubeFactories = new Dictionary<CubeType, Abstract_CubeFactory>();
 
-        // Update is called once per frame
         void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space)) _cubeFactories[cubeType].PlaceCube(0);

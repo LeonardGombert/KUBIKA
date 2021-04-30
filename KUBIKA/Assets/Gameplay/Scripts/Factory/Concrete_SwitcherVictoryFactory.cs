@@ -1,3 +1,3 @@
-﻿class Concrete_SwitcherVictoryFactory : AbstractCubeFactory
+﻿class Concrete_SwitcherVictoryFactory : Abstract_CubeFactory
 {
 }

@@ -20,6 +20,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -3555031861905551652, guid: a80be0a74831bf445a7feab5cee06be1, type: 3}
+      propertyPath: _type
+      value: 513
+      objectReference: {fileID: 0}
+    - target: {fileID: -3555031861905551652, guid: a80be0a74831bf445a7feab5cee06be1, type: 3}
       propertyPath: cubeBehaviors.Array.size
       value: 1
       objectReference: {fileID: 0}
