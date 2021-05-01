@@ -339,7 +339,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1078329623}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26db470f0804c104587a413e8989702a, type: 3}
+  m_Script: {fileID: 11500000, guid: de72257ddd2d4994a875db326c6324dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
@@ -351,6 +351,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  sizeX: 2
-  sizeY: 2
-  sizeZ: 2
+  sizeX: 4
+  sizeY: 4
+  sizeZ: 4
+  cubePrefab: {fileID: 4727686635932563485, guid: 354be7f85b652b642910f6aa7c4bfef1, type: 3}
+  width: 1.1

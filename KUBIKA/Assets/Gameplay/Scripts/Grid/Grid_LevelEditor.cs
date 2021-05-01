@@ -6,7 +6,11 @@ using UnityEngine;
 public class Grid_LevelEditor : AbstractGrid
 {
     [SerializeField] int sizeX, sizeY, sizeZ;
-    private int gridSize;
+
+    [Space, Header("Testing")] 
+    [SerializeField] GameObject cubePrefab;
+
+    [SerializeField] private float width = 1.2f;
 
     private void Awake() => BuildGrid();
 
@@ -21,6 +25,7 @@ public class Grid_LevelEditor : AbstractGrid
                 for (int x = 0; x < sizeX; x++, i++)
                 {
                     _gridNodes[i] = new GridNode(x, y, z, CubeType.None);
+                    Instantiate(cubePrefab, new Vector3(x * width, y * width, z * width), Quaternion.identity, transform);
                 }
             }
         }
