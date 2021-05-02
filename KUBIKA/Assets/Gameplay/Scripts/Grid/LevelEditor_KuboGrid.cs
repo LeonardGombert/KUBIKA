@@ -1,9 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
-public class Grid_LevelEditor : AbstractGrid
+public class LevelEditor_KuboGrid : AbstractKuboGrid
 {
     [SerializeField] int sizeX, sizeY, sizeZ;
 
@@ -14,9 +12,10 @@ public class Grid_LevelEditor : AbstractGrid
 
     private void Awake() => BuildGrid();
 
+    // called by the user, once he is finished building the level -> generates the grid based on what was created
     public override void BuildGrid()
     {
-        _gridNodes = new GridNode[sizeX * sizeY * sizeZ];
+        grid = new KuboNode[sizeX * sizeY * sizeZ];
 
         for (int z = 0, i = 0; z < sizeZ; z++)
         {
@@ -24,8 +23,8 @@ public class Grid_LevelEditor : AbstractGrid
             {
                 for (int x = 0; x < sizeX; x++, i++)
                 {
-                    _gridNodes[i] = new GridNode(x, y, z, CubeType.None);
-                    Instantiate(cubePrefab, new Vector3(x * width, y * width, z * width), Quaternion.identity, transform);
+                    grid[i] = new KuboNode(x, y, z, CubeType.None);
+                    // Instantiate(cubePrefab, new Vector3(x * width, y * width, z * width), Quaternion.identity, transform);
                 }
             }
         }
