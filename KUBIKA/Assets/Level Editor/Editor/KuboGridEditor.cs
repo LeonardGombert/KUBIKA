@@ -1,5 +1,6 @@
 using System;
 using Sirenix.OdinInspector.Editor;
+using Sirenix.Utilities.Editor;
 using UnityEditor;
 using UnityEngine;
 
@@ -11,8 +12,10 @@ public class KuboGridEditor : OdinEditor
         base.OnInspectorGUI();
 
         EditorGUILayout.Space();
-        
+
         if (GUILayout.Button("Open Editor"))
+        {
             KuboLevelEditorWindow.OpenWindow(target as LevelEditor_KuboGrid);
+        }
     }
 }
