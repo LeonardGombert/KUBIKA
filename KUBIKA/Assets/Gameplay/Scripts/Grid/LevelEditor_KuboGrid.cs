@@ -8,7 +8,7 @@ public class LevelEditor_KuboGrid : AbstractKuboGrid
     [Space, Header("Testing")] 
     [SerializeField] GameObject cubePrefab;
 
-    [SerializeField] private float width = 1.2f;
+    [SerializeField] public float width = 1.2f;
 
     private void Awake() => BuildGrid();
 

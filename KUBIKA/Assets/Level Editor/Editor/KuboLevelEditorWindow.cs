@@ -1,4 +1,5 @@
 using System;
+using NUnit.Framework.Internal;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using UnityEditor;
@@ -41,42 +42,52 @@ public class KuboLevelEditorWindow : OdinEditorWindow
     private void CustomUpdate(SceneView sceneView)
     {
         e = Event.current;
-
-        if (action == EditorAction.Place) PlaceCube();
-        else if (action == EditorAction.Remove) Remove();
-        else if (action == EditorAction.Rotate) Rotate();
-
-        OnSceneGUI();
+        RegisterActions();
+        ContextMenu();
     }
 
-    #region Editor Actions
-
-    private void PlaceCube()
+    private void RegisterActions()
     {
-        if (e.type == EventType.MouseDown && e.button == 0)
+        if (action != EditorAction.None)
         {
-            RaycastHit hit;
-
-            if (Physics.Raycast(
-                Camera.current.ScreenPointToRay(new Vector3(e.mousePosition.x, e.mousePosition.y, 0)),
-                out hit, Mathf.Infinity, ~LayerMask.NameToLayer("Level Editor")))
+            if (e.type == EventType.MouseDown && e.button == 0)
             {
-                GameObject newObject = (GameObject) PrefabUtility.InstantiatePrefab(cubeToPlace);
-                /* (GameObject) PrefabUtility.InstantiatePrefab(
-                     PrefabUtility.GetCorrespondingObjectFromSource(cubeToPlace));*/
-                newObject.transform.position = hit.point;
-                e.Use();
+                RaycastHit hit;
 
-                Undo.RegisterCreatedObjectUndo(newObject, "Undo new Cube");
+                if (Physics.Raycast(
+                    Camera.current.ScreenPointToRay(new Vector3(e.mousePosition.x,
+                        Camera.current.pixelHeight - e.mousePosition.y, 0)),
+                    out hit, Mathf.Infinity, ~LayerMask.NameToLayer("Level Editor")))
+                {
+                    if (action == EditorAction.Place) PlaceCube(hit);
+                    else if (action == EditorAction.Remove) Remove(hit);
+                    else if (action == EditorAction.Rotate) Rotate(hit);
+                }
             }
         }
     }
 
-    private void Remove()
+    #region Editor Actions
+
+    private void PlaceCube(RaycastHit hit)
     {
+        GameObject newObject = (GameObject) PrefabUtility.InstantiatePrefab(cubeToPlace);
+        newObject.transform.position = hit.transform.position + hit.normal * kuboGrid.width;
+
+        Undo.RegisterCreatedObjectUndo(newObject, "Undo New Cube");
+        e.Use();
     }
 
-    private void Rotate()
+    private void Remove(RaycastHit hit)
+    {
+        GameObject destroyed = hit.transform.gameObject;
+
+        Undo.DestroyObjectImmediate(destroyed);
+        DestroyImmediate(destroyed);
+        e.Use();
+    }
+
+    private void Rotate(RaycastHit hit)
     {
     }
 
@@ -84,9 +95,9 @@ public class KuboLevelEditorWindow : OdinEditorWindow
 
     #region Dropdown Menu
 
-    void OnSceneGUI()
+    void ContextMenu()
     {
-        if (e.type == EventType.MouseDown && e.button == 1)
+        if (e.control && (e.type == EventType.MouseDown && e.button == 1))
         {
             GenericMenu myMenu = new GenericMenu();
 

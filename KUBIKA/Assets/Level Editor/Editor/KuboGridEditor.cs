@@ -13,7 +13,7 @@ public class KuboGridEditor : OdinEditor
 
         EditorGUILayout.Space();
 
-        if (GUILayout.Button("Open Editor"))
+        if (GUILayout.Button("Open Level Creator"))
         {
             KuboLevelEditorWindow.OpenWindow(target as LevelEditor_KuboGrid);
         }
