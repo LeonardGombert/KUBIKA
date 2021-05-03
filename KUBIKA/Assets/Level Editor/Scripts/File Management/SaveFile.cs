@@ -2,5 +2,5 @@
 public class SaveFile
 {
     [Sirenix.OdinInspector.ShowInInspector] public const string saveLevelPath = "";
-    [Sirenix.OdinInspector.ShowInInspector] public CubeObject[] placedCubes;
+    [Sirenix.OdinInspector.ShowInInspector] public AbstractCubeObject[] placedCubes;
 }

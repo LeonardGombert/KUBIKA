@@ -337,8 +337,8 @@ MonoBehaviour:
     BackgroundTexture: {fileID: 0}
     IsBackgroundRecursive: 0
     IsHidden: 0
-  - Type: 1
-    Key: Assets/_MASTER
+  - Type: 0
+    Key: _MASTER
     Ordinal: 27
     Priority: 0
     IconType: 2130
@@ -349,8 +349,8 @@ MonoBehaviour:
     BackgroundTexture: {fileID: 0}
     IsBackgroundRecursive: 0
     IsHidden: 0
-  - Type: 1
-    Key: Assets/_MASTER/FBX
+  - Type: 0
+    Key: FBX
     Ordinal: 28
     Priority: 0
     IconType: 2580
@@ -361,8 +361,8 @@ MonoBehaviour:
     BackgroundTexture: {fileID: 0}
     IsBackgroundRecursive: 0
     IsHidden: 0
-  - Type: 1
-    Key: Assets/Gameplay
+  - Type: 0
+    Key: Gameplay
     Ordinal: 29
     Priority: 0
     IconType: 10
@@ -373,8 +373,8 @@ MonoBehaviour:
     BackgroundTexture: {fileID: 0}
     IsBackgroundRecursive: 0
     IsHidden: 0
-  - Type: 1
-    Key: Assets/Level Editor
+  - Type: 0
+    Key: Level Editor
     Ordinal: 30
     Priority: 0
     IconType: 170
@@ -385,8 +385,8 @@ MonoBehaviour:
     BackgroundTexture: {fileID: 0}
     IsBackgroundRecursive: 0
     IsHidden: 0
-  - Type: 1
-    Key: Assets/Networking
+  - Type: 0
+    Key: Networking
     Ordinal: 31
     Priority: 0
     IconType: 220
@@ -397,8 +397,8 @@ MonoBehaviour:
     BackgroundTexture: {fileID: 0}
     IsBackgroundRecursive: 0
     IsHidden: 0
-  - Type: 1
-    Key: Assets/Art
+  - Type: 0
+    Key: Art
     Ordinal: 32
     Priority: 0
     IconType: 40
@@ -433,23 +433,11 @@ MonoBehaviour:
     BackgroundTexture: {fileID: 0}
     IsBackgroundRecursive: 0
     IsHidden: 0
-  - Type: 1
-    Key: Assets/Networking/PHP
+  - Type: 0
+    Key: PHP
     Ordinal: 35
     Priority: 0
     IconType: 200
-    SmallIcon: {fileID: 0}
-    LargeIcon: {fileID: 0}
-    IsIconRecursive: 0
-    BackgroundType: 0
-    BackgroundTexture: {fileID: 0}
-    IsBackgroundRecursive: 0
-    IsHidden: 0
-  - Type: 0
-    Key: Types
-    Ordinal: 36
-    Priority: 0
-    IconType: 2620
     SmallIcon: {fileID: 0}
     LargeIcon: {fileID: 0}
     IsIconRecursive: 0

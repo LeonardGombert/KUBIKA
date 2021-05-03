@@ -75,6 +75,8 @@ public class KuboLevelEditorWindow : OdinEditorWindow
 
     private void PlaceCube(RaycastHit hit)
     {
+        hit.collider.GetComponent<AbstractCubeObject>();
+        
         GameObject newObject = (GameObject) PrefabUtility.InstantiatePrefab(_cubeToPlace);
         newObject.transform.position = hit.transform.position + hit.normal * _kuboGrid.width;
 

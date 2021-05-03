@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class Abstract_CubeFactory : MonoBehaviour
 {
-    protected CubeObject cubeRef;
+    protected AbstractCubeObject cubeRef;
     [SerializeField] protected GameObject cubePrefab;
 
     /// <summary>
@@ -17,9 +17,9 @@ public abstract class Abstract_CubeFactory : MonoBehaviour
     /// </summary>
     /// <param name="index">The index in the Grid where the cube will be placed</param>
     /// <returns></returns>
-    public virtual CubeObject PlaceCube(int index)
+    public virtual AbstractCubeObject PlaceCube(int index)
     {
-        (cubeRef = ConfigCube().GetComponent<CubeObject>()).Index = index;
+        (cubeRef = ConfigCube().GetComponent<AbstractCubeObject>()).Index = index;
         return cubeRef;
     }
 }

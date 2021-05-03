@@ -1,9 +1,10 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 [System.Serializable]
 public struct KuboVector
 {
-    public Vector3[] Config { get; private set; }
+    [ShowInInspector] public Vector3[] Config { get; private set; }
 
     public KuboVector(int x, int y, int z)
     {

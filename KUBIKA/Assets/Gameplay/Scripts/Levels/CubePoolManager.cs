@@ -10,7 +10,7 @@ public class CubePoolManager : SerializedMonoBehaviour
 /// </summary>
     [SerializeField] Dictionary<CubeType, Abstract_CubeFactory> _cubeFactories = new Dictionary<CubeType, Abstract_CubeFactory>();
     
-    private List<CubeObject> allCubes;
+    private List<AbstractCubeObject> allCubes;
     
     private List<AbstractCubeBehavior> baseCubes;
     private List<AbstractCubeBehavior> moveableCubes;
@@ -28,14 +28,9 @@ public class CubePoolManager : SerializedMonoBehaviour
 
     public void AssembleLevel()
     {
-        
     }
 
     void ResetAllCubes()
     {
-        for (int i = 0; i < allCubes.Count; i++)
-        {
-            allCubes[i].ResetCube();
-        }   
     }
 }
