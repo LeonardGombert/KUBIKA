@@ -13,4 +13,6 @@ public struct KuboVector
         Config[1] = new Vector3(z, x, y); // position 2
         Config[2] = new Vector3(y, z, x); // position 3
     }
+
+    public static KuboVector Zero => new KuboVector(0, 0, 0);
 }

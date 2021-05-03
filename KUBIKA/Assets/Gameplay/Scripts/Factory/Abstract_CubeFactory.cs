@@ -17,7 +17,7 @@ public abstract class Abstract_CubeFactory : MonoBehaviour
     /// </summary>
     /// <param name="index">The index in the Grid where the cube will be placed</param>
     /// <returns></returns>
-    public virtual AbstractCubeObject PlaceCube(int index)
+    public virtual AbstractCubeObject PlaceCube(KuboVector index)
     {
         (cubeRef = ConfigCube().GetComponent<AbstractCubeObject>()).Index = index;
         return cubeRef;

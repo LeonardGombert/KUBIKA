@@ -6,7 +6,8 @@ using UnityEngine;
 public class KuboLevelEditorWindow : OdinEditorWindow
 {
     LevelEditor_KuboGrid _kuboGrid;
-    [HideInInspector] public EditorAction action;
+    [HideInInspector] public EditorAction editorAction;
+    [HideInInspector] public CubeType cubeType;
     private GameObject _cubeToPlace;
     private Event _event;
     private bool _isNone = true, _isPlacing, _isRemoving, _isRotating;
@@ -28,11 +29,21 @@ public class KuboLevelEditorWindow : OdinEditorWindow
 
     protected override void OnGUI()
     {
+        GUILayout.BeginVertical();
+        
         GUILayout.BeginHorizontal();
         GUILayout.Label("Editor Action");
-        action = (EditorAction) EditorGUILayout.EnumPopup(action);
+        editorAction = (EditorAction) EditorGUILayout.EnumPopup(editorAction);
         GUILayout.EndHorizontal();
+        
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Placing Cube");
+        cubeType = (CubeType) EditorGUILayout.EnumPopup(cubeType);
+        GUILayout.EndHorizontal();
+        
         _cubeToPlace = (GameObject) EditorGUILayout.ObjectField(_cubeToPlace, typeof(GameObject), true);
+
+        GUILayout.EndVertical();
     }
 
     private void CustomUpdate(SceneView sceneView)
@@ -44,7 +55,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
 
     private void RegisterActions()
     {
-        if (action == EditorAction.None) return;
+        if (editorAction == EditorAction.None) return;
         if (_event.type != EventType.MouseDown || _event.button != 0) return;
 
         if (Physics.Raycast(
@@ -52,7 +63,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
                 Camera.current.pixelHeight - _event.mousePosition.y, 0)),
             out var hit, Mathf.Infinity, ~LayerMask.NameToLayer("Level Editor")))
         {
-            switch (action)
+            switch (editorAction)
             {
                 case EditorAction.Place:
                     PlaceCube(hit);
@@ -75,12 +86,18 @@ public class KuboLevelEditorWindow : OdinEditorWindow
 
     private void PlaceCube(RaycastHit hit)
     {
-        hit.collider.GetComponent<AbstractCubeObject>();
-        
         GameObject newObject = (GameObject) PrefabUtility.InstantiatePrefab(_cubeToPlace);
-        newObject.transform.position = hit.transform.position + hit.normal * _kuboGrid.width;
+        
+        var newCube = newObject.GetComponent<Cube_LevelEditor>();
+        var hitCube = hit.collider.GetComponent<Cube_LevelEditor>();
+        
+        Vector3 newIndex = hitCube.Index.Config[0] + hit.normal;
+        
+        newCube.Index = new KuboVector((int)newIndex.x, (int)newIndex.y, (int)newIndex.z);
+        newObject.transform.position = hit.transform.position + hit.normal * 1.1f;
 
         Undo.RegisterCreatedObjectUndo(newObject, "Undo New Cube");
+        
         _event.Use();
     }
 
@@ -131,11 +148,11 @@ public class KuboLevelEditorWindow : OdinEditorWindow
 
     void RefreshMenu(EditorAction _action)
     {
-        action = _action;
-        _isNone = action == EditorAction.None;
-        _isPlacing = action == EditorAction.Place;
-        _isRemoving = action == EditorAction.Remove;
-        _isRotating = action == EditorAction.Rotate;
+        editorAction = _action;
+        _isNone = editorAction == EditorAction.None;
+        _isPlacing = editorAction == EditorAction.Place;
+        _isRemoving = editorAction == EditorAction.Remove;
+        _isRotating = editorAction == EditorAction.Rotate;
     }
 
     #endregion

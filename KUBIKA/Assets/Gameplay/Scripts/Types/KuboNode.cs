@@ -5,7 +5,7 @@ public class KuboNode
 {
     [ShowInInspector, ReadOnly] private KuboVector _indexes;
     [ShowInInspector, ReadOnly] private CubeType _currentCube;
-    [ShowInInspector, ReadOnly] private Vector3 _rotation;
+    private Vector3 _rotation;
 
     public Vector3 CurrConfig => _indexes.Config[(int)(AbstractKuboGrid.KuboState)];
 
