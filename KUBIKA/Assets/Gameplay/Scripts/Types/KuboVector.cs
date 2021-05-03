@@ -1,12 +1,15 @@
+using UnityEngine;
+
 [System.Serializable]
 public struct KuboVector
 {
-    [UnityEngine.SerializeField] private int xPos, yPos, zPos;
-    
-    public KuboVector(int _xPos, int _yPos, int _zPos)
+    public Vector3[] Config { get; private set; }
+
+    public KuboVector(int x, int y, int z)
     {
-        xPos = _xPos;
-        yPos = _yPos;
-        zPos = _zPos;
+        Config = new Vector3[3];
+        Config[0] = new Vector3(x, y, z); // position 1
+        Config[1] = new Vector3(z, x, y); // position 2
+        Config[2] = new Vector3(y, z, x); // position 3
     }
 }

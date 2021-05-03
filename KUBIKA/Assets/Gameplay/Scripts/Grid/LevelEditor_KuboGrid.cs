@@ -3,19 +3,19 @@ using UnityEngine;
 
 public class LevelEditor_KuboGrid : AbstractKuboGrid
 {
-    [SerializeField] int sizeX, sizeY, sizeZ;
+    [SerializeField] private int sizeX, sizeY, sizeZ;
 
     [Space, Header("Testing")] 
-    [SerializeField] GameObject cubePrefab;
-
-    [SerializeField] public float width = 1.2f;
+    
+    [SerializeField] private GameObject cubePrefab;
+    public float width = 1.2f;
 
     private void Awake() => BuildGrid();
 
     // called by the user, once he is finished building the level -> generates the grid based on what was created
     public override void BuildGrid()
     {
-        grid = new KuboNode[sizeX * sizeY * sizeZ];
+        Grid = new KuboNode[sizeX * sizeY * sizeZ];
 
         for (int z = 0, i = 0; z < sizeZ; z++)
         {
@@ -23,7 +23,7 @@ public class LevelEditor_KuboGrid : AbstractKuboGrid
             {
                 for (int x = 0; x < sizeX; x++, i++)
                 {
-                    grid[i] = new KuboNode(x, y, z, CubeType.None);
+                    Grid[i] = new KuboNode(x, y, z, CubeType.None);
                     // Instantiate(cubePrefab, new Vector3(x * width, y * width, z * width), Quaternion.identity, transform);
                 }
             }

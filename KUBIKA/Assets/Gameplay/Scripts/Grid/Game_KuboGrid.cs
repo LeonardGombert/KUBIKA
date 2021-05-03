@@ -8,7 +8,7 @@ public class Game_KuboGrid : AbstractKuboGrid
 
     public override void BuildGrid()
     {
-        grid = new KuboNode[sizeX * sizeY * sizeZ];
+        Grid = new KuboNode[sizeX * sizeY * sizeZ];
 
         for (int z = 0, i = 0; z < sizeZ; z++)
         {
@@ -16,7 +16,7 @@ public class Game_KuboGrid : AbstractKuboGrid
             {
                 for (int x = 0; x < sizeX; x++, i++)
                 {
-                    grid[i] = new KuboNode(x, y, z, CubeType.None);
+                    Grid[i] = new KuboNode(x, y, z, CubeType.None);
                 }
             }
         }

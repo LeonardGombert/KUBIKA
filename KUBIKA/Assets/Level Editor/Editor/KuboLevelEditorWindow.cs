@@ -1,25 +1,21 @@
 using System;
-using NUnit.Framework.Internal;
-using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using UnityEditor;
-using UnityEditor.Experimental.TerrainAPI;
 using UnityEngine;
 
 public class KuboLevelEditorWindow : OdinEditorWindow
 {
-    LevelEditor_KuboGrid kuboGrid;
+    LevelEditor_KuboGrid _kuboGrid;
     [HideInInspector] public EditorAction action;
-    private GameObject cubeToPlace;
-    private Event e;
-    private bool isNone = true, isPlacing, isRemoving, isRotating;
+    private GameObject _cubeToPlace;
+    private Event _event;
+    private bool _isNone = true, _isPlacing, _isRemoving, _isRotating;
 
-
-    public static void OpenWindow(LevelEditor_KuboGrid _kuboGrid)
+    public static void OpenWindow(LevelEditor_KuboGrid kuboGrid)
     {
-        KuboLevelEditorWindow window = GetWindow<KuboLevelEditorWindow>();
+        var window = GetWindow<KuboLevelEditorWindow>();
         window.Show();
-        window.kuboGrid = _kuboGrid;
+        window._kuboGrid = kuboGrid;
     }
 
     protected override void OnEnable()
@@ -36,33 +32,41 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         GUILayout.Label("Editor Action");
         action = (EditorAction) EditorGUILayout.EnumPopup(action);
         GUILayout.EndHorizontal();
-        cubeToPlace = (GameObject) EditorGUILayout.ObjectField(cubeToPlace, typeof(GameObject), true);
+        _cubeToPlace = (GameObject) EditorGUILayout.ObjectField(_cubeToPlace, typeof(GameObject), true);
     }
 
     private void CustomUpdate(SceneView sceneView)
     {
-        e = Event.current;
+        _event = Event.current;
         RegisterActions();
         ContextMenu();
     }
 
     private void RegisterActions()
     {
-        if (action != EditorAction.None)
-        {
-            if (e.type == EventType.MouseDown && e.button == 0)
-            {
-                RaycastHit hit;
+        if (action == EditorAction.None) return;
+        if (_event.type != EventType.MouseDown || _event.button != 0) return;
 
-                if (Physics.Raycast(
-                    Camera.current.ScreenPointToRay(new Vector3(e.mousePosition.x,
-                        Camera.current.pixelHeight - e.mousePosition.y, 0)),
-                    out hit, Mathf.Infinity, ~LayerMask.NameToLayer("Level Editor")))
-                {
-                    if (action == EditorAction.Place) PlaceCube(hit);
-                    else if (action == EditorAction.Remove) Remove(hit);
-                    else if (action == EditorAction.Rotate) Rotate(hit);
-                }
+        if (Physics.Raycast(
+            Camera.current.ScreenPointToRay(new Vector3(_event.mousePosition.x,
+                Camera.current.pixelHeight - _event.mousePosition.y, 0)),
+            out var hit, Mathf.Infinity, ~LayerMask.NameToLayer("Level Editor")))
+        {
+            switch (action)
+            {
+                case EditorAction.Place:
+                    PlaceCube(hit);
+                    break;
+                case EditorAction.Remove:
+                    Remove(hit);
+                    break;
+                case EditorAction.Rotate:
+                    Rotate(hit);
+                    break;
+                case EditorAction.None:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
     }
@@ -71,11 +75,11 @@ public class KuboLevelEditorWindow : OdinEditorWindow
 
     private void PlaceCube(RaycastHit hit)
     {
-        GameObject newObject = (GameObject) PrefabUtility.InstantiatePrefab(cubeToPlace);
-        newObject.transform.position = hit.transform.position + hit.normal * kuboGrid.width;
+        GameObject newObject = (GameObject) PrefabUtility.InstantiatePrefab(_cubeToPlace);
+        newObject.transform.position = hit.transform.position + hit.normal * _kuboGrid.width;
 
         Undo.RegisterCreatedObjectUndo(newObject, "Undo New Cube");
-        e.Use();
+        _event.Use();
     }
 
     private void Remove(RaycastHit hit)
@@ -84,7 +88,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
 
         Undo.DestroyObjectImmediate(destroyed);
         DestroyImmediate(destroyed);
-        e.Use();
+        _event.Use();
     }
 
     private void Rotate(RaycastHit hit)
@@ -97,39 +101,39 @@ public class KuboLevelEditorWindow : OdinEditorWindow
 
     void ContextMenu()
     {
-        if (e.control && (e.type == EventType.MouseDown && e.button == 1))
+        if (_event.control && (_event.type == EventType.MouseDown && _event.button == 1))
         {
             GenericMenu myMenu = new GenericMenu();
 
             myMenu.AddDisabledItem(new GUIContent("Level Editor Action"));
 
-            myMenu.AddItem(new GUIContent("None"), isNone,
+            myMenu.AddItem(new GUIContent("None"), _isNone,
                 () => { RefreshMenu(EditorAction.None); });
 
-            myMenu.AddItem(new GUIContent("Place"), isPlacing,
+            myMenu.AddItem(new GUIContent("Place"), _isPlacing,
                 () => { RefreshMenu(EditorAction.Place); });
 
-            myMenu.AddItem(new GUIContent("Remove"), isRemoving,
+            myMenu.AddItem(new GUIContent("Remove"), _isRemoving,
                 () => { RefreshMenu(EditorAction.Remove); });
 
-            myMenu.AddItem(new GUIContent("Rotate"), isRotating,
+            myMenu.AddItem(new GUIContent("Rotate"), _isRotating,
                 () => { RefreshMenu(EditorAction.Rotate); });
 
             myMenu.ShowAsContext();
 
             Repaint();
 
-            e.Use();
+            _event.Use();
         }
     }
 
     void RefreshMenu(EditorAction _action)
     {
         action = _action;
-        isNone = action == EditorAction.None;
-        isPlacing = action == EditorAction.Place;
-        isRemoving = action == EditorAction.Remove;
-        isRotating = action == EditorAction.Rotate;
+        _isNone = action == EditorAction.None;
+        _isPlacing = action == EditorAction.Place;
+        _isRemoving = action == EditorAction.Remove;
+        _isRotating = action == EditorAction.Rotate;
     }
 
     #endregion
