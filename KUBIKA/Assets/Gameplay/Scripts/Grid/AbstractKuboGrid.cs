@@ -13,6 +13,4 @@ public abstract class AbstractKuboGrid : SerializedMonoBehaviour
     }
     
     public abstract void BuildGrid();
-    public abstract void RotateGrid();
-    public abstract void ResetGrid();
 }

@@ -1,6 +1,4 @@
-using System;
 using Sirenix.OdinInspector.Editor;
-using Sirenix.Utilities.Editor;
 using UnityEditor;
 using UnityEngine;
 
@@ -14,8 +12,6 @@ public class KuboGridEditor : OdinEditor
         EditorGUILayout.Space();
 
         if (GUILayout.Button("Open Level Creator"))
-        {
-            KuboLevelEditorWindow.OpenWindow(target as LevelEditor_KuboGrid);
-        }
+            KuboLevelEditorWindow.OpenWindow();
     }
 }

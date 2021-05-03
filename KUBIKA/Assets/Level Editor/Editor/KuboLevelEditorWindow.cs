@@ -5,18 +5,25 @@ using UnityEngine;
 
 public class KuboLevelEditorWindow : OdinEditorWindow
 {
-    LevelEditor_KuboGrid _kuboGrid;
+    private static LevelEditor_KuboGrid _kuboGrid => FindObjectOfType<LevelEditor_KuboGrid>();
     [HideInInspector] public EditorAction editorAction;
     [HideInInspector] public CubeType cubeType;
     private GameObject _cubeToPlace;
+
+    private GameObject CubeToPlace => (_cubeToPlace)
+        ? _cubeToPlace
+        : _cubeToPlace =
+            AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Level Editor/Prefabs/LevelEditorCube.prefab");
+
     private Event _event;
     private bool _isNone = true, _isPlacing, _isRemoving, _isRotating;
 
-    public static void OpenWindow(LevelEditor_KuboGrid kuboGrid)
+    #region Unity Editor Functions
+
+    public static void OpenWindow()
     {
         var window = GetWindow<KuboLevelEditorWindow>();
         window.Show();
-        window._kuboGrid = kuboGrid;
     }
 
     protected override void OnEnable()
@@ -30,18 +37,33 @@ public class KuboLevelEditorWindow : OdinEditorWindow
     protected override void OnGUI()
     {
         GUILayout.BeginVertical();
-        
+
+        // Current Editor Action
         GUILayout.BeginHorizontal();
         GUILayout.Label("Editor Action");
         editorAction = (EditorAction) EditorGUILayout.EnumPopup(editorAction);
         GUILayout.EndHorizontal();
-        
+
+        // Current Cube Type
         GUILayout.BeginHorizontal();
         GUILayout.Label("Placing Cube");
         cubeType = (CubeType) EditorGUILayout.EnumPopup(cubeType);
         GUILayout.EndHorizontal();
-        
-        _cubeToPlace = (GameObject) EditorGUILayout.ObjectField(_cubeToPlace, typeof(GameObject), true);
+
+        EditorGUILayout.ObjectField(CubeToPlace, typeof(GameObject), true);
+
+        // Level Utility Methods
+        if (GUILayout.Button("Cook Level"))
+            CookLevel();
+
+        if (GUILayout.Button("Clear Level"))
+        {
+            if (EditorUtility.DisplayDialog("Clear Level ? ", "Are you sure that you want to clear the entire level ?",
+                "Clear Level", "Cancel"))
+            {
+                ClearLevel();
+            }
+        }
 
         GUILayout.EndVertical();
     }
@@ -51,7 +73,12 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         _event = Event.current;
         RegisterActions();
         ContextMenu();
+        UpdateGrid();
     }
+
+    #endregion
+
+    #region Editor Actions
 
     private void RegisterActions()
     {
@@ -82,22 +109,25 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         }
     }
 
-    #region Editor Actions
-
     private void PlaceCube(RaycastHit hit)
     {
-        GameObject newObject = (GameObject) PrefabUtility.InstantiatePrefab(_cubeToPlace);
-        
+        GameObject newObject = (GameObject) PrefabUtility.InstantiatePrefab(CubeToPlace);
+
         var newCube = newObject.GetComponent<Cube_LevelEditor>();
         var hitCube = hit.collider.GetComponent<Cube_LevelEditor>();
-        
+
         Vector3 newIndex = hitCube.Index.Config[0] + hit.normal;
-        
-        newCube.Index = new KuboVector((int)newIndex.x, (int)newIndex.y, (int)newIndex.z);
-        newObject.transform.position = hit.transform.position + hit.normal * 1.1f;
+        KuboVector cubeCoords = new KuboVector((int) newIndex.x, (int) newIndex.y, (int) newIndex.z);
+
+        // set cube type and data
+        newCube.ConfigCube(cubeCoords, cubeType);
+
+        _kuboGrid.placedCubes.Add(newCube);
+
+        newObject.transform.position = hit.transform.position + hit.normal * _kuboGrid.width;
 
         Undo.RegisterCreatedObjectUndo(newObject, "Undo New Cube");
-        
+
         _event.Use();
     }
 
@@ -105,7 +135,10 @@ public class KuboLevelEditorWindow : OdinEditorWindow
     {
         GameObject destroyed = hit.transform.gameObject;
 
+        _kuboGrid.placedCubes.Remove(destroyed.GetComponent<AbstractCubeObject>());
+
         Undo.DestroyObjectImmediate(destroyed);
+
         DestroyImmediate(destroyed);
         _event.Use();
     }
@@ -153,6 +186,29 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         _isPlacing = editorAction == EditorAction.Place;
         _isRemoving = editorAction == EditorAction.Remove;
         _isRotating = editorAction == EditorAction.Rotate;
+    }
+
+    #endregion
+
+    #region Utility Functions
+
+    private void ClearLevel()
+    {
+        _kuboGrid.ClearGrid();
+    }
+
+    private void CookLevel()
+    {
+        _kuboGrid.BuildGrid();
+    }
+
+    private void UpdateGrid()
+    {
+        for (int i = 0; i < _kuboGrid.placedCubes.Count; i++)
+        {
+            if (!_kuboGrid.placedCubes[i])
+                _kuboGrid.placedCubes.RemoveAt(i--);
+        }
     }
 
     #endregion

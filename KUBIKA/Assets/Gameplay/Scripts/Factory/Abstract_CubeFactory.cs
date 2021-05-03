@@ -19,7 +19,7 @@ public abstract class Abstract_CubeFactory : MonoBehaviour
     /// <returns></returns>
     public virtual AbstractCubeObject PlaceCube(KuboVector index)
     {
-        (cubeRef = ConfigCube().GetComponent<AbstractCubeObject>()).Index = index;
-        return cubeRef;
+        // TODO : place cube
+        return null;
     }
 }

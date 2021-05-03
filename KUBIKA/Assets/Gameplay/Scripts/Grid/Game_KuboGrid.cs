@@ -21,14 +21,4 @@ public class Game_KuboGrid : AbstractKuboGrid
             }
         }
     }
-
-    public override void RotateGrid()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override void ResetGrid()
-    {
-        throw new System.NotImplementedException();
-    }
 }

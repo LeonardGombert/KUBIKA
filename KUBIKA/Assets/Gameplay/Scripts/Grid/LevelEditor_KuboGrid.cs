@@ -1,13 +1,13 @@
+using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class LevelEditor_KuboGrid : AbstractKuboGrid
 {
+    [SerializeField, ReadOnly] public List<AbstractCubeObject> placedCubes;
     [SerializeField] private int sizeX, sizeY, sizeZ;
-
-    [Space, Header("Testing")] 
-    
-    [SerializeField] private GameObject cubePrefab;
     public float width = 1.2f;
 
     private void Awake() => BuildGrid();
@@ -23,20 +23,29 @@ public class LevelEditor_KuboGrid : AbstractKuboGrid
             {
                 for (int x = 0; x < sizeX; x++, i++)
                 {
-                    Grid[i] = new KuboNode(x, y, z, CubeType.None);
-                    // Instantiate(cubePrefab, new Vector3(x * width, y * width, z * width), Quaternion.identity, transform);
+                    var currentCubeType = CubeType.None; // default currentType is none
+                    var currentPos = new Vector3(x, y, z); // combine into coordinates
+                    
+                    // check if this position is occupied by a placed cube
+                    for (int j = 0; j < placedCubes.Count; j++)
+                    {
+                        if (placedCubes[j].Index.Config[0] != currentPos) continue;
+                        
+                        currentCubeType = placedCubes[j].Type;
+                        //placedCubes.RemoveAt(j);
+                    }
+                    
+                    Grid[i] = new KuboNode(x, y, z, currentCubeType);
                 }
             }
         }
     }
 
-    public override void RotateGrid()
+    public void ClearGrid()
     {
-        throw new System.NotImplementedException();
-    }
-
-    public override void ResetGrid()
-    {
-        throw new System.NotImplementedException();
+        Grid = null;
+        
+        for (int i = 0; i < placedCubes.Count; i++)
+            DestroyImmediate(placedCubes[i].gameObject);
     }
 }

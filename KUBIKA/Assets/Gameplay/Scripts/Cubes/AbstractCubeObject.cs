@@ -3,10 +3,10 @@ using UnityEngine;
 
 public abstract class AbstractCubeObject : MonoBehaviour
 {
-    [SerializeField, ReadOnly] private KuboVector _index = KuboVector.Zero;
-    [SerializeField] private CubeType _type;
-    [SerializeField] private AbstractCubeBehavior[] cubeBehaviors;
+    [SerializeField, ReadOnly] protected KuboVector _index = KuboVector.Zero;
+    [SerializeField] protected CubeType _type;
+    [SerializeField] protected AbstractCubeBehavior[] cubeBehaviors;
     
-    public KuboVector Index { get => _index; set=>_index = value; }
-    public CubeType Type { get => _type;  private set => _type = value; }
+    public KuboVector Index { get => _index; }
+    public CubeType Type { get => _type; }
 }
