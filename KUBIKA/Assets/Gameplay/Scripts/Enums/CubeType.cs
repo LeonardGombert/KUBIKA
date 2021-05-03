@@ -1,4 +1,5 @@
-[System.Flags] public enum CubeType
+[System.Flags]
+public enum CubeType
 {
     None = 0,
     Static = 1 << 0,
@@ -10,5 +11,5 @@
     Mine = 1 << 6,
     Counter = 1 << 7,
     Switcher = 1 << 8,
-    Rotator  = 1 << 9,
+    Rotator = 1 << 9,
 }

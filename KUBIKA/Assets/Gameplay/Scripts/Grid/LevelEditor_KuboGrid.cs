@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
-using UnityEditor;
 using UnityEngine;
 
 [ExecuteInEditMode]
@@ -32,7 +31,6 @@ public class LevelEditor_KuboGrid : AbstractKuboGrid
                         if (placedCubes[j].Index.Config[0] != currentPos) continue;
                         
                         currentCubeType = placedCubes[j].Type;
-                        //placedCubes.RemoveAt(j);
                     }
                     
                     Grid[i] = new KuboNode(x, y, z, currentCubeType);

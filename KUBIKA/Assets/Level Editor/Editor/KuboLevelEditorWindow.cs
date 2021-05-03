@@ -7,7 +7,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
 {
     private static LevelEditor_KuboGrid _kuboGrid => FindObjectOfType<LevelEditor_KuboGrid>();
     [HideInInspector] public EditorAction editorAction;
-    [HideInInspector] public CubeType cubeType;
+    [HideInInspector] public ComplexCubeType _cubeType;
     private GameObject _cubeToPlace;
 
     private GameObject CubeToPlace => (_cubeToPlace)
@@ -16,7 +16,22 @@ public class KuboLevelEditorWindow : OdinEditorWindow
             AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Level Editor/Prefabs/LevelEditorCube.prefab");
 
     private Event _event;
-    private bool _isNone = true, _isPlacing, _isRemoving, _isRotating;
+    private bool _isNone1 = true, _isPlacing, _isRemoving, _isRotating;
+
+    private bool _isNone2 = true,
+        _isStatic,
+        _isMoveable,
+        _isVictory,
+        _isDelivery,
+        _isElevator,
+        _isHeavy,
+        _isVictoryHeavy,
+        _isMine,
+        _isVictoryMine,
+        _isCounter,
+        _isSwitcher,
+        _isVictorySwitcher,
+        _isRotator;
 
     #region Unity Editor Functions
 
@@ -47,7 +62,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         // Current Cube Type
         GUILayout.BeginHorizontal();
         GUILayout.Label("Placing Cube");
-        cubeType = (CubeType) EditorGUILayout.EnumPopup(cubeType);
+        _cubeType = (ComplexCubeType) EditorGUILayout.EnumPopup(_cubeType);
         GUILayout.EndHorizontal();
 
         EditorGUILayout.ObjectField(CubeToPlace, typeof(GameObject), true);
@@ -72,7 +87,8 @@ public class KuboLevelEditorWindow : OdinEditorWindow
     {
         _event = Event.current;
         RegisterActions();
-        ContextMenu();
+        ContextMenu_Left();
+        ContextMenu_Right();
         UpdateGrid();
     }
 
@@ -120,7 +136,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         KuboVector cubeCoords = new KuboVector((int) newIndex.x, (int) newIndex.y, (int) newIndex.z);
 
         // set cube type and data
-        newCube.ConfigCube(cubeCoords, cubeType);
+        newCube.ConfigCube(cubeCoords, (CubeType) _cubeType);
 
         _kuboGrid.placedCubes.Add(newCube);
 
@@ -151,27 +167,27 @@ public class KuboLevelEditorWindow : OdinEditorWindow
 
     #region Dropdown Menu
 
-    void ContextMenu()
+    void ContextMenu_Left()
     {
-        if (_event.control && (_event.type == EventType.MouseDown && _event.button == 1))
+        if (_event.control && (_event.type == EventType.MouseDown && _event.button == 0))
         {
-            GenericMenu myMenu = new GenericMenu();
+            GenericMenu actionMenu = new GenericMenu();
 
-            myMenu.AddDisabledItem(new GUIContent("Level Editor Action"));
+            actionMenu.AddDisabledItem(new GUIContent("Level Editor Action"));
 
-            myMenu.AddItem(new GUIContent("None"), _isNone,
-                () => { RefreshMenu(EditorAction.None); });
+            actionMenu.AddItem(new GUIContent("None"), _isNone1,
+                () => { RefreshMenu_Left(EditorAction.None); });
 
-            myMenu.AddItem(new GUIContent("Place"), _isPlacing,
-                () => { RefreshMenu(EditorAction.Place); });
+            actionMenu.AddItem(new GUIContent("Place"), _isPlacing,
+                () => { RefreshMenu_Left(EditorAction.Place); });
 
-            myMenu.AddItem(new GUIContent("Remove"), _isRemoving,
-                () => { RefreshMenu(EditorAction.Remove); });
+            actionMenu.AddItem(new GUIContent("Remove"), _isRemoving,
+                () => { RefreshMenu_Left(EditorAction.Remove); });
 
-            myMenu.AddItem(new GUIContent("Rotate"), _isRotating,
-                () => { RefreshMenu(EditorAction.Rotate); });
+            actionMenu.AddItem(new GUIContent("Rotate"), _isRotating,
+                () => { RefreshMenu_Left(EditorAction.Rotate); });
 
-            myMenu.ShowAsContext();
+            actionMenu.ShowAsContext();
 
             Repaint();
 
@@ -179,13 +195,90 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         }
     }
 
-    void RefreshMenu(EditorAction _action)
+    void ContextMenu_Right()
+    {
+        if (_event.control && (_event.type == EventType.MouseDown && _event.button == 1))
+        {
+            GenericMenu cubeMenu = new GenericMenu();
+
+            cubeMenu.AddDisabledItem(new GUIContent("Cube Selection"));
+
+            cubeMenu.AddItem(new GUIContent("None"), _isNone2,
+                () => { RefreshMenu_Right(ComplexCubeType.None); });
+
+            cubeMenu.AddItem(new GUIContent("Static"), _isStatic,
+                () => { RefreshMenu_Right(ComplexCubeType.Static); });
+
+            cubeMenu.AddItem(new GUIContent("Moveable"), _isMoveable,
+                () => { RefreshMenu_Right(ComplexCubeType.Moveable); });
+
+            cubeMenu.AddItem(new GUIContent("Victory"), _isVictory,
+                () => { RefreshMenu_Right(ComplexCubeType.MoveableVictory); });
+
+            cubeMenu.AddItem(new GUIContent("Delivery"), _isDelivery,
+                () => { RefreshMenu_Right(ComplexCubeType.StaticDelivery); });
+
+            cubeMenu.AddItem(new GUIContent("Elevator"), _isElevator,
+                () => { RefreshMenu_Right(ComplexCubeType.StaticElevator); });
+
+            cubeMenu.AddItem(new GUIContent("Heavy"), _isHeavy,
+                () => { RefreshMenu_Right(ComplexCubeType.Heavy); });
+
+            cubeMenu.AddItem(new GUIContent("Victory Heavy"), _isVictoryHeavy,
+                () => { RefreshMenu_Right(ComplexCubeType.VictoryHeavy); });
+
+            cubeMenu.AddItem(new GUIContent("Mine"), _isMine,
+                () => { RefreshMenu_Right(ComplexCubeType.Mine); });
+
+            cubeMenu.AddItem(new GUIContent("Victory Mine"), _isVictoryMine,
+                () => { RefreshMenu_Right(ComplexCubeType.VictoryMine); });
+
+            cubeMenu.AddItem(new GUIContent("Counter"), _isCounter,
+                () => { RefreshMenu_Right(ComplexCubeType.Counter); });
+
+            cubeMenu.AddItem(new GUIContent("Switcher"), _isSwitcher,
+                () => { RefreshMenu_Right(ComplexCubeType.Switcher); });
+
+            cubeMenu.AddItem(new GUIContent("Victory Switcher"), _isVictorySwitcher,
+                () => { RefreshMenu_Right(ComplexCubeType.VictorySwitcher); });
+
+            cubeMenu.AddItem(new GUIContent("Rotator"), _isRotator,
+                () => { RefreshMenu_Right(ComplexCubeType.Rotator); });
+
+            cubeMenu.ShowAsContext();
+
+            Repaint();
+
+            _event.Use();
+        }
+    }
+
+    void RefreshMenu_Left(EditorAction _action)
     {
         editorAction = _action;
-        _isNone = editorAction == EditorAction.None;
+        _isNone1 = editorAction == EditorAction.None;
         _isPlacing = editorAction == EditorAction.Place;
         _isRemoving = editorAction == EditorAction.Remove;
         _isRotating = editorAction == EditorAction.Rotate;
+    }
+
+    void RefreshMenu_Right(ComplexCubeType cubeType)
+    {
+        _cubeType = cubeType;
+        _isNone2 = cubeType == ComplexCubeType.None;
+        _isStatic = cubeType == ComplexCubeType.Static;
+        _isMoveable = cubeType == ComplexCubeType.Moveable;
+        _isVictory = cubeType == ComplexCubeType.MoveableVictory;
+        _isDelivery = cubeType == ComplexCubeType.StaticDelivery;
+        _isElevator = cubeType == ComplexCubeType.StaticElevator;
+        _isHeavy = cubeType == ComplexCubeType.Heavy;
+        _isVictoryHeavy = cubeType == ComplexCubeType.VictoryHeavy;
+        _isMine = cubeType == ComplexCubeType.Mine;
+        _isVictoryMine = cubeType == ComplexCubeType.VictoryMine;
+        _isCounter = cubeType == ComplexCubeType.Counter;
+        _isSwitcher = cubeType == ComplexCubeType.Switcher;
+        _isVictorySwitcher = cubeType == ComplexCubeType.VictorySwitcher;
+        _isRotator = cubeType == ComplexCubeType.Rotator;
     }
 
     #endregion
