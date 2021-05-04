@@ -356,16 +356,17 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         {
             if (LevelEditorGrid.placedCubes[i])
             {
-                sizeX = sizeX >= LevelEditorGrid.placedCubes[i].Index.Pos[0].x ? sizeX : (int)LevelEditorGrid.placedCubes[i].Index.Pos[0].x;
-                sizeY = sizeY >= LevelEditorGrid.placedCubes[i].Index.Pos[0].y ? sizeY : (int)LevelEditorGrid.placedCubes[i].Index.Pos[0].y;
-                sizeZ = sizeZ >= LevelEditorGrid.placedCubes[i].Index.Pos[0].z ? sizeZ : (int)LevelEditorGrid.placedCubes[i].Index.Pos[0].z;
+                sizeX = sizeX < LevelEditorGrid.placedCubes[i].Index.Pos[0].x ?(int)LevelEditorGrid.placedCubes[i].Index.Pos[0].x : sizeX;
+                sizeY = sizeY < LevelEditorGrid.placedCubes[i].Index.Pos[0].y ?(int)LevelEditorGrid.placedCubes[i].Index.Pos[0].y : sizeY;
+                sizeZ = sizeZ < LevelEditorGrid.placedCubes[i].Index.Pos[0].z ?(int)LevelEditorGrid.placedCubes[i].Index.Pos[0].z : sizeZ;
+                continue;
             }
             LevelEditorGrid.placedCubes.RemoveAt(i--);
         }
 
-        LevelEditorGrid.sizeX = sizeX;
-        LevelEditorGrid.sizeY = sizeY;
-        LevelEditorGrid.sizeZ = sizeZ;
+        LevelEditorGrid.sizeX = sizeX + 1;
+        LevelEditorGrid.sizeY = sizeY + 1;
+        LevelEditorGrid.sizeZ = sizeZ + 1;
     }
     
     #endregion
