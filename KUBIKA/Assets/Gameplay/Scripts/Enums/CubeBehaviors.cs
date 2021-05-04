@@ -1,5 +1,5 @@
 [System.Flags]
-public enum CubeType
+public enum CubeBehaviors
 {
     None = 0,
     Static = 1 << 0,

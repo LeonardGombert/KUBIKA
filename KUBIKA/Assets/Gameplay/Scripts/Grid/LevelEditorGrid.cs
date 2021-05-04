@@ -3,18 +3,18 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 
 [ExecuteInEditMode]
-public class LevelEditor_KuboGrid : AbstractKuboGrid
+public class LevelEditorGrid : AbstractGrid
 {
     [SerializeField, ReadOnly] public List<AbstractCubeObject> placedCubes;
-    [SerializeField] private int sizeX, sizeY, sizeZ;
+    [SerializeField] public int sizeX, sizeY, sizeZ;
     public float width = 1.2f;
 
-    private void Awake() => BuildGrid();
+    private void Awake() => GenerateNodes();
 
     // called by the user, once he is finished building the level -> generates the grid based on what was created
-    public override void BuildGrid()
+    public override void GenerateNodes()
     {
-        Grid = new KuboNode[sizeX * sizeY * sizeZ];
+        _nodes  = new GridNode[sizeX * sizeY * sizeZ];
 
         for (int z = 0, i = 0; z < sizeZ; z++)
         {
@@ -22,28 +22,30 @@ public class LevelEditor_KuboGrid : AbstractKuboGrid
             {
                 for (int x = 0; x < sizeX; x++, i++)
                 {
-                    var currentCubeType = CubeType.None; // default currentType is none
+                    var currentCubeType = ComplexCubeType.None; // default currentType is none
                     var currentPos = new Vector3(x, y, z); // combine into coordinates
+                    var currentRot = Vector3.zero;
                     
                     // check if this position is occupied by a placed cube
                     for (int j = 0; j < placedCubes.Count; j++)
                     {
-                        if (placedCubes[j].Index.Config[0] != currentPos) continue;
+                        if (placedCubes[j].Index.Pos[0] != currentPos) continue;
                         
                         currentCubeType = placedCubes[j].Type;
+                        currentRot = placedCubes[j].transform.eulerAngles;
                     }
                     
-                    Grid[i] = new KuboNode(x, y, z, currentCubeType);
+                    _nodes[i] = new GridNode(x, y, z, currentRot, currentCubeType);
                 }
             }
         }
     }
 
-    public void ClearGrid()
+    public override void ClearNodes()
     {
-        Grid = null;
+        base.ClearNodes();
         
         for (int i = 0; i < placedCubes.Count; i++)
-            DestroyImmediate(placedCubes[i].gameObject);
+            if(placedCubes[i])DestroyImmediate(placedCubes[i].gameObject);
     }
 }

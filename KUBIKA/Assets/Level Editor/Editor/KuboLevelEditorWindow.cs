@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class KuboLevelEditorWindow : OdinEditorWindow
 {
-    private static LevelEditor_KuboGrid _kuboGrid => FindObjectOfType<LevelEditor_KuboGrid>();
-    [HideInInspector] public EditorAction editorAction;
-    [HideInInspector] public ComplexCubeType _cubeType;
+    private LevelEditorGrid LevelEditorGrid => FindObjectOfType<LevelEditorGrid>();
+    private Transform gridParentObj => LevelEditorGrid.transform;
+    private EditorAction _editorAction;
+    private ComplexCubeType _complexCubeType;
+    private ComplexCubeType _startingCubeType;
     private GameObject _cubeToPlace;
 
     private GameObject CubeToPlace => (_cubeToPlace)
@@ -55,30 +57,53 @@ public class KuboLevelEditorWindow : OdinEditorWindow
 
         // Current Editor Action
         GUILayout.BeginHorizontal();
-        GUILayout.Label("Editor Action");
-        editorAction = (EditorAction) EditorGUILayout.EnumPopup(editorAction);
+        EditorGUILayout.LabelField("Editor Action", GUILayout.MaxWidth(128));
+        _editorAction = (EditorAction) EditorGUILayout.EnumPopup(_editorAction);
         GUILayout.EndHorizontal();
 
         // Current Cube Type
         GUILayout.BeginHorizontal();
-        GUILayout.Label("Placing Cube");
-        _cubeType = (ComplexCubeType) EditorGUILayout.EnumPopup(_cubeType);
+        EditorGUILayout.LabelField("Placing Cube", GUILayout.MaxWidth(128));
+        _complexCubeType = (ComplexCubeType) EditorGUILayout.EnumPopup(_complexCubeType);
         GUILayout.EndHorizontal();
 
+
+        EditorGUILayout.Space(); // Space
+
+
+        GUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Starting Cube", GUILayout.MaxWidth(128));
+        _startingCubeType = (ComplexCubeType) EditorGUILayout.EnumPopup(_startingCubeType);
+        GUILayout.EndHorizontal();
+        GUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Editor Cube", GUILayout.MaxWidth(128));
         EditorGUILayout.ObjectField(CubeToPlace, typeof(GameObject), true);
+        GUILayout.EndHorizontal();
+        GUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Grid Object", GUILayout.MaxWidth(128));
+        EditorGUILayout.ObjectField(LevelEditorGrid.gameObject, typeof(GameObject), true);
+        GUILayout.EndHorizontal();
+
+
+        EditorGUILayout.Space(); // Space
+
 
         // Level Utility Methods
+        if (GUILayout.Button("New Level"))
+            NewLevel();
+
+        if (GUILayout.Button("Save Level"))
+            SaveLevel();
+        
         if (GUILayout.Button("Cook Level"))
             CookLevel();
 
         if (GUILayout.Button("Clear Level"))
-        {
-            if (EditorUtility.DisplayDialog("Clear Level ? ", "Are you sure that you want to clear the entire level ?",
-                "Clear Level", "Cancel"))
-            {
-                ClearLevel();
-            }
-        }
+            ClearLevel();
+
+        
+        EditorGUILayout.Space(); // Space
+
 
         GUILayout.EndVertical();
     }
@@ -98,7 +123,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
 
     private void RegisterActions()
     {
-        if (editorAction == EditorAction.None) return;
+        if (_editorAction == EditorAction.None) return;
         if (_event.type != EventType.MouseDown || _event.button != 0) return;
 
         if (Physics.Raycast(
@@ -106,7 +131,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
                 Camera.current.pixelHeight - _event.mousePosition.y, 0)),
             out var hit, Mathf.Infinity, ~LayerMask.NameToLayer("Level Editor")))
         {
-            switch (editorAction)
+            switch (_editorAction)
             {
                 case EditorAction.Place:
                     PlaceCube(hit);
@@ -129,18 +154,19 @@ public class KuboLevelEditorWindow : OdinEditorWindow
     {
         GameObject newObject = (GameObject) PrefabUtility.InstantiatePrefab(CubeToPlace);
 
-        var newCube = newObject.GetComponent<Cube_LevelEditor>();
-        var hitCube = hit.collider.GetComponent<Cube_LevelEditor>();
+        var newCube = newObject.GetComponent<CubeObject_LevelEditor>();
+        var hitCube = hit.collider.GetComponent<CubeObject_LevelEditor>();
 
-        Vector3 newIndex = hitCube.Index.Config[0] + hit.normal;
-        KuboVector cubeCoords = new KuboVector((int) newIndex.x, (int) newIndex.y, (int) newIndex.z);
+        Vector3 newIndex = hitCube.Index.Pos[0] + hit.normal;
+        GridCoord cubeCoords = new GridCoord((int) newIndex.x, (int) newIndex.y, (int) newIndex.z);
 
         // set cube type and data
-        newCube.ConfigCube(cubeCoords, (CubeType) _cubeType);
+        newCube.ConfigCube(cubeCoords, _complexCubeType);
 
-        _kuboGrid.placedCubes.Add(newCube);
+        LevelEditorGrid.placedCubes.Add(newObject.GetComponent<AbstractCubeObject>());
 
-        newObject.transform.position = hit.transform.position + hit.normal * _kuboGrid.width;
+        newObject.transform.position = hit.transform.position + hit.normal * LevelEditorGrid.width;
+        newObject.transform.parent = gridParentObj;
 
         Undo.RegisterCreatedObjectUndo(newObject, "Undo New Cube");
 
@@ -151,7 +177,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
     {
         GameObject destroyed = hit.transform.gameObject;
 
-        _kuboGrid.placedCubes.Remove(destroyed.GetComponent<AbstractCubeObject>());
+        LevelEditorGrid.placedCubes.Remove(destroyed.GetComponent<AbstractCubeObject>());
 
         Undo.DestroyObjectImmediate(destroyed);
 
@@ -255,54 +281,92 @@ public class KuboLevelEditorWindow : OdinEditorWindow
 
     void RefreshMenu_Left(EditorAction _action)
     {
-        editorAction = _action;
-        _isNone1 = editorAction == EditorAction.None;
-        _isPlacing = editorAction == EditorAction.Place;
-        _isRemoving = editorAction == EditorAction.Remove;
-        _isRotating = editorAction == EditorAction.Rotate;
+        _editorAction = _action;
+        _isNone1 = _editorAction == EditorAction.None;
+        _isPlacing = _editorAction == EditorAction.Place;
+        _isRemoving = _editorAction == EditorAction.Remove;
+        _isRotating = _editorAction == EditorAction.Rotate;
     }
 
-    void RefreshMenu_Right(ComplexCubeType cubeType)
+    void RefreshMenu_Right(ComplexCubeType complexCubeType)
     {
-        _cubeType = cubeType;
-        _isNone2 = cubeType == ComplexCubeType.None;
-        _isStatic = cubeType == ComplexCubeType.Static;
-        _isMoveable = cubeType == ComplexCubeType.Moveable;
-        _isVictory = cubeType == ComplexCubeType.MoveableVictory;
-        _isDelivery = cubeType == ComplexCubeType.StaticDelivery;
-        _isElevator = cubeType == ComplexCubeType.StaticElevator;
-        _isHeavy = cubeType == ComplexCubeType.Heavy;
-        _isVictoryHeavy = cubeType == ComplexCubeType.VictoryHeavy;
-        _isMine = cubeType == ComplexCubeType.Mine;
-        _isVictoryMine = cubeType == ComplexCubeType.VictoryMine;
-        _isCounter = cubeType == ComplexCubeType.Counter;
-        _isSwitcher = cubeType == ComplexCubeType.Switcher;
-        _isVictorySwitcher = cubeType == ComplexCubeType.VictorySwitcher;
-        _isRotator = cubeType == ComplexCubeType.Rotator;
+        _complexCubeType = complexCubeType;
+        _isNone2 = complexCubeType == ComplexCubeType.None;
+        _isStatic = complexCubeType == ComplexCubeType.Static;
+        _isMoveable = complexCubeType == ComplexCubeType.Moveable;
+        _isVictory = complexCubeType == ComplexCubeType.MoveableVictory;
+        _isDelivery = complexCubeType == ComplexCubeType.StaticDelivery;
+        _isElevator = complexCubeType == ComplexCubeType.StaticElevator;
+        _isHeavy = complexCubeType == ComplexCubeType.Heavy;
+        _isVictoryHeavy = complexCubeType == ComplexCubeType.VictoryHeavy;
+        _isMine = complexCubeType == ComplexCubeType.Mine;
+        _isVictoryMine = complexCubeType == ComplexCubeType.VictoryMine;
+        _isCounter = complexCubeType == ComplexCubeType.Counter;
+        _isSwitcher = complexCubeType == ComplexCubeType.Switcher;
+        _isVictorySwitcher = complexCubeType == ComplexCubeType.VictorySwitcher;
+        _isRotator = complexCubeType == ComplexCubeType.Rotator;
     }
 
     #endregion
 
     #region Utility Functions
 
-    private void ClearLevel()
+    private void NewLevel()
     {
-        _kuboGrid.ClearGrid();
-    }
-
-    private void CookLevel()
-    {
-        _kuboGrid.BuildGrid();
-    }
-
-    private void UpdateGrid()
-    {
-        for (int i = 0; i < _kuboGrid.placedCubes.Count; i++)
+        if (ClearLevel())
         {
-            if (!_kuboGrid.placedCubes[i])
-                _kuboGrid.placedCubes.RemoveAt(i--);
+            GameObject newObject = (GameObject) PrefabUtility.InstantiatePrefab(CubeToPlace);
+
+            var newCube = newObject.GetComponent<CubeObject_LevelEditor>();
+
+            // set cube type and data
+            newCube.ConfigCube(GridCoord.Zero, _startingCubeType);
+
+            LevelEditorGrid.placedCubes.Add(newCube);
+
+            newObject.transform.position = Vector3.zero;
+            newObject.transform.parent = gridParentObj;
         }
     }
 
+    private bool ClearLevel()
+    {
+        if (EditorUtility.DisplayDialog("Clear Level ? ", "Are you sure that you want to clear the entire level ?",
+            "Clear Level", "Cancel"))
+        {
+            LevelEditorGrid.ClearNodes();
+            return true;
+        }
+
+        return false;
+    }
+
+    private void CookLevel() => LevelEditorGrid.GenerateNodes();
+
+    private void SaveLevel()
+    {
+        throw new NotImplementedException();
+    }
+    
+    private void UpdateGrid()
+    {
+        int sizeX = 0, sizeY = 0, sizeZ = 0;
+        
+        for (int i = 0; i < LevelEditorGrid.placedCubes.Count; i++)
+        {
+            if (LevelEditorGrid.placedCubes[i])
+            {
+                sizeX = sizeX >= LevelEditorGrid.placedCubes[i].Index.Pos[0].x ? sizeX : (int)LevelEditorGrid.placedCubes[i].Index.Pos[0].x;
+                sizeY = sizeY >= LevelEditorGrid.placedCubes[i].Index.Pos[0].y ? sizeY : (int)LevelEditorGrid.placedCubes[i].Index.Pos[0].y;
+                sizeZ = sizeZ >= LevelEditorGrid.placedCubes[i].Index.Pos[0].z ? sizeZ : (int)LevelEditorGrid.placedCubes[i].Index.Pos[0].z;
+            }
+            LevelEditorGrid.placedCubes.RemoveAt(i--);
+        }
+
+        LevelEditorGrid.sizeX = sizeX;
+        LevelEditorGrid.sizeY = sizeY;
+        LevelEditorGrid.sizeZ = sizeZ;
+    }
+    
     #endregion
 }

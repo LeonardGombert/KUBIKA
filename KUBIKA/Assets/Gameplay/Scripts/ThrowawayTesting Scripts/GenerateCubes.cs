@@ -7,12 +7,12 @@ namespace Kubika.Testing
 
     public class GenerateCubes : SerializedMonoBehaviour
     {
-        public CubeType cubeType;
-        [SerializeField] Dictionary<CubeType, Abstract_CubeFactory> _cubeFactories = new Dictionary<CubeType, Abstract_CubeFactory>();
+        public CubeBehaviors cubeType;
+        [SerializeField] Dictionary<CubeBehaviors, Abstract_CubeFactory> _cubeFactories = new Dictionary<CubeBehaviors, Abstract_CubeFactory>();
 
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space)) _cubeFactories[cubeType].PlaceCube(KuboVector.Zero);
+            if (Input.GetKeyDown(KeyCode.Space)) _cubeFactories[cubeType].PlaceCube(GridCoord.Zero);
         }
     }
 }

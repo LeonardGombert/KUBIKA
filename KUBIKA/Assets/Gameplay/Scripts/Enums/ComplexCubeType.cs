@@ -1,17 +1,17 @@
 ﻿public enum ComplexCubeType
 {
     None = 0,
-    Static = CubeType.Static,
-    Moveable  = CubeType.Moveable,
-    MoveableVictory = CubeType.Moveable | CubeType.Victory,
-    StaticDelivery = CubeType.Static | CubeType.Delivery,
-    StaticElevator = CubeType.Static | CubeType.Elevator,
-    Heavy = CubeType.Moveable | CubeType.Heavy,
-    VictoryHeavy = CubeType.Moveable | CubeType.Heavy | CubeType.Victory,
-    Mine = CubeType.Moveable | CubeType.Mine,
-    VictoryMine = CubeType.Moveable | CubeType.Mine | CubeType.Victory,
-    Counter = CubeType.Static | CubeType.Counter,
-    Switcher = CubeType.Moveable | CubeType.Switcher,
-    VictorySwitcher = CubeType.Moveable | CubeType.Switcher | CubeType.Victory,
-    Rotator = CubeType.Static | CubeType.Rotator
+    Static = CubeBehaviors.Static,
+    Moveable  = CubeBehaviors.Moveable,
+    MoveableVictory = CubeBehaviors.Moveable | CubeBehaviors.Victory,
+    StaticDelivery = CubeBehaviors.Static | CubeBehaviors.Delivery,
+    StaticElevator = CubeBehaviors.Static | CubeBehaviors.Elevator,
+    Heavy = CubeBehaviors.Moveable | CubeBehaviors.Heavy,
+    VictoryHeavy = CubeBehaviors.Moveable | CubeBehaviors.Heavy | CubeBehaviors.Victory,
+    Mine = CubeBehaviors.Moveable | CubeBehaviors.Mine,
+    VictoryMine = CubeBehaviors.Moveable | CubeBehaviors.Mine | CubeBehaviors.Victory,
+    Counter = CubeBehaviors.Static | CubeBehaviors.Counter,
+    Switcher = CubeBehaviors.Moveable | CubeBehaviors.Switcher,
+    VictorySwitcher = CubeBehaviors.Moveable | CubeBehaviors.Switcher | CubeBehaviors.Victory,
+    Rotator = CubeBehaviors.Static | CubeBehaviors.Rotator
 }

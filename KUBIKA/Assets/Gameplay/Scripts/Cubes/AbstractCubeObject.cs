@@ -1,12 +1,12 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public abstract class AbstractCubeObject : MonoBehaviour
+public class AbstractCubeObject : MonoBehaviour
 {
-    [SerializeField, ReadOnly] protected KuboVector _index = KuboVector.Zero;
-    [SerializeField] protected CubeType _type;
+    [SerializeField, ReadOnly] protected GridCoord _index = GridCoord.Zero;
+    [SerializeField] protected ComplexCubeType _type;
     [SerializeField] protected AbstractCubeBehavior[] cubeBehaviors;
     
-    public KuboVector Index { get => _index; }
-    public CubeType Type { get => _type; }
+    public GridCoord Index { get => _index; }
+    public ComplexCubeType Type { get => _type; }
 }

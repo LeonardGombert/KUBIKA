@@ -47,6 +47,10 @@ PrefabInstance:
       propertyPath: cubeBehaviors.Array.data[1]
       value: 
       objectReference: {fileID: 4541251745683391611}
+    - target: {fileID: 1698586680191771623, guid: a80be0a74831bf445a7feab5cee06be1, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7d3b0e52dc7b8a949a473baeb9861f35, type: 2}
     - target: {fileID: 4379866824700456880, guid: a80be0a74831bf445a7feab5cee06be1, type: 3}
       propertyPath: m_Name
       value: Cube_Heavy
