@@ -1,3 +1,3 @@
-﻿class Concrete_CounterFactory : Abstract_CubeFactory
+﻿class Concrete_CounterFactory : AbstractCubeFactory
 {
 }

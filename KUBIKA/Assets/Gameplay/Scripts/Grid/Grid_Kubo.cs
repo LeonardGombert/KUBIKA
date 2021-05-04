@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GameGrid : AbstractGrid
+public class Grid_Kubo : AbstractGrid
 {
     [SerializeField] int sizeX, sizeY, sizeZ;
 

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class KuboLevelEditorWindow : OdinEditorWindow
 {
-    private LevelEditorGrid LevelEditorGrid => FindObjectOfType<LevelEditorGrid>();
+    private Grid_LevelEditor LevelEditorGrid => FindObjectOfType<Grid_LevelEditor>();
     private Transform gridParentObj => LevelEditorGrid.transform;
     private EditorAction _editorAction;
     private ComplexCubeType _placingCubeType;

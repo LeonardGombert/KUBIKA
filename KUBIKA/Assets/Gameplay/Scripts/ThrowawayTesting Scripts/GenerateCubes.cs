@@ -8,7 +8,7 @@ namespace Kubika.Testing
     public class GenerateCubes : SerializedMonoBehaviour
     {
         public CubeBehaviors cubeType;
-        [SerializeField] Dictionary<CubeBehaviors, Abstract_CubeFactory> _cubeFactories = new Dictionary<CubeBehaviors, Abstract_CubeFactory>();
+        [SerializeField] Dictionary<CubeBehaviors, AbstractCubeFactory> _cubeFactories = new Dictionary<CubeBehaviors, AbstractCubeFactory>();
 
         void Update()
         {

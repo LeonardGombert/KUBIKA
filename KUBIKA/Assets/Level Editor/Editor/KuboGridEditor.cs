@@ -2,7 +2,7 @@ using Sirenix.OdinInspector.Editor;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(LevelEditorGrid))]
+[CustomEditor(typeof(Grid_LevelEditor))]
 public class KuboGridEditor : OdinEditor
 {
     public override void OnInspectorGUI()

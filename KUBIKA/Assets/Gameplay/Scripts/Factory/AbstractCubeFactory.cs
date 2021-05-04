@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class Abstract_CubeFactory : MonoBehaviour
+public abstract class AbstractCubeFactory : MonoBehaviour
 {
     protected AbstractCubeObject cubeRef;
     [SerializeField] protected GameObject cubePrefab;

@@ -3,7 +3,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 
 [ExecuteInEditMode]
-public class LevelEditorGrid : AbstractGrid
+public class Grid_LevelEditor : AbstractGrid
 {
     [SerializeField, ReadOnly] public List<AbstractCubeObject> placedCubes;
     [SerializeField] public int sizeX, sizeY, sizeZ;

@@ -8,7 +8,7 @@ public class CubePoolManager : SerializedMonoBehaviour
 /// Dictionary of Cube Factories, indexed by the CubeType that they output. By simply declaring the
 /// CubeType that you wish to construct, the Dictionary will automatically use the relevant factory.
 /// </summary>
-    [SerializeField] Dictionary<CubeBehaviors, Abstract_CubeFactory> _cubeFactories = new Dictionary<CubeBehaviors, Abstract_CubeFactory>();
+    [SerializeField] Dictionary<CubeBehaviors, AbstractCubeFactory> _cubeFactories = new Dictionary<CubeBehaviors, AbstractCubeFactory>();
     
     private List<AbstractCubeObject> allCubes;
     

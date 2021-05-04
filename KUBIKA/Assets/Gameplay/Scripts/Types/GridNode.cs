@@ -10,7 +10,7 @@ public class GridNode
     /// <summary>
     /// Returns the Coordinates of the GridNode, based on the current Rotational State of the Kubo.
     /// </summary>
-    public Vector3 CurrPos => _gridCoord.Pos[(int) KUBO.State];
+    public Vector3 CurrPos => _gridCoord.Pos[(int) AbstractGrid.State];
 
     /// <summary>
     /// Construct a new GridNode.
