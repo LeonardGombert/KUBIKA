@@ -6,10 +6,13 @@ using UnityEngine;
 public class KuboLevelEditorWindow : OdinEditorWindow
 {
     private Grid_LevelEditor LevelEditorGrid => FindObjectOfType<Grid_LevelEditor>();
+    private LevelSaver_Editor LevelSaver => FindObjectOfType<LevelSaver_Editor>();
+    private LevelLoader_Editor LevelLoader => FindObjectOfType<LevelLoader_Editor>();
     private Transform gridParentObj => LevelEditorGrid.transform;
     private EditorAction _editorAction;
     private ComplexCubeType _placingCubeType;
     private ComplexCubeType _startingCubeType;
+    private string _levelName;
     private GameObject _cubeToPlace => AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Level Editor/Prefabs/LevelEditorCube.prefab");
 
     private Event _event;
@@ -29,6 +32,11 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         _isSwitcher,
         _isVictorySwitcher,
         _isRotator;
+
+    public KuboLevelEditorWindow(string levelName)
+    {
+        _levelName = levelName;
+    }
 
     #region Unity Editor Functions
 
@@ -87,12 +95,28 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         if (GUILayout.Button("New Level"))
             NewLevel();
         
+
+        EditorGUILayout.Space(); // Space
+
+
+        GUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Level Name : ", GUILayout.MaxWidth(128));
+        _levelName = EditorGUILayout.TextField(_levelName);
+        GUILayout.EndHorizontal();
+
         if (GUILayout.Button("Save Level"))
             SaveLevel();
+        
+        if (GUILayout.Button("Cook Level"))
+            CookLevel();
+
+        EditorGUILayout.Space(); // Space
+
 
         if (GUILayout.Button("Open Level"))
             OpenLevel();
         
+
         EditorGUILayout.Space(); // Space
 
 
@@ -328,8 +352,10 @@ public class KuboLevelEditorWindow : OdinEditorWindow
 
     private void SaveLevel()
     {
-        CookLevel();    
-        throw new NotImplementedException();
+        CookLevel();
+
+        LevelSaver.CreateNewSave(LevelEditorGrid._nodes, _levelName);
+        //  throw new NotImplementedException();
     }
     
     private void OpenLevel()

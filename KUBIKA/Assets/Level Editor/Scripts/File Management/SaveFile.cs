@@ -1,6 +1,22 @@
+using System.Collections.Generic;
+using Sirenix.OdinInspector;
+using UnityEngine;
+
 [System.Serializable]
-public class SaveFile
+public struct SaveFile
 {
-    [Sirenix.OdinInspector.ShowInInspector] public const string saveLevelPath = "";
-    [Sirenix.OdinInspector.ShowInInspector] public AbstractCubeObject[] placedCubes;
+    [SerializeField] private string _levelName;
+
+    // [SerializeField] private string _kubicode;
+    // [SerializeField] private Biome _biome;
+    // [SerializeField] private int _minimumMoves;
+    // [SerializeField] private bool _lockRotate;
+    
+    [SerializeField] private GridNode[] _nodes;
+
+    public SaveFile(GridNode[] nodes, string levelName)
+    {
+        _nodes = nodes;
+        _levelName = levelName;
+    }
 }

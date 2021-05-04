@@ -1,6 +1,9 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public abstract class AbstractLevelSaver : MonoBehaviour
 {
-    [SerializeField] protected SaveFile savefile = new SaveFile();
+    [SerializeField, ReadOnly] protected string saveFilePath;
+    [SerializeField, ReadOnly] protected string fullPath;
+    [SerializeField] protected SaveFile _savefile;
 }

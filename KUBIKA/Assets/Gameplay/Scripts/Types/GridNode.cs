@@ -1,11 +1,13 @@
+using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
+[Serializable]
 public class GridNode
 {
-    [ShowInInspector, ReadOnly] private GridCoord _gridCoord;
-    [ShowInInspector, ReadOnly] private ComplexCubeType _currentComplexCube;
-    [ShowInInspector, ReadOnly] private Vector3 _rotation;
+    [SerializeField, ReadOnly] private GridCoord _gridCoord;
+    [SerializeField, ReadOnly] private ComplexCubeType _currentComplexCube;
+    [SerializeField, ReadOnly] private Vector3 _rotation;
 
     /// <summary>
     /// Returns the Coordinates of the GridNode, based on the current Rotational State of the Kubo.
