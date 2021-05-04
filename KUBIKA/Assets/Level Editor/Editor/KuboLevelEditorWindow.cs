@@ -8,14 +8,9 @@ public class KuboLevelEditorWindow : OdinEditorWindow
     private LevelEditorGrid LevelEditorGrid => FindObjectOfType<LevelEditorGrid>();
     private Transform gridParentObj => LevelEditorGrid.transform;
     private EditorAction _editorAction;
-    private ComplexCubeType _complexCubeType;
+    private ComplexCubeType _placingCubeType;
     private ComplexCubeType _startingCubeType;
-    private GameObject _cubeToPlace;
-
-    private GameObject CubeToPlace => (_cubeToPlace)
-        ? _cubeToPlace
-        : _cubeToPlace =
-            AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Level Editor/Prefabs/LevelEditorCube.prefab");
+    private GameObject _cubeToPlace => AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Level Editor/Prefabs/LevelEditorCube.prefab");
 
     private Event _event;
     private bool _isNone1 = true, _isPlacing, _isRemoving, _isRotating;
@@ -64,7 +59,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         // Current Cube Type
         GUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Placing Cube", GUILayout.MaxWidth(128));
-        _complexCubeType = (ComplexCubeType) EditorGUILayout.EnumPopup(_complexCubeType);
+        _placingCubeType = (ComplexCubeType) EditorGUILayout.EnumPopup(_placingCubeType);
         GUILayout.EndHorizontal();
 
 
@@ -77,7 +72,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         GUILayout.EndHorizontal();
         GUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Editor Cube", GUILayout.MaxWidth(128));
-        EditorGUILayout.ObjectField(CubeToPlace, typeof(GameObject), true);
+        EditorGUILayout.ObjectField(_cubeToPlace, typeof(GameObject), true);
         GUILayout.EndHorizontal();
         GUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Grid Object", GUILayout.MaxWidth(128));
@@ -91,16 +86,12 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         // Level Utility Methods
         if (GUILayout.Button("New Level"))
             NewLevel();
-
+        
         if (GUILayout.Button("Save Level"))
             SaveLevel();
-        
-        if (GUILayout.Button("Cook Level"))
-            CookLevel();
 
-        if (GUILayout.Button("Clear Level"))
-            ClearLevel();
-
+        if (GUILayout.Button("Open Level"))
+            OpenLevel();
         
         EditorGUILayout.Space(); // Space
 
@@ -114,7 +105,6 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         RegisterActions();
         ContextMenu_Left();
         ContextMenu_Right();
-        UpdateGrid();
     }
 
     #endregion
@@ -137,22 +127,24 @@ public class KuboLevelEditorWindow : OdinEditorWindow
                     PlaceCube(hit);
                     break;
                 case EditorAction.Remove:
-                    Remove(hit);
+                    RemoveCube(hit);
                     break;
                 case EditorAction.Rotate:
-                    Rotate(hit);
+                    RotateCube(hit);
                     break;
                 case EditorAction.None:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            
+            UpdateGrid();
         }
     }
 
     private void PlaceCube(RaycastHit hit)
     {
-        GameObject newObject = (GameObject) PrefabUtility.InstantiatePrefab(CubeToPlace);
+        GameObject newObject = (GameObject) PrefabUtility.InstantiatePrefab(_cubeToPlace);
 
         var newCube = newObject.GetComponent<CubeObject_LevelEditor>();
         var hitCube = hit.collider.GetComponent<CubeObject_LevelEditor>();
@@ -161,7 +153,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         GridCoord cubeCoords = new GridCoord((int) newIndex.x, (int) newIndex.y, (int) newIndex.z);
 
         // set cube type and data
-        newCube.ConfigCube(cubeCoords, _complexCubeType);
+        newCube.ConfigCube(cubeCoords, _placingCubeType);
 
         LevelEditorGrid.placedCubes.Add(newObject.GetComponent<AbstractCubeObject>());
 
@@ -173,7 +165,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         _event.Use();
     }
 
-    private void Remove(RaycastHit hit)
+    private void RemoveCube(RaycastHit hit)
     {
         GameObject destroyed = hit.transform.gameObject;
 
@@ -185,7 +177,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         _event.Use();
     }
 
-    private void Rotate(RaycastHit hit)
+    private void RotateCube(RaycastHit hit)
     {
     }
 
@@ -290,7 +282,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
 
     void RefreshMenu_Right(ComplexCubeType complexCubeType)
     {
-        _complexCubeType = complexCubeType;
+        _placingCubeType = complexCubeType;
         _isNone2 = complexCubeType == ComplexCubeType.None;
         _isStatic = complexCubeType == ComplexCubeType.Static;
         _isMoveable = complexCubeType == ComplexCubeType.Moveable;
@@ -313,9 +305,12 @@ public class KuboLevelEditorWindow : OdinEditorWindow
 
     private void NewLevel()
     {
-        if (ClearLevel())
+        if (EditorUtility.DisplayDialog("Create a new Level ? ", "This will wipe any unsaved changes or progress in the scene.",
+            "Create", "Cancel"))
         {
-            GameObject newObject = (GameObject) PrefabUtility.InstantiatePrefab(CubeToPlace);
+            LevelEditorGrid.ClearNodes();
+
+            GameObject newObject = (GameObject) PrefabUtility.InstantiatePrefab(_cubeToPlace);
 
             var newCube = newObject.GetComponent<CubeObject_LevelEditor>();
 
@@ -328,25 +323,20 @@ public class KuboLevelEditorWindow : OdinEditorWindow
             newObject.transform.parent = gridParentObj;
         }
     }
-
-    private bool ClearLevel()
-    {
-        if (EditorUtility.DisplayDialog("Clear Level ? ", "Are you sure that you want to clear the entire level ?",
-            "Clear Level", "Cancel"))
-        {
-            LevelEditorGrid.ClearNodes();
-            return true;
-        }
-
-        return false;
-    }
-
+    
     private void CookLevel() => LevelEditorGrid.GenerateNodes();
 
     private void SaveLevel()
     {
+        CookLevel();    
         throw new NotImplementedException();
     }
+    
+    private void OpenLevel()
+    {
+        throw new NotImplementedException();
+    }
+
     
     private void UpdateGrid()
     {
