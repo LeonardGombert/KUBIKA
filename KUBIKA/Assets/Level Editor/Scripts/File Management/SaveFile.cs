@@ -11,7 +11,7 @@ public struct SaveFile
     // [SerializeField] private Biome _biome;
     // [SerializeField] private int _minimumMoves;
     // [SerializeField] private bool _lockRotate;
-    
+
     [SerializeField] private GridNode[] _nodes;
 
     public SaveFile(GridNode[] nodes, string levelName)
@@ -19,4 +19,7 @@ public struct SaveFile
         _nodes = nodes;
         _levelName = levelName;
     }
+
+    public string Name => _levelName;
+    public GridNode[] Nodes => _nodes;
 }

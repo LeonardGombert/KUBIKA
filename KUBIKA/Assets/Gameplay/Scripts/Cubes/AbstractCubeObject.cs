@@ -9,4 +9,12 @@ public class AbstractCubeObject : MonoBehaviour
     
     public GridCoord Index { get => _index; }
     public ComplexCubeType Type { get => _type; }
+
+    public void ResetBehaviours()
+    {
+        for (int i = 0; i < cubeBehaviors.Length; i++)
+        {
+            cubeBehaviors[i].ResetBehavior();
+        }
+    }
 }

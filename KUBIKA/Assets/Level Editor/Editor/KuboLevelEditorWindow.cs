@@ -13,7 +13,11 @@ public class KuboLevelEditorWindow : OdinEditorWindow
     private ComplexCubeType _placingCubeType;
     private ComplexCubeType _startingCubeType;
     private string _levelName;
-    private GameObject _cubeToPlace => AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Level Editor/Prefabs/LevelEditorCube.prefab");
+
+    private GameObject _cubeToPlace =>
+        AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Level Editor/Prefabs/LevelEditorCube.prefab");
+
+    private TextAsset levelFile;
 
     private Event _event;
     private bool _isNone1 = true, _isPlacing, _isRemoving, _isRotating;
@@ -91,10 +95,12 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         EditorGUILayout.Space(); // Space
 
 
+        if (GUILayout.Button("Clear Level"))
+            ClearLevel();
+
         // Level Utility Methods
         if (GUILayout.Button("New Level"))
             NewLevel();
-        
 
         EditorGUILayout.Space(); // Space
 
@@ -106,16 +112,20 @@ public class KuboLevelEditorWindow : OdinEditorWindow
 
         if (GUILayout.Button("Save Level"))
             SaveLevel();
-        
+
         if (GUILayout.Button("Cook Level"))
             CookLevel();
 
         EditorGUILayout.Space(); // Space
 
+        GUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Level", GUILayout.MaxWidth(128));
+        levelFile = EditorGUILayout.ObjectField(levelFile, typeof(TextAsset), false) as TextAsset;
+        GUILayout.EndHorizontal();
 
         if (GUILayout.Button("Open Level"))
             OpenLevel();
-        
+
 
         EditorGUILayout.Space(); // Space
 
@@ -161,7 +171,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            
+
             UpdateGrid();
         }
     }
@@ -327,9 +337,20 @@ public class KuboLevelEditorWindow : OdinEditorWindow
 
     #region Utility Functions
 
+    private void ClearLevel()
+    {
+        if (EditorUtility.DisplayDialog("Clear the current Level ? ",
+            "This will wipe any unsaved changes or progress in the scene.",
+            "Clear", "Cancel"))
+        {
+            LevelEditorGrid.ClearNodes();
+        }
+    }
+
     private void NewLevel()
     {
-        if (EditorUtility.DisplayDialog("Create a new Level ? ", "This will wipe any unsaved changes or progress in the scene.",
+        if (EditorUtility.DisplayDialog("Create a new Level ? ",
+            "This will wipe any unsaved changes or progress in the scene.",
             "Create", "Cancel"))
         {
             LevelEditorGrid.ClearNodes();
@@ -341,13 +362,13 @@ public class KuboLevelEditorWindow : OdinEditorWindow
             // set cube type and data
             newCube.ConfigCube(GridCoord.Zero, _startingCubeType);
 
-            LevelEditorGrid.placedCubes.Add(newCube);
+            LevelEditorGrid.ClearNodes();
 
             newObject.transform.position = Vector3.zero;
             newObject.transform.parent = gridParentObj;
         }
     }
-    
+
     private void CookLevel() => LevelEditorGrid.GenerateNodes();
 
     private void SaveLevel()
@@ -355,28 +376,31 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         CookLevel();
 
         LevelSaver.CreateNewSave(LevelEditorGrid._nodes, _levelName);
-        //  throw new NotImplementedException();
-    }
-    
-    private void OpenLevel()
-    {
-        throw new NotImplementedException();
     }
 
-    
+    private void OpenLevel() => LevelLoader.OpenLevel(AssetDatabase.GetAssetPath(levelFile));
+
+
     private void UpdateGrid()
     {
         int sizeX = 0, sizeY = 0, sizeZ = 0;
-        
+
         for (int i = 0; i < LevelEditorGrid.placedCubes.Count; i++)
         {
             if (LevelEditorGrid.placedCubes[i])
             {
-                sizeX = sizeX < LevelEditorGrid.placedCubes[i].Index.Pos[0].x ?(int)LevelEditorGrid.placedCubes[i].Index.Pos[0].x : sizeX;
-                sizeY = sizeY < LevelEditorGrid.placedCubes[i].Index.Pos[0].y ?(int)LevelEditorGrid.placedCubes[i].Index.Pos[0].y : sizeY;
-                sizeZ = sizeZ < LevelEditorGrid.placedCubes[i].Index.Pos[0].z ?(int)LevelEditorGrid.placedCubes[i].Index.Pos[0].z : sizeZ;
+                sizeX = sizeX < LevelEditorGrid.placedCubes[i].Index.Pos[0].x
+                    ? (int) LevelEditorGrid.placedCubes[i].Index.Pos[0].x
+                    : sizeX;
+                sizeY = sizeY < LevelEditorGrid.placedCubes[i].Index.Pos[0].y
+                    ? (int) LevelEditorGrid.placedCubes[i].Index.Pos[0].y
+                    : sizeY;
+                sizeZ = sizeZ < LevelEditorGrid.placedCubes[i].Index.Pos[0].z
+                    ? (int) LevelEditorGrid.placedCubes[i].Index.Pos[0].z
+                    : sizeZ;
                 continue;
             }
+
             LevelEditorGrid.placedCubes.RemoveAt(i--);
         }
 
@@ -384,6 +408,6 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         LevelEditorGrid.sizeY = sizeY + 1;
         LevelEditorGrid.sizeZ = sizeZ + 1;
     }
-    
+
     #endregion
 }

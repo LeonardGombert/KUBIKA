@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class AbstractCubeFactory : MonoBehaviour
 {
-    protected AbstractCubeObject cubeRef;
+   // protected AbstractCubeObject cubeRef;
     [SerializeField] protected GameObject cubePrefab;
 
     /// <summary>
@@ -15,11 +15,11 @@ public abstract class AbstractCubeFactory : MonoBehaviour
     /// <summary>
     /// Instantiate and place a new cube of the relevant CubeType. Returns a reference to the placed cube.
     /// </summary>
-    /// <param name="index">The index in the Grid where the cube will be placed</param>
+    /// <param name="index">The Vector3 position corresponding to the index where the cube will be placed</param>
     /// <returns></returns>
-    public virtual AbstractCubeObject PlaceCube(GridCoord index)
+    public virtual AbstractCubeObject PlaceCube(Vector3 index)
     {
-        // TODO : place cube
+        ConfigCube().transform.position = index;
         return null;
     }
 }

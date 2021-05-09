@@ -12,7 +12,7 @@ namespace Kubika.Testing
 
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space)) _cubeFactories[cubeType].PlaceCube(GridCoord.Zero);
+            if (Input.GetKeyDown(KeyCode.Space)) _cubeFactories[cubeType].PlaceCube(Vector3.zero);
         }
     }
 }

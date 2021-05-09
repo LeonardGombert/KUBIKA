@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LevelSaver_Editor : AbstractLevelSaver
 {
-    public bool CreateNewSave(GridNode[] nodes, string levelName)
+    public override bool CreateNewSave(GridNode[] nodes, string levelName)
     {
         SaveFile saveFile = new SaveFile(nodes, levelName);
         

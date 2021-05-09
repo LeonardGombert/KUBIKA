@@ -9,7 +9,7 @@
     Heavy = CubeBehaviors.Moveable | CubeBehaviors.Heavy,
     VictoryHeavy = CubeBehaviors.Moveable | CubeBehaviors.Heavy | CubeBehaviors.Victory,
     Mine = CubeBehaviors.Moveable | CubeBehaviors.Mine,
-    VictoryMine = CubeBehaviors.Moveable | CubeBehaviors.Mine | CubeBehaviors.Victory,
+    VictoryMine = CubeBehaviors.Moveable | CubeBehaviors.Victory | CubeBehaviors.Mine,
     Counter = CubeBehaviors.Static | CubeBehaviors.Counter,
     Switcher = CubeBehaviors.Moveable | CubeBehaviors.Switcher,
     VictorySwitcher = CubeBehaviors.Moveable | CubeBehaviors.Switcher | CubeBehaviors.Victory,
