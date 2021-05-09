@@ -13,8 +13,11 @@ public class CubePoolManager_LevelEditor : CubePoolManager
             // hell yes
             var newCube = _cubeFactories[(CubeBehaviors) grid[i].CubeType].SpawnCube();
             newCube.transform.position = grid[i].Coords.Pos[0];
+            newCube.transform.parent = _gridLevelEditor.transform;
+            
             var cubeObject = newCube.GetComponent<AbstractCubeObject>();
             cubeObject.Coords = grid[i].Coords;
+            
             _gridLevelEditor.placedCubes.Add(cubeObject);
         }
     }

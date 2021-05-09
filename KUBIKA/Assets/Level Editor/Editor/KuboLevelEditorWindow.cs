@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using Sirenix.OdinInspector.Editor;
 using UnityEditor;
 using UnityEngine;
@@ -370,11 +371,26 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         }
     }
 
-    private void CookLevel() => LevelEditorGrid.GenerateNodes();
+    private void CookLevel()
+    {
+        // save temp level
+        LevelEditorGrid.GenerateNodes();
+        LevelSaver.CreateNewSave(LevelEditorGrid._nodes, "TempLevel");
+        
+        // clear current level
+        LevelEditorGrid.ClearNodes();
+        
+        // open temp level
+        string levelPath = Application.dataPath + "/_MASTER/Resources/Levels/TempLevel.json";
+        LevelLoader.OpenLevel(levelPath);
+        
+        // delete temp level
+        File.Delete(levelPath);
+    }
 
     private void SaveLevel()
     {
-        CookLevel();
+        LevelEditorGrid.GenerateNodes();
 
         LevelSaver.CreateNewSave(LevelEditorGrid._nodes, _levelName);
     }
