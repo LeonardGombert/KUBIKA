@@ -1,9 +1,5 @@
-﻿using UnityEngine;
-
-public class CubePoolManager_LevelEditor : AbstractCubePoolManager
+public class CubePoolManager_Game : AbstractCubePoolManager
 {
-    [SerializeField] private Grid_LevelEditor _gridLevelEditor;
-
     public override void AssembleLevel(Node[] grid)
     {
         for (int i = 0; i < grid.Length; i++)
@@ -13,7 +9,7 @@ public class CubePoolManager_LevelEditor : AbstractCubePoolManager
             // hell yes
             var newCube = _cubeFactories[(CubeBehaviors) grid[i].CubeType].SpawnCube();
             
-            var cubeObject = newCube.GetComponent<CubeObject_LevelEditor>();
+            var cubeObject = newCube.GetComponent<CubeObject_Game>();
             
             cubeObject.Coords = grid[i].Coords;
             cubeObject.transform.position = grid[i].Position;

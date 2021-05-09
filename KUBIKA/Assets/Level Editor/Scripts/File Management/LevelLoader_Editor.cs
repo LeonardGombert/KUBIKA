@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class LevelLoader_Editor : AbstractLevelLoader
 {
+    [SerializeField] private CubePoolManager_Game cubePoolManager;
+    
     public override void OpenLevel(string path)
     {
         string json = File.ReadAllText(path);

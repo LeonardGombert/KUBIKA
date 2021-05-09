@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public abstract class CubePoolManager : SerializedMonoBehaviour
+public abstract class AbstractCubePoolManager : SerializedMonoBehaviour
 {
     /// <summary>
     /// Dictionary of Cube Factories, indexed by the CubeType that they output. By simply declaring the
@@ -11,9 +11,6 @@ public abstract class CubePoolManager : SerializedMonoBehaviour
     [SerializeField] protected Dictionary<CubeBehaviors, AbstractCubeFactory>
         _cubeFactories = new Dictionary<CubeBehaviors, AbstractCubeFactory>();
     
-    // pass a grid of nodes
-    // check if the current cube that needs to be built is in the pool
-    // if there is one available, mark it as used
-
+    // Pass the grid that needs to be constructed. 
     public abstract void AssembleLevel(Node[] grid);
 }
