@@ -1,8 +1,8 @@
 ﻿public class CubeObject_LevelEditor : AbstractCubeObject
 {
-    public void ConfigCube (GridCoord index, ComplexCubeType type)
+    public void ConfigCube (TriCoords index, ComplexCubeType type)
     {
-        _index = index;
+        _coords = index;
         _type = type;
     }
 }

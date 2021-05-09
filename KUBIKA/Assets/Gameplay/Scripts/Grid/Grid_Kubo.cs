@@ -8,7 +8,7 @@ public class Grid_Kubo : AbstractGrid
 
     public override void GenerateNodes()
     {
-        _nodes = new GridNode[sizeX * sizeY * sizeZ];
+        _nodes = new Node[sizeX * sizeY * sizeZ];
 
         for (int z = 0, i = 0; z < sizeZ; z++)
         {

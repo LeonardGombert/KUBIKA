@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3880120515759809276}
-  - component: {fileID: 3880120515759809261}
+  - component: {fileID: 4635627382644912455}
   - component: {fileID: 3880120515759809259}
   - component: {fileID: 3880120515759809256}
   - component: {fileID: 3880120515759809257}
@@ -44,7 +44,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3880120515759809261
+--- !u!114 &4635627382644912455
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -53,7 +53,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3880120515759809277}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d69e2a16ae46a134a9575c48063f8140, type: 3}
+  m_Script: {fileID: 11500000, guid: da2e00ebdce245bc930adcd36b796149, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
@@ -80,11 +80,11 @@ MonoBehaviour:
     SerializationNodes:
     - Name: _cubeFactories
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[CubeType, Assembly-CSharp],[AbstractCubeFactory,
+      Data: 0|System.Collections.Generic.Dictionary`2[[CubeBehaviors, Assembly-CSharp],[AbstractCubeFactory,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[CubeType, Assembly-CSharp]],
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[CubeBehaviors, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12

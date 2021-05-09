@@ -123,63 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &9986171
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1168095216561190525, guid: 354be7f85b652b642910f6aa7c4bfef1, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1168095216561190525, guid: 354be7f85b652b642910f6aa7c4bfef1, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1168095216561190525, guid: 354be7f85b652b642910f6aa7c4bfef1, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1168095216561190525, guid: 354be7f85b652b642910f6aa7c4bfef1, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1168095216561190525, guid: 354be7f85b652b642910f6aa7c4bfef1, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1168095216561190525, guid: 354be7f85b652b642910f6aa7c4bfef1, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1168095216561190525, guid: 354be7f85b652b642910f6aa7c4bfef1, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1168095216561190525, guid: 354be7f85b652b642910f6aa7c4bfef1, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1168095216561190525, guid: 354be7f85b652b642910f6aa7c4bfef1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1168095216561190525, guid: 354be7f85b652b642910f6aa7c4bfef1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1168095216561190525, guid: 354be7f85b652b642910f6aa7c4bfef1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2391721675867272216, guid: 354be7f85b652b642910f6aa7c4bfef1, type: 3}
-      propertyPath: m_Name
-      value: LevelEditorCube
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 354be7f85b652b642910f6aa7c4bfef1, type: 3}
 --- !u!1 &342572419
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,7 +361,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1078329626
 MonoBehaviour:
@@ -442,213 +385,616 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes:
     - Name: _nodes
+      Entry: 7
+      Data: 0|Node[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 18
+    - Name: 
+      Entry: 7
+      Data: 1|Node, Assembly-CSharp
+    - Name: triCoords
+      Entry: 7
+      Data: TriCoords, Assembly-CSharp
+    - Name: _pos
       Entry: 6
       Data: 
-  placedCubes:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  sizeX: 3
-  sizeY: 2
-  sizeZ: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: _currentComplexCube
+      Entry: 3
+      Data: 2
+    - Name: _rotation
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 2|Node, Assembly-CSharp
+    - Name: triCoords
+      Entry: 7
+      Data: TriCoords, Assembly-CSharp
+    - Name: _pos
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: _currentComplexCube
+      Entry: 3
+      Data: 6
+    - Name: _rotation
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 3|Node, Assembly-CSharp
+    - Name: triCoords
+      Entry: 7
+      Data: TriCoords, Assembly-CSharp
+    - Name: _pos
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: _currentComplexCube
+      Entry: 3
+      Data: 6
+    - Name: _rotation
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 4|Node, Assembly-CSharp
+    - Name: triCoords
+      Entry: 7
+      Data: TriCoords, Assembly-CSharp
+    - Name: _pos
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: _currentComplexCube
+      Entry: 3
+      Data: 0
+    - Name: _rotation
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 5|Node, Assembly-CSharp
+    - Name: triCoords
+      Entry: 7
+      Data: TriCoords, Assembly-CSharp
+    - Name: _pos
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: _currentComplexCube
+      Entry: 3
+      Data: 0
+    - Name: _rotation
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 6|Node, Assembly-CSharp
+    - Name: triCoords
+      Entry: 7
+      Data: TriCoords, Assembly-CSharp
+    - Name: _pos
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: _currentComplexCube
+      Entry: 3
+      Data: 0
+    - Name: _rotation
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 7|Node, Assembly-CSharp
+    - Name: triCoords
+      Entry: 7
+      Data: TriCoords, Assembly-CSharp
+    - Name: _pos
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: _currentComplexCube
+      Entry: 3
+      Data: 6
+    - Name: _rotation
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 8|Node, Assembly-CSharp
+    - Name: triCoords
+      Entry: 7
+      Data: TriCoords, Assembly-CSharp
+    - Name: _pos
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: _currentComplexCube
+      Entry: 3
+      Data: 6
+    - Name: _rotation
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 9|Node, Assembly-CSharp
+    - Name: triCoords
+      Entry: 7
+      Data: TriCoords, Assembly-CSharp
+    - Name: _pos
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: _currentComplexCube
+      Entry: 3
+      Data: 6
+    - Name: _rotation
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 10|Node, Assembly-CSharp
+    - Name: triCoords
+      Entry: 7
+      Data: TriCoords, Assembly-CSharp
+    - Name: _pos
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: _currentComplexCube
+      Entry: 3
+      Data: 6
+    - Name: _rotation
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 11|Node, Assembly-CSharp
+    - Name: triCoords
+      Entry: 7
+      Data: TriCoords, Assembly-CSharp
+    - Name: _pos
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: _currentComplexCube
+      Entry: 3
+      Data: 34
+    - Name: _rotation
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 12|Node, Assembly-CSharp
+    - Name: triCoords
+      Entry: 7
+      Data: TriCoords, Assembly-CSharp
+    - Name: _pos
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: _currentComplexCube
+      Entry: 3
+      Data: 0
+    - Name: _rotation
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 13|Node, Assembly-CSharp
+    - Name: triCoords
+      Entry: 7
+      Data: TriCoords, Assembly-CSharp
+    - Name: _pos
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: _currentComplexCube
+      Entry: 3
+      Data: 6
+    - Name: _rotation
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 14|Node, Assembly-CSharp
+    - Name: triCoords
+      Entry: 7
+      Data: TriCoords, Assembly-CSharp
+    - Name: _pos
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: _currentComplexCube
+      Entry: 3
+      Data: 6
+    - Name: _rotation
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 15|Node, Assembly-CSharp
+    - Name: triCoords
+      Entry: 7
+      Data: TriCoords, Assembly-CSharp
+    - Name: _pos
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: _currentComplexCube
+      Entry: 3
+      Data: 6
+    - Name: _rotation
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 16|Node, Assembly-CSharp
+    - Name: triCoords
+      Entry: 7
+      Data: TriCoords, Assembly-CSharp
+    - Name: _pos
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: _currentComplexCube
+      Entry: 3
+      Data: 0
+    - Name: _rotation
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 17|Node, Assembly-CSharp
+    - Name: triCoords
+      Entry: 7
+      Data: TriCoords, Assembly-CSharp
+    - Name: _pos
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: _currentComplexCube
+      Entry: 3
+      Data: 0
+    - Name: _rotation
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 18|Node, Assembly-CSharp
+    - Name: triCoords
+      Entry: 7
+      Data: TriCoords, Assembly-CSharp
+    - Name: _pos
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: _currentComplexCube
+      Entry: 3
+      Data: 0
+    - Name: _rotation
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  placedCubes: []
+  sizeX: 1
+  sizeY: 1
+  sizeZ: 1
   width: 1.2
---- !u!1 &1485735295
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1485735296}
-  - component: {fileID: 1485735297}
-  - component: {fileID: 1485735298}
-  m_Layer: 0
-  m_Name: SaveAndLoad
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1485735296
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1485735295}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1485735297
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1485735295}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0ec7f27ab8f3be4bbeeb4318486031b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  saveFilePath: C:/Users/Camen/Documents/_gameDev/KUBIKA/KUBIKA/Assets/_MASTER/Resources/Levels
-  fullPath: C:/Users/Camen/Documents/_gameDev/KUBIKA/KUBIKA/Assets/_MASTER/Resources/Levels\TestLevel.json
-  _savefile:
-    _levelName: 
-    _nodes: []
---- !u!114 &1485735298
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1485735295}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 960ed87806d1e1f4fba0085c97e1bda2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _levelFile:
-    _levelName: TestLevel
-    _nodes:
-    - _gridCoord:
-        _pos:
-        - {x: 0, y: 0, z: 0}
-        - {x: 0, y: 0, z: 0}
-        - {x: 0, y: 0, z: 0}
-      _currentComplexCube: 0
-      _rotation: {x: 0, y: 0, z: 0}
-    - _gridCoord:
-        _pos:
-        - {x: 1, y: 0, z: 0}
-        - {x: 0, y: 1, z: 0}
-        - {x: 0, y: 0, z: 1}
-      _currentComplexCube: 0
-      _rotation: {x: 0, y: 0, z: 0}
-    - _gridCoord:
-        _pos:
-        - {x: 2, y: 0, z: 0}
-        - {x: 0, y: 2, z: 0}
-        - {x: 0, y: 0, z: 2}
-      _currentComplexCube: 70
-      _rotation: {x: 0, y: 0, z: 0}
-    - _gridCoord:
-        _pos:
-        - {x: 0, y: 1, z: 0}
-        - {x: 0, y: 0, z: 1}
-        - {x: 1, y: 0, z: 0}
-      _currentComplexCube: 70
-      _rotation: {x: 0, y: 0, z: 0}
-    - _gridCoord:
-        _pos:
-        - {x: 1, y: 1, z: 0}
-        - {x: 0, y: 1, z: 1}
-        - {x: 1, y: 0, z: 1}
-      _currentComplexCube: 70
-      _rotation: {x: 0, y: 0, z: 0}
-    - _gridCoord:
-        _pos:
-        - {x: 2, y: 1, z: 0}
-        - {x: 0, y: 2, z: 1}
-        - {x: 1, y: 0, z: 2}
-      _currentComplexCube: 0
-      _rotation: {x: 0, y: 0, z: 0}
-    - _gridCoord:
-        _pos:
-        - {x: 0, y: 0, z: 1}
-        - {x: 1, y: 0, z: 0}
-        - {x: 0, y: 1, z: 0}
-      _currentComplexCube: 70
-      _rotation: {x: 0, y: 0, z: 0}
-    - _gridCoord:
-        _pos:
-        - {x: 1, y: 0, z: 1}
-        - {x: 1, y: 1, z: 0}
-        - {x: 0, y: 1, z: 1}
-      _currentComplexCube: 9
-      _rotation: {x: 0, y: 0, z: 0}
-    - _gridCoord:
-        _pos:
-        - {x: 2, y: 0, z: 1}
-        - {x: 1, y: 2, z: 0}
-        - {x: 0, y: 1, z: 2}
-      _currentComplexCube: 70
-      _rotation: {x: 0, y: 0, z: 0}
-    - _gridCoord:
-        _pos:
-        - {x: 0, y: 1, z: 1}
-        - {x: 1, y: 0, z: 1}
-        - {x: 1, y: 1, z: 0}
-      _currentComplexCube: 0
-      _rotation: {x: 0, y: 0, z: 0}
-    - _gridCoord:
-        _pos:
-        - {x: 1, y: 1, z: 1}
-        - {x: 1, y: 1, z: 1}
-        - {x: 1, y: 1, z: 1}
-      _currentComplexCube: 0
-      _rotation: {x: 0, y: 0, z: 0}
-    - _gridCoord:
-        _pos:
-        - {x: 2, y: 1, z: 1}
-        - {x: 1, y: 2, z: 1}
-        - {x: 1, y: 1, z: 2}
-      _currentComplexCube: 0
-      _rotation: {x: 0, y: 0, z: 0}
-    - _gridCoord:
-        _pos:
-        - {x: 0, y: 0, z: 2}
-        - {x: 2, y: 0, z: 0}
-        - {x: 0, y: 2, z: 0}
-      _currentComplexCube: 70
-      _rotation: {x: 0, y: 0, z: 0}
-    - _gridCoord:
-        _pos:
-        - {x: 1, y: 0, z: 2}
-        - {x: 2, y: 1, z: 0}
-        - {x: 0, y: 2, z: 1}
-      _currentComplexCube: 70
-      _rotation: {x: 0, y: 0, z: 0}
-    - _gridCoord:
-        _pos:
-        - {x: 2, y: 0, z: 2}
-        - {x: 2, y: 2, z: 0}
-        - {x: 0, y: 2, z: 2}
-      _currentComplexCube: 70
-      _rotation: {x: 0, y: 0, z: 0}
-    - _gridCoord:
-        _pos:
-        - {x: 0, y: 1, z: 2}
-        - {x: 2, y: 0, z: 1}
-        - {x: 1, y: 2, z: 0}
-      _currentComplexCube: 0
-      _rotation: {x: 0, y: 0, z: 0}
-    - _gridCoord:
-        _pos:
-        - {x: 1, y: 1, z: 2}
-        - {x: 2, y: 1, z: 1}
-        - {x: 1, y: 2, z: 1}
-      _currentComplexCube: 6
-      _rotation: {x: 0, y: 0, z: 0}
-    - _gridCoord:
-        _pos:
-        - {x: 2, y: 1, z: 2}
-        - {x: 2, y: 2, z: 1}
-        - {x: 1, y: 2, z: 2}
-      _currentComplexCube: 0
-      _rotation: {x: 0, y: 0, z: 0}
 --- !u!1001 &1494151573
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -727,6 +1073,16 @@ PrefabInstance:
       value: '"path":"_cubeFactories.{9es}","value":$eref:12'
       objectReference: {fileID: 0}
     - target: {fileID: 3880120515759809261, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[0].Data
+      value: 0|System.Collections.Generic.Dictionary`2[[CubeBehaviors, Assembly-CSharp],[AbstractCubeFactory,
+        Assembly-CSharp]], mscorlib
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880120515759809261, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[1].Data
+      value: 1|System.Collections.Generic.EnumEqualityComparer`1[[CubeBehaviors,
+        Assembly-CSharp]], mscorlib
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880120515759809261, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
       propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.size
       value: 13
       objectReference: {fileID: 0}
@@ -784,7 +1140,7 @@ PrefabInstance:
       objectReference: {fileID: 1494151584}
     - target: {fileID: 3880120515759809276, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3880120515759809276, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
       propertyPath: m_LocalPosition.x
@@ -830,7 +1186,128 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cube Factory
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 4635627382644912455, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
+      propertyPath: _gridLevelEditor
+      value: 
+      objectReference: {fileID: 1078329626}
+    - target: {fileID: 4635627382644912455, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4635627382644912455, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.size
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 4635627382644912455, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.data[0]
+      value: '"path":"_cubeFactories.{129es}","value":$eref:0'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4635627382644912455, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.data[1]
+      value: '"path":"_cubeFactories.{17es}","value":$eref:1'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4635627382644912455, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.data[2]
+      value: '"path":"_cubeFactories.{1es}","value":$eref:2'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4635627382644912455, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.data[3]
+      value: '"path":"_cubeFactories.{258es}","value":$eref:3'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4635627382644912455, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.data[4]
+      value: '"path":"_cubeFactories.{262es}","value":$eref:4'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4635627382644912455, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.data[5]
+      value: '"path":"_cubeFactories.{2es}","value":$eref:5'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4635627382644912455, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.data[6]
+      value: '"path":"_cubeFactories.{34es}","value":$eref:6'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4635627382644912455, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.data[7]
+      value: '"path":"_cubeFactories.{38es}","value":$eref:7'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4635627382644912455, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.data[8]
+      value: '"path":"_cubeFactories.{513es}","value":$eref:8'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4635627382644912455, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.data[9]
+      value: '"path":"_cubeFactories.{66es}","value":$eref:9'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4635627382644912455, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.data[10]
+      value: '"path":"_cubeFactories.{6es}","value":$eref:10'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4635627382644912455, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.data[11]
+      value: '"path":"_cubeFactories.{70es}","value":$eref:11'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4635627382644912455, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.data[12]
+      value: '"path":"_cubeFactories.{9es}","value":$eref:12'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4635627382644912455, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.size
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 4635627382644912455, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 1494151585}
+    - target: {fileID: 4635627382644912455, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[1]
+      value: 
+      objectReference: {fileID: 1494151583}
+    - target: {fileID: 4635627382644912455, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[2]
+      value: 
+      objectReference: {fileID: 1494151586}
+    - target: {fileID: 4635627382644912455, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[3]
+      value: 
+      objectReference: {fileID: 1494151575}
+    - target: {fileID: 4635627382644912455, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[4]
+      value: 
+      objectReference: {fileID: 1494151574}
+    - target: {fileID: 4635627382644912455, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[5]
+      value: 
+      objectReference: {fileID: 1494151578}
+    - target: {fileID: 4635627382644912455, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[6]
+      value: 
+      objectReference: {fileID: 1494151582}
+    - target: {fileID: 4635627382644912455, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[7]
+      value: 
+      objectReference: {fileID: 1494151581}
+    - target: {fileID: 4635627382644912455, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[8]
+      value: 
+      objectReference: {fileID: 1494151576}
+    - target: {fileID: 4635627382644912455, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[9]
+      value: 
+      objectReference: {fileID: 1494151580}
+    - target: {fileID: 4635627382644912455, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[10]
+      value: 
+      objectReference: {fileID: 1494151577}
+    - target: {fileID: 4635627382644912455, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[11]
+      value: 
+      objectReference: {fileID: 1494151579}
+    - target: {fileID: 4635627382644912455, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[12]
+      value: 
+      objectReference: {fileID: 1494151584}
+    m_RemovedComponents:
+    - {fileID: 3880120515759809261, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d92cf99f207cfd841b66bda424cf3582, type: 3}
 --- !u!114 &1494151574 stripped
 MonoBehaviour:
@@ -975,3 +1452,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39d1e1815aaf434caeddf0366cb67451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &5091815312707974958
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5091815313370313297, guid: 74617ed4e4f86254ebba61ee062da498, type: 3}
+      propertyPath: m_Name
+      value: SaveAndLoad
+      objectReference: {fileID: 0}
+    - target: {fileID: 5091815313370313390, guid: 74617ed4e4f86254ebba61ee062da498, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5091815313370313390, guid: 74617ed4e4f86254ebba61ee062da498, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5091815313370313390, guid: 74617ed4e4f86254ebba61ee062da498, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5091815313370313390, guid: 74617ed4e4f86254ebba61ee062da498, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5091815313370313390, guid: 74617ed4e4f86254ebba61ee062da498, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5091815313370313390, guid: 74617ed4e4f86254ebba61ee062da498, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5091815313370313390, guid: 74617ed4e4f86254ebba61ee062da498, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5091815313370313390, guid: 74617ed4e4f86254ebba61ee062da498, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5091815313370313390, guid: 74617ed4e4f86254ebba61ee062da498, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5091815313370313390, guid: 74617ed4e4f86254ebba61ee062da498, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5091815313370313390, guid: 74617ed4e4f86254ebba61ee062da498, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 74617ed4e4f86254ebba61ee062da498, type: 3}

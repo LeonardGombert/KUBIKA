@@ -12,14 +12,14 @@ public struct SaveFile
     // [SerializeField] private int _minimumMoves;
     // [SerializeField] private bool _lockRotate;
 
-    [SerializeField] private GridNode[] _nodes;
+    [SerializeField] private Node[] _nodes;
 
-    public SaveFile(GridNode[] nodes, string levelName)
+    public SaveFile(Node[] nodes, string levelName)
     {
         _nodes = nodes;
         _levelName = levelName;
     }
 
     public string Name => _levelName;
-    public GridNode[] Nodes => _nodes;
+    public Node[] Nodes => _nodes;
 }

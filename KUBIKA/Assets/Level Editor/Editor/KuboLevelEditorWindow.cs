@@ -137,6 +137,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
     {
         _event = Event.current;
         RegisterActions();
+        UpdateGrid();
         ContextMenu_Left();
         ContextMenu_Right();
     }
@@ -172,7 +173,6 @@ public class KuboLevelEditorWindow : OdinEditorWindow
                     throw new ArgumentOutOfRangeException();
             }
 
-            UpdateGrid();
         }
     }
 
@@ -183,8 +183,8 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         var newCube = newObject.GetComponent<CubeObject_LevelEditor>();
         var hitCube = hit.collider.GetComponent<CubeObject_LevelEditor>();
 
-        Vector3 newIndex = hitCube.Index.Pos[0] + hit.normal;
-        GridCoord cubeCoords = new GridCoord((int) newIndex.x, (int) newIndex.y, (int) newIndex.z);
+        Vector3 newIndex = hitCube.Coords.Pos[0] + hit.normal;
+        TriCoords cubeCoords = new TriCoords((int) newIndex.x, (int) newIndex.y, (int) newIndex.z);
 
         // set cube type and data
         newCube.ConfigCube(cubeCoords, _placingCubeType);
@@ -360,9 +360,10 @@ public class KuboLevelEditorWindow : OdinEditorWindow
             var newCube = newObject.GetComponent<CubeObject_LevelEditor>();
 
             // set cube type and data
-            newCube.ConfigCube(GridCoord.Zero, _startingCubeType);
+            newCube.ConfigCube(TriCoords.Zero, _startingCubeType);
 
-            LevelEditorGrid.ClearNodes();
+            LevelEditorGrid.ClearNodes();        
+            LevelEditorGrid.placedCubes.Add(newObject.GetComponent<AbstractCubeObject>());
 
             newObject.transform.position = Vector3.zero;
             newObject.transform.parent = gridParentObj;
@@ -387,16 +388,17 @@ public class KuboLevelEditorWindow : OdinEditorWindow
 
         for (int i = 0; i < LevelEditorGrid.placedCubes.Count; i++)
         {
+            // 
             if (LevelEditorGrid.placedCubes[i])
             {
-                sizeX = sizeX < LevelEditorGrid.placedCubes[i].Index.Pos[0].x
-                    ? (int) LevelEditorGrid.placedCubes[i].Index.Pos[0].x
+                sizeX = sizeX < LevelEditorGrid.placedCubes[i].Coords.Pos[0].x
+                    ? (int) LevelEditorGrid.placedCubes[i].Coords.Pos[0].x
                     : sizeX;
-                sizeY = sizeY < LevelEditorGrid.placedCubes[i].Index.Pos[0].y
-                    ? (int) LevelEditorGrid.placedCubes[i].Index.Pos[0].y
+                sizeY = sizeY < LevelEditorGrid.placedCubes[i].Coords.Pos[0].y
+                    ? (int) LevelEditorGrid.placedCubes[i].Coords.Pos[0].y
                     : sizeY;
-                sizeZ = sizeZ < LevelEditorGrid.placedCubes[i].Index.Pos[0].z
-                    ? (int) LevelEditorGrid.placedCubes[i].Index.Pos[0].z
+                sizeZ = sizeZ < LevelEditorGrid.placedCubes[i].Coords.Pos[0].z
+                    ? (int) LevelEditorGrid.placedCubes[i].Coords.Pos[0].z
                     : sizeZ;
                 continue;
             }
