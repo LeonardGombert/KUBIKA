@@ -35,7 +35,7 @@ public class Grid_LevelEditor : AbstractGrid
                         currentRot = placedCubes[j].transform.eulerAngles;
                     }
                     
-                    _nodes[i] = new Node(x, y, z, currentRot, currentCubeType);
+                    _nodes[i] = new Node(x, y, z, currentPos * width, currentRot, currentCubeType);
                 }
             }
         }

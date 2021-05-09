@@ -179,9 +179,9 @@ public class KuboLevelEditorWindow : OdinEditorWindow
 
     private void PlaceCube(RaycastHit hit)
     {
-        GameObject newObject = (GameObject) PrefabUtility.InstantiatePrefab(_cubeToPlace);
+        GameObject prefabCube = (GameObject) PrefabUtility.InstantiatePrefab(_cubeToPlace);
 
-        var newCube = newObject.GetComponent<CubeObject_LevelEditor>();
+        var newCube = prefabCube.GetComponent<CubeObject_LevelEditor>();
         var hitCube = hit.collider.GetComponent<CubeObject_LevelEditor>();
 
         Vector3 newIndex = hitCube.Coords.Pos[0] + hit.normal;
@@ -190,12 +190,12 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         // set cube type and data
         newCube.ConfigCube(cubeCoords, _placingCubeType);
 
-        LevelEditorGrid.placedCubes.Add(newObject.GetComponent<AbstractCubeObject>());
+        LevelEditorGrid.placedCubes.Add(prefabCube.GetComponent<AbstractCubeObject>());
 
-        newObject.transform.position = hit.transform.position + hit.normal * LevelEditorGrid.width;
-        newObject.transform.parent = gridParentObj;
+        prefabCube.transform.position = hit.transform.position + hit.normal * LevelEditorGrid.width;
+        prefabCube.transform.parent = gridParentObj;
 
-        Undo.RegisterCreatedObjectUndo(newObject, "Undo New Cube");
+        Undo.RegisterCreatedObjectUndo(prefabCube, "Undo New Cube");
 
         _event.Use();
     }
@@ -386,6 +386,9 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         
         // delete temp level
         File.Delete(levelPath);
+        
+        // refresh so that the file disappears immediately
+        AssetDatabase.Refresh();
     }
 
     private void SaveLevel()

@@ -7,7 +7,7 @@ public struct Node
 {
     [SerializeField, ReadOnly] private TriCoords triCoords;
     [SerializeField, ReadOnly] private ComplexCubeType _currentComplexCube;
-    [SerializeField, ReadOnly] private Vector3 _rotation;
+    [SerializeField, HideInInspector] private Vector3 _worldPos, _rotation;
 
     /// <summary>
     /// Returns the Coordinates of the GridNode, based on the current Rotational State of the Kubo.
@@ -15,6 +15,7 @@ public struct Node
     //public Vector3 CurrCoordPos => triCoords.Pos[(int) AbstractGrid.State];
     public TriCoords Coords => triCoords;
     public ComplexCubeType CubeType => _currentComplexCube;
+    public Vector3 Position => _worldPos;
     public Vector3 Rotation => _rotation;
 
     /// <summary>
@@ -25,9 +26,10 @@ public struct Node
     /// <param name="z">Default Kubo State z position.</param>
     /// <param name="rotation">World Rotation of the Cube at Node Position</param>
     /// <param name="currentComplexCube">The Composite Behaviours of the cube, represented by the ComplexCubeType.</param>
-    public Node(int x, int y, int z, Vector3 rotation, ComplexCubeType currentComplexCube)
+    public Node(int x, int y, int z, Vector3 position, Vector3 rotation, ComplexCubeType currentComplexCube)
     {
         triCoords = new TriCoords(x, y, z);
+        _worldPos = position;
         _rotation = rotation;
         _currentComplexCube = currentComplexCube;
     }
