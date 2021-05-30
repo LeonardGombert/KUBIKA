@@ -2,13 +2,13 @@
 {
     public TriCoords Coords
     {
-        get => _coords;
-        set => _coords = value;
+        get => gridPosition;
+        set => gridPosition = value;
     }
 
     public void ConfigCube (TriCoords index, ComplexCubeType type)
     {
-        _coords = index;
-        _type = type;
+        gridPosition = index;
+        base.cubeType = type;
     }
 }

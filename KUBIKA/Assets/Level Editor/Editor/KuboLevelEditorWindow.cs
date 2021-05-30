@@ -1,24 +1,23 @@
 using System;
 using System.IO;
-using Sirenix.OdinInspector.Editor;
 using UnityEditor;
 using UnityEngine;
 
-public class KuboLevelEditorWindow : OdinEditorWindow
+public class KuboLevelEditorWindow : EditorWindow
 {
-    private Grid_LevelEditor LevelEditorGrid => FindObjectOfType<Grid_LevelEditor>();
-    private LevelSaver_Editor LevelSaver => FindObjectOfType<LevelSaver_Editor>();
-    private LevelLoader_Editor LevelLoader => FindObjectOfType<LevelLoader_Editor>();
-    private Transform gridParentObj => LevelEditorGrid.transform;
+    private static Grid_LevelEditor LevelEditorGrid => FindObjectOfType<Grid_LevelEditor>();
+    private static LevelSaver_Editor LevelSaver => FindObjectOfType<LevelSaver_Editor>();
+    private static LevelLoader_Editor LevelLoader => FindObjectOfType<LevelLoader_Editor>();
+    private static Transform GridParentObj => LevelEditorGrid.transform;
+    private static GameObject CubeToPlace =>
+        AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Level Editor/Prefabs/Editor_Cube.prefab");
+    
     private EditorAction _editorAction;
     private ComplexCubeType _placingCubeType;
     private ComplexCubeType _startingCubeType;
     private string _levelName;
 
-    private GameObject _cubeToPlace =>
-        AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Level Editor/Prefabs/LevelEditorCube.prefab");
-
-    private TextAsset levelFile;
+    private TextAsset _levelFile;
 
     private Event _event;
     private bool _isNone1 = true, _isPlacing, _isRemoving, _isRotating;
@@ -38,28 +37,22 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         _isVictorySwitcher,
         _isRotator;
 
-    public KuboLevelEditorWindow(string levelName)
-    {
-        _levelName = levelName;
-    }
-
     #region Unity Editor Functions
 
+    [MenuItem("KUBIKA/Tools")]
     public static void OpenWindow()
     {
         var window = GetWindow<KuboLevelEditorWindow>();
         window.Show();
     }
 
-    protected override void OnEnable()
+    protected void OnEnable()
     {
-        base.OnEnable();
-
         SceneView.duringSceneGui -= CustomUpdate;
         SceneView.duringSceneGui += CustomUpdate;
     }
 
-    protected override void OnGUI()
+    protected void OnGUI()
     {
         GUILayout.BeginVertical();
 
@@ -85,16 +78,14 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         GUILayout.EndHorizontal();
         GUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Editor Cube", GUILayout.MaxWidth(128));
-        EditorGUILayout.ObjectField(_cubeToPlace, typeof(GameObject), true);
+        EditorGUILayout.ObjectField(CubeToPlace, typeof(GameObject), true);
         GUILayout.EndHorizontal();
         GUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Grid Object", GUILayout.MaxWidth(128));
         EditorGUILayout.ObjectField(LevelEditorGrid.gameObject, typeof(GameObject), true);
         GUILayout.EndHorizontal();
 
-
         EditorGUILayout.Space(); // Space
-
 
         if (GUILayout.Button("Clear Level"))
             ClearLevel();
@@ -121,7 +112,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
 
         GUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Level", GUILayout.MaxWidth(128));
-        levelFile = EditorGUILayout.ObjectField(levelFile, typeof(TextAsset), false) as TextAsset;
+        _levelFile = EditorGUILayout.ObjectField(_levelFile, typeof(TextAsset), false) as TextAsset;
         GUILayout.EndHorizontal();
 
         if (GUILayout.Button("Open Level"))
@@ -129,7 +120,6 @@ public class KuboLevelEditorWindow : OdinEditorWindow
 
 
         EditorGUILayout.Space(); // Space
-
 
         GUILayout.EndVertical();
     }
@@ -179,7 +169,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
 
     private void PlaceCube(RaycastHit hit)
     {
-        GameObject prefabCube = (GameObject) PrefabUtility.InstantiatePrefab(_cubeToPlace);
+        GameObject prefabCube = (GameObject) PrefabUtility.InstantiatePrefab(CubeToPlace);
 
         var newCube = prefabCube.GetComponent<CubeObject_LevelEditor>();
         var hitCube = hit.collider.GetComponent<CubeObject_LevelEditor>();
@@ -193,7 +183,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         LevelEditorGrid.placedCubes.Add(prefabCube.GetComponent<AbstractCubeObject>());
 
         prefabCube.transform.position = hit.transform.position + hit.normal * LevelEditorGrid.width;
-        prefabCube.transform.parent = gridParentObj;
+        prefabCube.transform.parent = GridParentObj;
 
         Undo.RegisterCreatedObjectUndo(prefabCube, "Undo New Cube");
 
@@ -356,7 +346,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         {
             LevelEditorGrid.ClearNodes();
 
-            GameObject newObject = (GameObject) PrefabUtility.InstantiatePrefab(_cubeToPlace);
+            GameObject newObject = (GameObject) PrefabUtility.InstantiatePrefab(CubeToPlace);
 
             var newCube = newObject.GetComponent<CubeObject_LevelEditor>();
 
@@ -367,7 +357,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
             LevelEditorGrid.placedCubes.Add(newObject.GetComponent<AbstractCubeObject>());
 
             newObject.transform.position = Vector3.zero;
-            newObject.transform.parent = gridParentObj;
+            newObject.transform.parent = GridParentObj;
         }
     }
 
@@ -375,7 +365,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
     {
         // save temp level
         LevelEditorGrid.GenerateNodes();
-        LevelSaver.CreateNewSave(LevelEditorGrid._nodes, "TempLevel");
+        LevelSaver.CreateNewSave(LevelEditorGrid.Nodes, "TempLevel");
         
         // clear current level
         LevelEditorGrid.ClearNodes();
@@ -395,10 +385,10 @@ public class KuboLevelEditorWindow : OdinEditorWindow
     {
         LevelEditorGrid.GenerateNodes();
 
-        LevelSaver.CreateNewSave(LevelEditorGrid._nodes, _levelName);
+        LevelSaver.CreateNewSave(LevelEditorGrid.Nodes, _levelName);
     }
 
-    private void OpenLevel() => LevelLoader.OpenLevel(AssetDatabase.GetAssetPath(levelFile));
+    private void OpenLevel() => LevelLoader.OpenLevel(AssetDatabase.GetAssetPath(_levelFile));
 
 
     private void UpdateGrid()

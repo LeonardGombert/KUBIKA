@@ -14,7 +14,7 @@ public class Grid_LevelEditor : AbstractGrid
     // called by the user, once he is finished building the level -> generates the grid based on what was created
     public override void GenerateNodes()
     {
-        _nodes  = new Node[sizeX * sizeY * sizeZ];
+        Nodes  = new Node[sizeX * sizeY * sizeZ];
 
         for (int z = 0, i = 0; z < sizeZ; z++)
         {
@@ -35,7 +35,7 @@ public class Grid_LevelEditor : AbstractGrid
                         currentRot = placedCubes[j].transform.eulerAngles;
                     }
                     
-                    _nodes[i] = new Node(x, y, z, currentPos * width, currentRot, currentCubeType);
+                    Nodes[i] = new Node(x, y, z, currentPos * width, currentRot, currentCubeType);
                 }
             }
         }

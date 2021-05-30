@@ -24,6 +24,10 @@ PrefabInstance:
       value: 257
       objectReference: {fileID: 0}
     - target: {fileID: -3555031861905551652, guid: a80be0a74831bf445a7feab5cee06be1, type: 3}
+      propertyPath: cubeType
+      value: 129
+      objectReference: {fileID: 0}
+    - target: {fileID: -3555031861905551652, guid: a80be0a74831bf445a7feab5cee06be1, type: 3}
       propertyPath: cubeBehaviors.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -33,7 +37,7 @@ PrefabInstance:
       objectReference: {fileID: 5655670982547832970}
     - target: {fileID: 4379866824700456880, guid: a80be0a74831bf445a7feab5cee06be1, type: 3}
       propertyPath: m_Name
-      value: Cube_Counter
+      value: GameCube_Counter
       objectReference: {fileID: 0}
     - target: {fileID: 9156231567387331277, guid: a80be0a74831bf445a7feab5cee06be1, type: 3}
       propertyPath: m_RootOrder

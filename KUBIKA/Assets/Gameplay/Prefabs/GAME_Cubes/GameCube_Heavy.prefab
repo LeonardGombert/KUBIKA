@@ -36,6 +36,10 @@ PrefabInstance:
       value: 34
       objectReference: {fileID: 0}
     - target: {fileID: -3555031861905551652, guid: a80be0a74831bf445a7feab5cee06be1, type: 3}
+      propertyPath: cubeType
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: -3555031861905551652, guid: a80be0a74831bf445a7feab5cee06be1, type: 3}
       propertyPath: cubeBehaviors.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -53,7 +57,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 7d3b0e52dc7b8a949a473baeb9861f35, type: 2}
     - target: {fileID: 4379866824700456880, guid: a80be0a74831bf445a7feab5cee06be1, type: 3}
       propertyPath: m_Name
-      value: Cube_Heavy
+      value: GameCube_Heavy
       objectReference: {fileID: 0}
     - target: {fileID: 9156231567387331277, guid: a80be0a74831bf445a7feab5cee06be1, type: 3}
       propertyPath: m_RootOrder

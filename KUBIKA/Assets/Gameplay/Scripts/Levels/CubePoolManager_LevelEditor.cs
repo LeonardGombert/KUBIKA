@@ -8,10 +8,10 @@ public class CubePoolManager_LevelEditor : AbstractCubePoolManager
     {
         for (int i = 0; i < grid.Length; i++)
         {
-            if (grid[i].CubeType == ComplexCubeType.None) continue;
+            if (grid[i].CubeTypeType == ComplexCubeType.None) continue;
 
             // hell yes
-            var newCube = _cubeFactories[(CubeBehaviors) grid[i].CubeType].SpawnCube();
+            var newCube = _cubeFactories[(CubeBehaviors) grid[i].CubeTypeType].SpawnCube();
             
             var cubeObject = newCube.GetComponent<CubeObject_LevelEditor>();
             

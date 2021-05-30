@@ -12,6 +12,6 @@ public class LevelLoader_Editor : AbstractLevelLoader
         _levelFile = JsonUtility.FromJson<SaveFile>(json);
 
         FindObjectOfType<CubePoolManager_LevelEditor>().AssembleLevel(_levelFile.Nodes);
-        FindObjectOfType<Grid_LevelEditor>().GridEquals(_levelFile.Nodes);
+        FindObjectOfType<Grid_LevelEditor>().AssignLoadedGrid(_levelFile.Nodes);
     }
 }

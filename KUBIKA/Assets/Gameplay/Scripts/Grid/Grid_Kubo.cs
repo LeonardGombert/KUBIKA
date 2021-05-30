@@ -1,14 +1,16 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class Grid_Kubo : AbstractGrid
 {
-    [SerializeField] int sizeX, sizeY, sizeZ;
+    [ShowInInspector, ReadOnly, TableList] public static KuboState State;
+    [SerializeField] private int sizeX, sizeY, sizeZ;
 
     private void Awake() => GenerateNodes();
 
     public override void GenerateNodes()
     {
-        _nodes = new Node[sizeX * sizeY * sizeZ];
+        Nodes = new Node[sizeX * sizeY * sizeZ];
 
         for (int z = 0, i = 0; z < sizeZ; z++)
         {

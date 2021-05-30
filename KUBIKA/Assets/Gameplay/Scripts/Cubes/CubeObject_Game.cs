@@ -2,7 +2,7 @@
 {
     public TriCoords Coords
     {
-        get => _coords;
-        set => _coords = value;
+        get => gridPosition;
+        set => gridPosition = value;
     }
 }

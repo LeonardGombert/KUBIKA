@@ -3,19 +3,19 @@ using UnityEngine;
 
 public class AbstractCubeObject : MonoBehaviour
 {
-    [SerializeField, ReadOnly] protected TriCoords _coords = TriCoords.Zero;
-    [SerializeField] protected ComplexCubeType _type;
+    [SerializeField, ReadOnly] protected TriCoords gridPosition = TriCoords.Zero;
+    [SerializeField] protected ComplexCubeType cubeType;
     [SerializeField] protected AbstractCubeBehavior[] cubeBehaviors;
 
     public TriCoords Coords
     {
-        get => _coords;
-        set => _coords = value;
+        get => gridPosition;
+        set => gridPosition = value;
     }
 
     public ComplexCubeType Type
     {
-        get => _type;
+        get => cubeType;
     }
 
     public void ResetBehaviours()

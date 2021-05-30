@@ -1,11 +1,15 @@
 using Sirenix.OdinInspector;
-using UnityEngine;
 
 public abstract class AbstractGrid : SerializedMonoBehaviour
 {
-    [ShowInInspector, ReadOnly, TableList] public static KuboState State;
-    [SerializeField, ReadOnly, TableList] public Node[] _nodes { get; protected set; }
+    [ReadOnly, TableList] public Node[] Nodes { get; protected set; }
     public abstract void GenerateNodes();
-    public virtual void ClearNodes() => _nodes = null;
-    public virtual void GridEquals(Node[] newGrid) => _nodes = newGrid;
+    
+    public virtual void ClearNodes() => Nodes = null;
+    
+    /// <summary>
+    /// A method used to set the value of the nodes array upon loading a level.
+    /// </summary>
+    /// <param name="newGrid">The grid that has been loaded from a level file</param>
+    public void AssignLoadedGrid(Node[] newGrid) => Nodes = newGrid;
 }
