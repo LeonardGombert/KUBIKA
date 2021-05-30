@@ -1,11 +1,13 @@
 using System.IO;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class LevelLoader_Game : AbstractLevelLoader
 {
-    [SerializeField] private Grid_Kubo cubeGrid;
+    [SerializeField] private Grid_Kubo gameGrid;
     [SerializeField] private CubePoolManager_Game cubePoolManager;
 
+    [Button]
     public override void OpenLevel(string path)
     {
         string json = File.ReadAllText(path);
@@ -13,6 +15,6 @@ public class LevelLoader_Game : AbstractLevelLoader
         _levelFile = JsonUtility.FromJson<SaveFile>(json);
 
         cubePoolManager.AssembleLevel(_levelFile.Nodes);
-        cubeGrid.AssignLoadedGrid(_levelFile.Nodes);
+        gameGrid.AssignLoadedGrid(_levelFile.Nodes);
     }
 }

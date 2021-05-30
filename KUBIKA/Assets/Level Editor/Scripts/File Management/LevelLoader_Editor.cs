@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class LevelLoader_Editor : AbstractLevelLoader
 {
-    [SerializeField] private CubePoolManager_Game cubePoolManager;
+    [SerializeField] private CubePoolManager_LevelEditor cubePoolManager;
+    [SerializeField] private Grid_LevelEditor levelEditor;
     
     public override void OpenLevel(string path)
     {
@@ -11,7 +12,7 @@ public class LevelLoader_Editor : AbstractLevelLoader
         
         _levelFile = JsonUtility.FromJson<SaveFile>(json);
 
-        FindObjectOfType<CubePoolManager_LevelEditor>().AssembleLevel(_levelFile.Nodes);
-        FindObjectOfType<Grid_LevelEditor>().AssignLoadedGrid(_levelFile.Nodes);
+        cubePoolManager.AssembleLevel(_levelFile.Nodes);
+        levelEditor.AssignLoadedGrid(_levelFile.Nodes);
     }
 }

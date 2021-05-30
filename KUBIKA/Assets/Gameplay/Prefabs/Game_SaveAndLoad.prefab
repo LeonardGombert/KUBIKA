@@ -64,3 +64,5 @@ MonoBehaviour:
   _levelFile:
     _levelName: 
     _nodes: []
+  gameGrid: {fileID: 0}
+  cubePoolManager: {fileID: 0}

@@ -6,7 +6,7 @@ public class Grid_Kubo : AbstractGrid
     [ShowInInspector, ReadOnly, TableList] public static KuboState State;
     [SerializeField] private int sizeX, sizeY, sizeZ;
 
-    private void Awake() => GenerateNodes();
+   /*private void Awake() => GenerateNodes();
 
     public override void GenerateNodes()
     {
@@ -22,5 +22,12 @@ public class Grid_Kubo : AbstractGrid
                 }
             }
         }
-    }
+    }*/
+   
+   
+   
+   public override void GenerateNodes()
+   {
+       throw new System.NotImplementedException();
+   }
 }

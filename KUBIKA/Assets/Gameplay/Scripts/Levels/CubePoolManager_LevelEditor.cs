@@ -2,7 +2,7 @@
 
 public class CubePoolManager_LevelEditor : AbstractCubePoolManager
 {
-    [SerializeField] private Grid_LevelEditor _gridLevelEditor;
+    [SerializeField] private Grid_LevelEditor gridLevelEditor;
 
     public override void AssembleLevel(Node[] grid)
     {
@@ -12,14 +12,12 @@ public class CubePoolManager_LevelEditor : AbstractCubePoolManager
 
             // hell yes
             var newCube = _cubeFactories[(CubeBehaviors) grid[i].CubeTypeType].SpawnCube();
-            
+
             var cubeObject = newCube.GetComponent<CubeObject_LevelEditor>();
-            
-            cubeObject.Coords = grid[i].Coords;
-            cubeObject.transform.position = grid[i].Position;
-            cubeObject.transform.parent = _gridLevelEditor.transform;
-            
-            _gridLevelEditor.placedCubes.Add(cubeObject);
+
+            cubeObject.ConfigCube(grid[i].Coords, grid[i].CubeTypeType, grid[i].Position, gridLevelEditor.transform);
+
+            gridLevelEditor.placedCubes.Add(cubeObject);
         }
     }
 }

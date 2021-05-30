@@ -31,7 +31,7 @@ public class Grid_LevelEditor : AbstractGrid
                     {
                         if (placedCubes[j].Coords.Pos[0] != currentPos) continue;
                         
-                        currentCubeType = placedCubes[j].Type;
+                        currentCubeType = placedCubes[j].CubeType;
                         currentRot = placedCubes[j].transform.eulerAngles;
                     }
                     

@@ -1,12 +1,9 @@
-﻿public class CubeObject_LevelEditor : AbstractCubeObject
-{
-    public TriCoords Coords
-    {
-        get => gridPosition;
-        set => gridPosition = value;
-    }
+﻿using UnityEngine;
 
-    public void ConfigCube (TriCoords index, ComplexCubeType type)
+public class CubeObject_LevelEditor : AbstractCubeObject
+{
+    // config cube function overload for Level Editor
+    public void ConfigCube(TriCoords index, ComplexCubeType type)
     {
         gridPosition = index;
         base.cubeType = type;

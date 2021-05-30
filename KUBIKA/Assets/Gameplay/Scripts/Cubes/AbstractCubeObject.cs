@@ -7,15 +7,16 @@ public class AbstractCubeObject : MonoBehaviour
     [SerializeField] protected ComplexCubeType cubeType;
     [SerializeField] protected AbstractCubeBehavior[] cubeBehaviors;
 
-    public TriCoords Coords
-    {
-        get => gridPosition;
-        set => gridPosition = value;
-    }
+    // public getters for Cube Coords and CubeType. Sets are protected above^.
+    public TriCoords Coords => gridPosition;
+    public ComplexCubeType CubeType => cubeType;
 
-    public ComplexCubeType Type
+    public void ConfigCube(TriCoords coords, ComplexCubeType complexCubeType, Vector3 position, Transform parent)
     {
-        get => cubeType;
+        gridPosition = coords;
+        var @ref = transform;
+        @ref.position = position;
+        @ref.parent = parent;
     }
 
     public void ResetBehaviours()

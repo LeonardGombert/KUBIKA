@@ -59,6 +59,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameCube_MoveableVictory
       objectReference: {fileID: 0}
+    - target: {fileID: 7695578772764259378, guid: a80be0a74831bf445a7feab5cee06be1, type: 3}
+      propertyPath: cubeType
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7695578772764259378, guid: a80be0a74831bf445a7feab5cee06be1, type: 3}
+      propertyPath: cubeBehaviors.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7695578772764259378, guid: a80be0a74831bf445a7feab5cee06be1, type: 3}
+      propertyPath: cubeBehaviors.Array.data[0]
+      value: 
+      objectReference: {fileID: 4477321603554964411}
+    - target: {fileID: 7695578772764259378, guid: a80be0a74831bf445a7feab5cee06be1, type: 3}
+      propertyPath: cubeBehaviors.Array.data[1]
+      value: 
+      objectReference: {fileID: 4301001847707326033}
     - target: {fileID: 9156231567387331277, guid: a80be0a74831bf445a7feab5cee06be1, type: 3}
       propertyPath: m_RootOrder
       value: 0

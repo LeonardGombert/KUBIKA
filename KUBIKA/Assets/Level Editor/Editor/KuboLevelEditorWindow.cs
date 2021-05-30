@@ -1,17 +1,21 @@
 using System;
 using System.IO;
+using Sirenix.OdinInspector.Editor;
 using UnityEditor;
 using UnityEngine;
 
-public class KuboLevelEditorWindow : EditorWindow
+public class KuboLevelEditorWindow : OdinEditorWindow
 {
+    private void OnBecameInvisible() => OnDestroy();
+
     private static Grid_LevelEditor LevelEditorGrid => FindObjectOfType<Grid_LevelEditor>();
     private static LevelSaver_Editor LevelSaver => FindObjectOfType<LevelSaver_Editor>();
     private static LevelLoader_Editor LevelLoader => FindObjectOfType<LevelLoader_Editor>();
     private static Transform GridParentObj => LevelEditorGrid.transform;
+
     private static GameObject CubeToPlace =>
         AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Level Editor/Prefabs/Editor_Cube.prefab");
-    
+
     private EditorAction _editorAction;
     private ComplexCubeType _placingCubeType;
     private ComplexCubeType _startingCubeType;
@@ -46,13 +50,13 @@ public class KuboLevelEditorWindow : EditorWindow
         window.Show();
     }
 
-    protected void OnEnable()
+    protected override void OnEnable()
     {
         SceneView.duringSceneGui -= CustomUpdate;
         SceneView.duringSceneGui += CustomUpdate;
     }
 
-    protected void OnGUI()
+    protected override void OnGUI()
     {
         GUILayout.BeginVertical();
 
@@ -163,7 +167,6 @@ public class KuboLevelEditorWindow : EditorWindow
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-
         }
     }
 
@@ -268,13 +271,13 @@ public class KuboLevelEditorWindow : EditorWindow
                 () => { RefreshMenu_Right(ComplexCubeType.Heavy); });
 
             cubeMenu.AddItem(new GUIContent("Victory Heavy"), _isVictoryHeavy,
-                () => { RefreshMenu_Right(ComplexCubeType.VictoryHeavy); });
+                () => { RefreshMenu_Right(ComplexCubeType.HeavyVictory); });
 
             cubeMenu.AddItem(new GUIContent("Mine"), _isMine,
                 () => { RefreshMenu_Right(ComplexCubeType.Mine); });
 
             cubeMenu.AddItem(new GUIContent("Victory Mine"), _isVictoryMine,
-                () => { RefreshMenu_Right(ComplexCubeType.VictoryMine); });
+                () => { RefreshMenu_Right(ComplexCubeType.MineVictory); });
 
             cubeMenu.AddItem(new GUIContent("Counter"), _isCounter,
                 () => { RefreshMenu_Right(ComplexCubeType.Counter); });
@@ -283,7 +286,7 @@ public class KuboLevelEditorWindow : EditorWindow
                 () => { RefreshMenu_Right(ComplexCubeType.Switcher); });
 
             cubeMenu.AddItem(new GUIContent("Victory Switcher"), _isVictorySwitcher,
-                () => { RefreshMenu_Right(ComplexCubeType.VictorySwitcher); });
+                () => { RefreshMenu_Right(ComplexCubeType.SwitcherVictory); });
 
             cubeMenu.AddItem(new GUIContent("Rotator"), _isRotator,
                 () => { RefreshMenu_Right(ComplexCubeType.Rotator); });
@@ -315,12 +318,12 @@ public class KuboLevelEditorWindow : EditorWindow
         _isDelivery = complexCubeType == ComplexCubeType.StaticDelivery;
         _isElevator = complexCubeType == ComplexCubeType.StaticElevator;
         _isHeavy = complexCubeType == ComplexCubeType.Heavy;
-        _isVictoryHeavy = complexCubeType == ComplexCubeType.VictoryHeavy;
+        _isVictoryHeavy = complexCubeType == ComplexCubeType.HeavyVictory;
         _isMine = complexCubeType == ComplexCubeType.Mine;
-        _isVictoryMine = complexCubeType == ComplexCubeType.VictoryMine;
+        _isVictoryMine = complexCubeType == ComplexCubeType.MineVictory;
         _isCounter = complexCubeType == ComplexCubeType.Counter;
         _isSwitcher = complexCubeType == ComplexCubeType.Switcher;
-        _isVictorySwitcher = complexCubeType == ComplexCubeType.VictorySwitcher;
+        _isVictorySwitcher = complexCubeType == ComplexCubeType.SwitcherVictory;
         _isRotator = complexCubeType == ComplexCubeType.Rotator;
     }
 
@@ -353,7 +356,7 @@ public class KuboLevelEditorWindow : EditorWindow
             // set cube type and data
             newCube.ConfigCube(TriCoords.Zero, _startingCubeType);
 
-            LevelEditorGrid.ClearNodes();        
+            LevelEditorGrid.ClearNodes();
             LevelEditorGrid.placedCubes.Add(newObject.GetComponent<AbstractCubeObject>());
 
             newObject.transform.position = Vector3.zero;
@@ -366,17 +369,17 @@ public class KuboLevelEditorWindow : EditorWindow
         // save temp level
         LevelEditorGrid.GenerateNodes();
         LevelSaver.CreateNewSave(LevelEditorGrid.Nodes, "TempLevel");
-        
+
         // clear current level
         LevelEditorGrid.ClearNodes();
-        
+
         // open temp level
         string levelPath = Application.dataPath + "/_MASTER/Resources/Levels/TempLevel.json";
         LevelLoader.OpenLevel(levelPath);
-        
+
         // delete temp level
         File.Delete(levelPath);
-        
+
         // refresh so that the file disappears immediately
         AssetDatabase.Refresh();
     }
