@@ -11,7 +11,7 @@ public class Grid_LevelEditor : AbstractGrid
 
     private void Awake() => GenerateNodes();
 
-    // called by the user, once he is finished building the level -> generates the grid based on what was created
+    // Called by the user, once he is finished building the level -> generates the grid based on what was created
     public override void GenerateNodes()
     {
         Nodes  = new Node[sizeX * sizeY * sizeZ];

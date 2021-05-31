@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class KuboLevelEditorWindow : OdinEditorWindow
 {
-    private void OnBecameInvisible() => OnDestroy();
-
     private static Grid_LevelEditor LevelEditorGrid => FindObjectOfType<Grid_LevelEditor>();
     private static LevelSaver_Editor LevelSaver => FindObjectOfType<LevelSaver_Editor>();
     private static LevelLoader_Editor LevelLoader => FindObjectOfType<LevelLoader_Editor>();
@@ -20,13 +18,14 @@ public class KuboLevelEditorWindow : OdinEditorWindow
     private ComplexCubeType _placingCubeType;
     private ComplexCubeType _startingCubeType;
     private string _levelName;
+    private string _currentSavedLevelName;
 
     private TextAsset _levelFile;
 
     private Event _event;
-    private bool _isNone1 = true, _isPlacing, _isRemoving, _isRotating;
+    private bool _rightIsNone = true, _isPlacing, _isRemoving, _isRotating;
 
-    private bool _isNone2 = true,
+    private bool _leftIsNone = true,
         _isStatic,
         _isMoveable,
         _isVictory,
@@ -54,6 +53,12 @@ public class KuboLevelEditorWindow : OdinEditorWindow
     {
         SceneView.duringSceneGui -= CustomUpdate;
         SceneView.duringSceneGui += CustomUpdate;
+    }
+
+    private void OnBecameInvisible()
+    {
+        LevelEditorGrid.ClearNodes();
+        _currentSavedLevelName = null;
     }
 
     protected override void OnGUI()
@@ -92,25 +97,44 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         EditorGUILayout.Space(); // Space
 
         if (GUILayout.Button("Clear Level"))
-            ClearLevel();
+        {
+            if (EditorUtility.DisplayDialog("Clear the current Level ? ",
+                "This will wipe any unsaved changes or progress in the scene.",
+                "Clear", "Cancel"))
+            {
+                ClearLevel();
+            }
+        }
 
         // Level Utility Methods
         if (GUILayout.Button("New Level"))
+        {
             NewLevel();
+        }
+        
 
         EditorGUILayout.Space(); // Space
 
+        if (_currentSavedLevelName == null)
+        {
+            GUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Level Name : ", GUILayout.MaxWidth(128));
+            _levelName = EditorGUILayout.TextField(_levelName);
+            GUILayout.EndHorizontal();
 
-        GUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("Level Name : ", GUILayout.MaxWidth(128));
-        _levelName = EditorGUILayout.TextField(_levelName);
-        GUILayout.EndHorizontal();
-
-        if (GUILayout.Button("Save Level"))
-            SaveLevel();
+            if (GUILayout.Button("Save Level As"))
+                SaveLevelAs();
+        }
+        else
+        {
+            EditorGUILayout.LabelField("Current Level : " + _currentSavedLevelName, EditorStyles.boldLabel);
+            if (GUILayout.Button("Save Current Level"))
+                SaveCurrentLevel();
+        }
 
         if (GUILayout.Button("Cook Level"))
             CookLevel();
+
 
         EditorGUILayout.Space(); // Space
 
@@ -221,7 +245,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
 
             actionMenu.AddDisabledItem(new GUIContent("Level Editor Action"));
 
-            actionMenu.AddItem(new GUIContent("None"), _isNone1,
+            actionMenu.AddItem(new GUIContent("None"), _rightIsNone,
                 () => { RefreshMenu_Left(EditorAction.None); });
 
             actionMenu.AddItem(new GUIContent("Place"), _isPlacing,
@@ -249,7 +273,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
 
             cubeMenu.AddDisabledItem(new GUIContent("Cube Selection"));
 
-            cubeMenu.AddItem(new GUIContent("None"), _isNone2,
+            cubeMenu.AddItem(new GUIContent("None"), _leftIsNone,
                 () => { RefreshMenu_Right(ComplexCubeType.None); });
 
             cubeMenu.AddItem(new GUIContent("Static"), _isStatic,
@@ -302,7 +326,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
     void RefreshMenu_Left(EditorAction _action)
     {
         _editorAction = _action;
-        _isNone1 = _editorAction == EditorAction.None;
+        _rightIsNone = _editorAction == EditorAction.None;
         _isPlacing = _editorAction == EditorAction.Place;
         _isRemoving = _editorAction == EditorAction.Remove;
         _isRotating = _editorAction == EditorAction.Rotate;
@@ -311,7 +335,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
     void RefreshMenu_Right(ComplexCubeType complexCubeType)
     {
         _placingCubeType = complexCubeType;
-        _isNone2 = complexCubeType == ComplexCubeType.None;
+        _leftIsNone = complexCubeType == ComplexCubeType.None;
         _isStatic = complexCubeType == ComplexCubeType.Static;
         _isMoveable = complexCubeType == ComplexCubeType.Moveable;
         _isVictory = complexCubeType == ComplexCubeType.MoveableVictory;
@@ -333,14 +357,11 @@ public class KuboLevelEditorWindow : OdinEditorWindow
 
     private void ClearLevel()
     {
-        if (EditorUtility.DisplayDialog("Clear the current Level ? ",
-            "This will wipe any unsaved changes or progress in the scene.",
-            "Clear", "Cancel"))
-        {
-            LevelEditorGrid.ClearNodes();
-        }
+        LevelEditorGrid.ClearNodes();
+        _currentSavedLevelName = null;
     }
 
+    // Called when the user wants to start building a new level
     private void NewLevel()
     {
         if (EditorUtility.DisplayDialog("Create a new Level ? ",
@@ -361,9 +382,12 @@ public class KuboLevelEditorWindow : OdinEditorWindow
 
             newObject.transform.position = Vector3.zero;
             newObject.transform.parent = GridParentObj;
+
+            _currentSavedLevelName = null;
         }
     }
 
+    // Clears the Level of its default cubes and replaces them with the corresponding cube types.
     private void CookLevel()
     {
         // save temp level
@@ -384,14 +408,30 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         AssetDatabase.Refresh();
     }
 
-    private void SaveLevel()
+    // Called by user to save the level as a new file
+    private void SaveLevelAs()
     {
         LevelEditorGrid.GenerateNodes();
-
         LevelSaver.CreateNewSave(LevelEditorGrid.Nodes, _levelName);
+        _currentSavedLevelName = _levelName;
     }
 
-    private void OpenLevel() => LevelLoader.OpenLevel(AssetDatabase.GetAssetPath(_levelFile));
+    private void SaveCurrentLevel()
+    {
+        LevelEditorGrid.GenerateNodes();
+        LevelSaver.CreateNewSave(LevelEditorGrid.Nodes, _currentSavedLevelName);
+    }
+
+    private void OpenLevel()
+    {
+        ClearLevel();
+        LevelLoader.OpenLevel(AssetDatabase.GetAssetPath(_levelFile));
+
+        // I realize that this is absolutely stupid
+        string json = File.ReadAllText(AssetDatabase.GetAssetPath(_levelFile));
+        var thing = JsonUtility.FromJson<SaveFile>(json);
+        _currentSavedLevelName = thing.Name;
+    }
 
 
     private void UpdateGrid()

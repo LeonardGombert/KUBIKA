@@ -7,7 +7,6 @@ public class LevelLoader_Game : AbstractLevelLoader
     [SerializeField] private Grid_Kubo gameGrid;
     [SerializeField] private CubePoolManager_Game cubePoolManager;
 
-    [Button]
     public override void OpenLevel(string path)
     {
         string json = File.ReadAllText(path);
