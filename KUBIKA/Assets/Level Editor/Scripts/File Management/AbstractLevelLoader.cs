@@ -1,6 +1,7 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 
-public abstract class AbstractLevelLoader : MonoBehaviour
+public abstract class AbstractLevelLoader : SerializedMonoBehaviour
 {
     [SerializeField] protected SaveFile _levelFile;
 

@@ -1,11 +1,12 @@
 using System.IO;
-using Sirenix.OdinInspector;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelLoader_Game : AbstractLevelLoader
 {
     [SerializeField] private Grid_Kubo gameGrid;
     [SerializeField] private CubePoolManager_Game cubePoolManager;
+    // [SerializeField] protected Dictionary<CubeBehaviors, AbstractBehaviorManager> BehaviorManagers = new Dictionary<CubeBehaviors, AbstractBehaviorManager>();
 
     public override void OpenLevel(string path)
     {

@@ -191,6 +191,10 @@ PrefabInstance:
       value: Transportation
       objectReference: {fileID: 0}
     - target: {fileID: 7630810256353393613, guid: 8d02efba61c21364bbf09cf51463cc05, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 7630810256353393613, guid: 8d02efba61c21364bbf09cf51463cc05, type: 3}
+    - target: {fileID: 7630810256353393613, guid: 8d02efba61c21364bbf09cf51463cc05, type: 3}
       propertyPath: _levelFile._nodes.Array.size
       value: 27
       objectReference: {fileID: 0}
@@ -465,6 +469,10 @@ PrefabInstance:
     - target: {fileID: 7630810256353393613, guid: 8d02efba61c21364bbf09cf51463cc05, type: 3}
       propertyPath: _levelFile._nodes.Array.data[26].worldPos.z
       value: 2.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7630810256353393613, guid: 8d02efba61c21364bbf09cf51463cc05, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7630810256353393613, guid: 8d02efba61c21364bbf09cf51463cc05, type: 3}
       propertyPath: _levelFile._nodes.Array.data[0].triCoords.pos.Array.size
@@ -1221,6 +1229,10 @@ PrefabInstance:
     - target: {fileID: 7630810256353393613, guid: 8d02efba61c21364bbf09cf51463cc05, type: 3}
       propertyPath: _levelFile._nodes.Array.data[26].triCoords.pos.Array.data[2].z
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7630810256353393613, guid: 8d02efba61c21364bbf09cf51463cc05, type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8009310629628499001, guid: 8d02efba61c21364bbf09cf51463cc05, type: 3}
       propertyPath: m_Name
