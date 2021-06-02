@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 5850231621809046367}
   - component: {fileID: 5850231621809046355}
   m_Layer: 0
-  m_Name: Level Editor_Cube Factory
+  m_Name: Editor_Cube Factory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -260,7 +260,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  _gridLevelEditor: {fileID: 0}
+  gridLevelEditor: {fileID: 0}
 --- !u!114 &5850231621809046343
 MonoBehaviour:
   m_ObjectHideFlags: 0

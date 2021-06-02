@@ -1,8 +1,12 @@
-﻿using UnityEngine;
+﻿using Sirenix.OdinInspector;
+using UnityEngine;
 
 public class CubePoolManager_LevelEditor : AbstractCubePoolManager
 {
-    [SerializeField] private Grid_LevelEditor gridLevelEditor;
+    [ShowInInspector, ReadOnly] private Grid_LevelEditor GridLevelEditor => FindObjectOfType<Grid_LevelEditor>();
+
+    // called by Level Editor Window
+    public GameObject PlaceCube(CubeBehaviors type) => _cubeFactories[type].SpawnCube();
 
     public override void AssembleLevel(Node[] grid)
     {
@@ -15,9 +19,9 @@ public class CubePoolManager_LevelEditor : AbstractCubePoolManager
 
             var cubeObject = newCube.GetComponent<CubeObject_LevelEditor>();
 
-            cubeObject.ConfigCube(grid[i].Coords, grid[i].CubeTypeType, grid[i].Position, gridLevelEditor.transform);
+            cubeObject.ConfigCube(grid[i].Coords, grid[i].CubeTypeType, grid[i].Position, GridLevelEditor.transform);
 
-            gridLevelEditor.placedCubes.Add(cubeObject);
+            GridLevelEditor.placedCubes.Add(cubeObject);
         }
     }
 }

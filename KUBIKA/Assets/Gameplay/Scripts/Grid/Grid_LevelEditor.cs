@@ -6,7 +6,7 @@ using UnityEngine;
 public class Grid_LevelEditor : AbstractGrid
 {
     [SerializeField, ReadOnly] public List<AbstractCubeObject> placedCubes;
-    [SerializeField] public int sizeX, sizeY, sizeZ;
+    [SerializeField, ReadOnly] public int sizeX, sizeY, sizeZ;
     public float width = 1.2f;
 
     private void Awake() => GenerateNodes();
@@ -47,5 +47,7 @@ public class Grid_LevelEditor : AbstractGrid
         
         for (int i = 0; i < placedCubes.Count; i++)
             if(placedCubes[i])DestroyImmediate(placedCubes[i].gameObject);
+        
+        placedCubes.Clear();
     }
 }

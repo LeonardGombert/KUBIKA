@@ -7,6 +7,10 @@ using UnityEngine;
 public class KuboLevelEditorWindow : OdinEditorWindow
 {
     private static Grid_LevelEditor LevelEditorGrid => FindObjectOfType<Grid_LevelEditor>();
+
+    private static CubePoolManager_LevelEditor PoolManager =>
+        FindObjectOfType<CubePoolManager_LevelEditor>();
+
     private static LevelSaver_Editor LevelSaver => FindObjectOfType<LevelSaver_Editor>();
     private static LevelLoader_Editor LevelLoader => FindObjectOfType<LevelLoader_Editor>();
     private static Transform GridParentObj => LevelEditorGrid.transform;
@@ -42,11 +46,11 @@ public class KuboLevelEditorWindow : OdinEditorWindow
 
     #region Unity Editor Functions
 
-    [MenuItem("KUBIKA/Tools")]
     public static void OpenWindow()
     {
         var window = GetWindow<KuboLevelEditorWindow>();
         window.Show();
+        window.ClearLevel();
     }
 
     protected override void OnEnable()
@@ -58,6 +62,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
     private void OnBecameInvisible()
     {
         LevelEditorGrid.ClearNodes();
+        
         _currentSavedLevelName = null;
     }
 
@@ -111,7 +116,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         {
             NewLevel();
         }
-        
+
 
         EditorGUILayout.Space(); // Space
 
@@ -132,10 +137,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
                 SaveCurrentLevel();
         }
 
-        if (GUILayout.Button("Cook Level"))
-            CookLevel();
-
-
+        
         EditorGUILayout.Space(); // Space
 
         GUILayout.BeginHorizontal();
@@ -156,7 +158,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
     {
         _event = Event.current;
         RegisterActions();
-        UpdateGrid();
+        // UpdateGrid();
         ContextMenu_Left();
         ContextMenu_Right();
     }
@@ -196,7 +198,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
 
     private void PlaceCube(RaycastHit hit)
     {
-        GameObject prefabCube = (GameObject) PrefabUtility.InstantiatePrefab(CubeToPlace);
+        GameObject prefabCube = PoolManager.PlaceCube((CubeBehaviors)_placingCubeType);
 
         var newCube = prefabCube.GetComponent<CubeObject_LevelEditor>();
         var hitCube = hit.collider.GetComponent<CubeObject_LevelEditor>();
@@ -214,6 +216,8 @@ public class KuboLevelEditorWindow : OdinEditorWindow
 
         Undo.RegisterCreatedObjectUndo(prefabCube, "Undo New Cube");
 
+        UpdateGrid();
+        
         _event.Use();
     }
 
@@ -226,6 +230,9 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         Undo.DestroyObjectImmediate(destroyed);
 
         DestroyImmediate(destroyed);
+
+        UpdateGrid();
+
         _event.Use();
     }
 
@@ -323,9 +330,9 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         }
     }
 
-    void RefreshMenu_Left(EditorAction _action)
+    void RefreshMenu_Left(EditorAction action)
     {
-        _editorAction = _action;
+        _editorAction = action;
         _rightIsNone = _editorAction == EditorAction.None;
         _isPlacing = _editorAction == EditorAction.Place;
         _isRemoving = _editorAction == EditorAction.Remove;
@@ -370,7 +377,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         {
             LevelEditorGrid.ClearNodes();
 
-            GameObject newObject = (GameObject) PrefabUtility.InstantiatePrefab(CubeToPlace);
+            GameObject newObject = PoolManager.PlaceCube((CubeBehaviors)_startingCubeType);
 
             var newCube = newObject.GetComponent<CubeObject_LevelEditor>();
 
@@ -386,28 +393,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
             _currentSavedLevelName = null;
         }
     }
-
-    // Clears the Level of its default cubes and replaces them with the corresponding cube types.
-    private void CookLevel()
-    {
-        // save temp level
-        LevelEditorGrid.GenerateNodes();
-        LevelSaver.CreateNewSave(LevelEditorGrid.Nodes, "TempLevel");
-
-        // clear current level
-        LevelEditorGrid.ClearNodes();
-
-        // open temp level
-        string levelPath = Application.dataPath + "/_MASTER/Resources/Levels/TempLevel.json";
-        LevelLoader.OpenLevel(levelPath);
-
-        // delete temp level
-        File.Delete(levelPath);
-
-        // refresh so that the file disappears immediately
-        AssetDatabase.Refresh();
-    }
-
+    
     // Called by user to save the level as a new file
     private void SaveLevelAs()
     {
