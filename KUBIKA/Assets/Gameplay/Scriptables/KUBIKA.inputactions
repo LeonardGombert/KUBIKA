@@ -1,0 +1,113 @@
+{
+    "name": "KUBIKA",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "2b45168a-7735-4b16-8485-98cc67495dbb",
+            "actions": [
+                {
+                    "name": "PointerHover",
+                    "type": "PassThrough",
+                    "id": "b4a7f368-efcf-4ccb-96bc-796cda4b2745",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "TargetCube",
+                    "type": "Button",
+                    "id": "d5a236da-3a5b-4728-9ba7-dd1590d3c7f0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "9a2e5a76-1b09-4ac0-b4cb-c83ecdc3163f",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Composite;Keyboard&Mouse",
+                    "action": "PointerHover",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d4e91fe9-6ded-4d29-921f-18d992c3450e",
+                    "path": "<Touchscreen>/touch1/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Touch;Composite",
+                    "action": "PointerHover",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a437b9fe-af23-4a6f-9d9d-30d6954cca78",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse;Composite",
+                    "action": "TargetCube",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f1aa01c4-fc44-40b8-b8a6-77e770a57007",
+                    "path": "<Touchscreen>/touch1/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Touch;Composite",
+                    "action": "TargetCube",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Keyboard&Mouse",
+            "bindingGroup": "Keyboard&Mouse",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Touch",
+            "bindingGroup": "Touch",
+            "devices": [
+                {
+                    "devicePath": "<Touchscreen>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Composite",
+            "bindingGroup": "Composite",
+            "devices": [
+                {
+                    "devicePath": "<Pointer>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}
