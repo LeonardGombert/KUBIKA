@@ -215,7 +215,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         
         // set cube type and position
         newCube.ConfigCube(cubeCoords, _placingCubeType);
-        prefabCube.transform.position = hit.transform.position + hit.normal * LevelEditorGrid.width;
+        prefabCube.transform.position = hit.transform.position + hit.normal * AbstractGrid.width;
         prefabCube.transform.parent = GridParentObj;
         
         // keep ref to cube

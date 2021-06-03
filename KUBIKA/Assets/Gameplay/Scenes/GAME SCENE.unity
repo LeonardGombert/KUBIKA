@@ -4337,6 +4337,9 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  playerTarget: {fileID: 0}
+  pointerPosition: {x: 0, y: 0}
+  moveDirection: 1
 --- !u!114 &1582402290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4396,6 +4399,23 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: d5a236da-3a5b-4728-9ba7-dd1590d3c7f0
     m_ActionName: Player/TargetCube[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1582402289}
+        m_TargetAssemblyTypeName: Gameplay.Scripts.Cubes.Managers.BehaviorManager_Movement,
+          Assembly-CSharp
+        m_MethodName: TryMoveCube
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e91796cd-4a0c-4711-8f31-2ef23dbbc898
+    m_ActionName: Player/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Composite
   m_DefaultActionMap: Player

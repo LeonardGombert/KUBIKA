@@ -11,21 +11,30 @@ namespace Gameplay.Scripts.Cubes.Managers
         // convert player input into a direction
         // send direction info to the targetCube
 
-        [SerializeField] private CubeBehavior_Movement _playerTarget;
-        [SerializeField] private Vector2 _pointerPosition;
+        [SerializeField] private CubeBehavior_Movement playerTarget;
+        [SerializeField] private Vector2 pointerPosition;
+        [SerializeField] private MoveDirection moveDirection;
 
         public void UpdatePointerPos(InputAction.CallbackContext context) =>
-            _pointerPosition = context.action.ReadValue<Vector2>();
+            pointerPosition = context.action.ReadValue<Vector2>();
 
         public void TryGetCube(InputAction.CallbackContext context)
         {
             if (context.performed)
             {
-                Ray ray = Camera.main.ScreenPointToRay(_pointerPosition);
+                Ray ray = Camera.main.ScreenPointToRay(pointerPosition);
                 if (Physics.Raycast(ray, out RaycastHit hitInfo, 500f))
                 {
-                    _playerTarget = hitInfo.collider.GetComponent<CubeBehavior_Movement>();
+                    playerTarget = hitInfo.collider.GetComponent<CubeBehavior_Movement>();
                 }
+            }
+        }
+
+        public void TryMoveCube(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                playerTarget.PerformBehavior(moveDirection);
             }
         }
     }

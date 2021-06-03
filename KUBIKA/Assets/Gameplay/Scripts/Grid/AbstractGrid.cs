@@ -2,7 +2,9 @@ using Sirenix.OdinInspector;
 
 public abstract class AbstractGrid : SerializedMonoBehaviour
 {
-    [ShowInInspector, ReadOnly] public Node[,,] Nodes { get; protected set; }
+    [ShowInInspector, ReadOnly] public Node[,,] Nodes { get; protected set; }    
+    public static float width = 1.2f;
+
     public abstract void GenerateNodes();
     
     public virtual void ClearNodes() => Nodes = null;

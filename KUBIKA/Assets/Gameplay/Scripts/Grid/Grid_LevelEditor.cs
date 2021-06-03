@@ -7,7 +7,6 @@ public class Grid_LevelEditor : AbstractGrid
 {
     [SerializeField, ReadOnly] public List<AbstractCubeObject> placedCubes;
     [SerializeField, ReadOnly] public int sizeX, sizeY, sizeZ;
-    public float width = 1.2f;
 
     private void Awake() => GenerateNodes();
 

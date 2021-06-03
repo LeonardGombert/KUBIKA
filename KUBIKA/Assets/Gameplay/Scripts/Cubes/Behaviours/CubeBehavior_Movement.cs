@@ -9,9 +9,23 @@ public class CubeBehavior_Movement : AbstractCubeBehavior
         throw new System.NotImplementedException();
     }
 
-    public override void PerformBehavior()
+    public void PerformBehavior(MoveDirection moveDirection)
     {
-        throw new System.NotImplementedException();
+        switch (moveDirection)
+        {
+            case MoveDirection.Forward:
+                transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + AbstractGrid.width);
+                break;
+            case MoveDirection.Right:
+                transform.position = new Vector3(transform.position.x + AbstractGrid.width, transform.position.y, transform.position.z);
+                break;
+            case MoveDirection.Back:
+                transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - AbstractGrid.width);
+                break;
+            case MoveDirection.Left:
+                transform.position = new Vector3(transform.position.x - AbstractGrid.width, transform.position.y, transform.position.z);
+                break;
+        }
     }
 
     public override void ResetBehavior()
