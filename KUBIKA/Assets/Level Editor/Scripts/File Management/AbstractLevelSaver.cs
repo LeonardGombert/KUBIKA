@@ -7,5 +7,5 @@ public abstract class AbstractLevelSaver : MonoBehaviour
     [SerializeField, ReadOnly] protected string fullPath;
     [SerializeField] protected SaveFile _savefile;
 
-    public abstract bool CreateNewSave(Node[] nodes, string levelName);
+    public abstract bool CreateNewSave(Node[,,] nodes, string levelName);
 }

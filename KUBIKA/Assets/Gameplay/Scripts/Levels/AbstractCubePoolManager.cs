@@ -12,5 +12,5 @@ public abstract class AbstractCubePoolManager : SerializedMonoBehaviour
         _cubeFactories = new Dictionary<CubeBehaviors, AbstractCubeFactory>();
     
     // Pass the grid that needs to be constructed. 
-    public abstract void AssembleLevel(Node[] grid);
+    public abstract void AssembleLevel(Node[,,] grid);
 }

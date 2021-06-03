@@ -158,9 +158,11 @@ public class KuboLevelEditorWindow : OdinEditorWindow
     {
         _event = Event.current;
         RegisterActions();
-        // UpdateGrid();
+        
         ContextMenu_Left();
         ContextMenu_Right();
+        
+        if(LevelEditorGrid == null) Close();
     }
 
     #endregion
@@ -198,26 +200,30 @@ public class KuboLevelEditorWindow : OdinEditorWindow
 
     private void PlaceCube(RaycastHit hit)
     {
-        GameObject prefabCube = PoolManager.PlaceCube((CubeBehaviors)_placingCubeType);
-
-        var newCube = prefabCube.GetComponent<CubeObject_LevelEditor>();
+        // get hit cube
         var hitCube = hit.collider.GetComponent<CubeObject_LevelEditor>();
 
+        // deduce where it is you want to place the cube
         Vector3 newIndex = hitCube.Coords.Pos[0] + hit.normal;
         TriCoords cubeCoords = new TriCoords((int) newIndex.x, (int) newIndex.y, (int) newIndex.z);
 
-        // set cube type and data
+        //if (LevelEditorGrid.Nodes[hitCube.]) ;
+
+        // spawn the new cube
+        GameObject prefabCube = PoolManager.PlaceCube((CubeBehaviors)_placingCubeType);
+        var newCube = prefabCube.GetComponent<CubeObject_LevelEditor>();
+        
+        // set cube type and position
         newCube.ConfigCube(cubeCoords, _placingCubeType);
-
-        LevelEditorGrid.placedCubes.Add(prefabCube.GetComponent<AbstractCubeObject>());
-
         prefabCube.transform.position = hit.transform.position + hit.normal * LevelEditorGrid.width;
         prefabCube.transform.parent = GridParentObj;
-
-        Undo.RegisterCreatedObjectUndo(prefabCube, "Undo New Cube");
+        
+        // keep ref to cube
+        LevelEditorGrid.placedCubes.Add(prefabCube.GetComponent<AbstractCubeObject>());
 
         UpdateGrid();
         
+        Undo.RegisterCreatedObjectUndo(prefabCube, "Undo New Cube");
         _event.Use();
     }
 
