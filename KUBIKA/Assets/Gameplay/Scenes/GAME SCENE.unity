@@ -4337,9 +4337,14 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  mainCamera: {fileID: 1688325687}
+  swipeTolerance: 400
   playerTarget: {fileID: 0}
   pointerPosition: {x: 0, y: 0}
+  pointerTapPosition: {x: 0, y: 0}
   moveDirection: 1
+  _swipeDirX: 0
+  _swipeDirY: 0
 --- !u!114 &1582402290
 MonoBehaviour:
   m_ObjectHideFlags: 0

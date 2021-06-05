@@ -7,9 +7,9 @@
             "actions": [
                 {
                     "name": "PointerHover",
-                    "type": "PassThrough",
+                    "type": "Value",
                     "id": "b4a7f368-efcf-4ccb-96bc-796cda4b2745",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
                 },

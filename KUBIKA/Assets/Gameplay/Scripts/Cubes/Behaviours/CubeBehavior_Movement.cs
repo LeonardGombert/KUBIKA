@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class CubeBehavior_Movement : AbstractCubeBehavior
@@ -13,18 +12,22 @@ public class CubeBehavior_Movement : AbstractCubeBehavior
     {
         switch (moveDirection)
         {
+            case MoveDirection.None:
+                break;
             case MoveDirection.Forward:
-                transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + AbstractGrid.width);
+                transform.position += Vector3.forward * AbstractGrid.width;
                 break;
             case MoveDirection.Right:
-                transform.position = new Vector3(transform.position.x + AbstractGrid.width, transform.position.y, transform.position.z);
+                transform.position += Vector3.right * AbstractGrid.width;
                 break;
             case MoveDirection.Back:
-                transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - AbstractGrid.width);
+                transform.position += Vector3.back * AbstractGrid.width;
                 break;
             case MoveDirection.Left:
-                transform.position = new Vector3(transform.position.x - AbstractGrid.width, transform.position.y, transform.position.z);
+                transform.position += Vector3.left * AbstractGrid.width;
                 break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(moveDirection), moveDirection, null);
         }
     }
 

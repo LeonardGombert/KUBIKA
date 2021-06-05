@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Collections;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,30 +12,107 @@ namespace Gameplay.Scripts.Cubes.Managers
         // convert player input into a direction
         // send direction info to the targetCube
 
-        [SerializeField] private CubeBehavior_Movement playerTarget;
-        [SerializeField] private Vector2 pointerPosition;
-        [SerializeField] private MoveDirection moveDirection;
+        [SerializeField] private Camera mainCamera;
+        [SerializeField] private float swipeTolerance;
+        [SerializeField, ReadOnly] private CubeBehavior_Movement playerTarget;
+        [SerializeField, ReadOnly] private Vector2 pointerPosition;
+        [SerializeField, ReadOnly] private Vector2 pointerTapPosition;
+        [SerializeField, ReadOnly] private MoveDirection moveDirection;
+        private bool _pointerTap = false;
+        private bool _movingCube = false;
+        private bool _swiping = false;
+        private WaitForSeconds _cubeMoveTime = new WaitForSeconds(0.5f);
+        private Vector2 _swipeDirection;
+        [SerializeField, ReadOnly] private float _swipeDirX, _swipeDirY;
 
-        public void UpdatePointerPos(InputAction.CallbackContext context) =>
+        // constant update
+        public void UpdatePointerPos(InputAction.CallbackContext context)
+        {
             pointerPosition = context.action.ReadValue<Vector2>();
 
+            if (!_pointerTap) return;
+
+            // if the player isn't in a swiping state
+            if (!_swiping)
+            {
+                // check if he should be
+                if (swipeTolerance * swipeTolerance <= (pointerPosition - pointerTapPosition).sqrMagnitude)
+                {
+                    SwipeToDirection();
+                    _swiping = true;
+                }
+            }
+
+            // else if he is swiping
+            if (_swiping && !_movingCube)
+            {
+                StartCoroutine(MoveCube());
+            }
+        }
+
+        private void SwipeToDirection()
+        {
+            _swipeDirection = (pointerPosition - pointerTapPosition).normalized;
+            _swipeDirX = Mathf.Sign(_swipeDirection.x);
+            _swipeDirY = Mathf.Sign(_swipeDirection.y);
+
+            // forward
+            if (_swipeDirX >= 0 && _swipeDirY <= 0)
+            {
+                moveDirection = MoveDirection.Forward;
+                return;
+            }
+
+            // right
+            if (_swipeDirX <= 0 && _swipeDirY <= 0)
+            {
+                moveDirection = MoveDirection.Right;
+                return;
+            }
+
+            // back
+            if (_swipeDirX <= 0 && _swipeDirY >= 0)
+            {
+                moveDirection = MoveDirection.Back;
+                return;
+            }
+
+            // left
+            moveDirection = MoveDirection.Left;
+        }
+
+        private IEnumerator MoveCube()
+        {
+            _movingCube = true;
+            playerTarget.PerformBehavior(moveDirection);
+            yield return _cubeMoveTime;
+            _movingCube = false;
+        }
+
+        // click/tap
         public void TryGetCube(InputAction.CallbackContext context)
         {
+            // on finger down
+            if (context.started)
+            {
+                pointerTapPosition = pointerPosition;
+                _pointerTap = true;
+            }
+
             if (context.performed)
             {
-                Ray ray = Camera.main.ScreenPointToRay(pointerPosition);
+                var ray = mainCamera.ScreenPointToRay(pointerPosition);
                 if (Physics.Raycast(ray, out RaycastHit hitInfo, 500f))
                 {
                     playerTarget = hitInfo.collider.GetComponent<CubeBehavior_Movement>();
                 }
             }
-        }
 
-        public void TryMoveCube(InputAction.CallbackContext context)
-        {
-            if (context.performed)
+            // on finger up
+            if (context.canceled)
             {
-                playerTarget.PerformBehavior(moveDirection);
+                _pointerTap = false;
+                _swiping = false;
             }
         }
     }
