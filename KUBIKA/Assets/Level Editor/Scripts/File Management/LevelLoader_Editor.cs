@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System.IO;
 using UnityEngine;
 
@@ -16,3 +17,4 @@ public class LevelLoader_Editor : AbstractLevelLoader
         LevelEditor.AssignLoadedGrid(_levelFile.Nodes);
     }
 }
+#endif

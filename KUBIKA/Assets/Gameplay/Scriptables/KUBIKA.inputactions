@@ -6,7 +6,7 @@
             "id": "2b45168a-7735-4b16-8485-98cc67495dbb",
             "actions": [
                 {
-                    "name": "PointerHover",
+                    "name": "TouchScreen",
                     "type": "Value",
                     "id": "b4a7f368-efcf-4ccb-96bc-796cda4b2745",
                     "expectedControlType": "Vector2",
@@ -14,17 +14,9 @@
                     "interactions": ""
                 },
                 {
-                    "name": "TargetCube",
+                    "name": "CubeSwipe",
                     "type": "Button",
                     "id": "d5a236da-3a5b-4728-9ba7-dd1590d3c7f0",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "MoveCube",
-                    "type": "Button",
-                    "id": "e91796cd-4a0c-4711-8f31-2ef23dbbc898",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -38,18 +30,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Composite;Keyboard&Mouse",
-                    "action": "PointerHover",
+                    "action": "TouchScreen",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "d4e91fe9-6ded-4d29-921f-18d992c3450e",
-                    "path": "<Touchscreen>/touch1/position",
+                    "path": "<Touchscreen>/primaryTouch/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "Touch;Composite",
-                    "action": "PointerHover",
+                    "action": "TouchScreen",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -60,29 +52,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse;Composite",
-                    "action": "TargetCube",
+                    "action": "CubeSwipe",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "f1aa01c4-fc44-40b8-b8a6-77e770a57007",
-                    "path": "<Touchscreen>/touch1/press",
+                    "path": "<Touchscreen>/primaryTouch/press",
                     "interactions": "",
                     "processors": "",
                     "groups": "Touch;Composite",
-                    "action": "TargetCube",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b4adc769-a029-4be1-b605-1e07db2dad18",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "MoveCube",
+                    "action": "CubeSwipe",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

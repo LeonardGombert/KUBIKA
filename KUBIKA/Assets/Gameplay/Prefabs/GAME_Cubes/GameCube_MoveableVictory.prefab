@@ -59,6 +59,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameCube_MoveableVictory
       objectReference: {fileID: 0}
+    - target: {fileID: 4379866824700456880, guid: a80be0a74831bf445a7feab5cee06be1, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 7695578772764259378, guid: a80be0a74831bf445a7feab5cee06be1, type: 3}
       propertyPath: cubeType
       value: 6

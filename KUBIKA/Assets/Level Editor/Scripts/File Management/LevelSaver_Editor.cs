@@ -1,3 +1,4 @@
+#if UNITY_EDITOR	
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -31,3 +32,5 @@ public class LevelSaver_Editor : AbstractLevelSaver
         return false;
     }
 }
+
+#endif

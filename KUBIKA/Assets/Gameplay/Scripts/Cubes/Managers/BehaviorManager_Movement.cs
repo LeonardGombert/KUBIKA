@@ -2,6 +2,7 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.EnhancedTouch;
 
 namespace Gameplay.Scripts.Cubes.Managers
 {
@@ -19,7 +20,6 @@ namespace Gameplay.Scripts.Cubes.Managers
         [SerializeField, ReadOnly] private Vector2 pointerTapPosition;
         [SerializeField, ReadOnly] private MoveDirection moveDirection;
         private bool _pointerTap = false;
-        private bool _movingCube = false;
         private bool _swiping = false;
         private WaitForSeconds _cubeMoveTime = new WaitForSeconds(0.5f);
         private Vector2 _swipeDirection;
@@ -44,9 +44,10 @@ namespace Gameplay.Scripts.Cubes.Managers
             }
 
             // else if he is swiping
-            if (_swiping && !_movingCube)
+            if (_swiping)
             {
-                StartCoroutine(MoveCube());
+                playerTarget?.PerformBehavior(moveDirection);
+                playerTarget = null;
             }
         }
 
@@ -81,27 +82,18 @@ namespace Gameplay.Scripts.Cubes.Managers
             moveDirection = MoveDirection.Left;
         }
 
-        private IEnumerator MoveCube()
-        {
-            _movingCube = true;
-            playerTarget.PerformBehavior(moveDirection);
-            yield return _cubeMoveTime;
-            _movingCube = false;
-        }
-
         // click/tap
         public void TryGetCube(InputAction.CallbackContext context)
         {
+
             // on finger down
             if (context.started)
             {
                 pointerTapPosition = pointerPosition;
                 _pointerTap = true;
-            }
-
-            if (context.performed)
-            {
+                
                 var ray = mainCamera.ScreenPointToRay(pointerPosition);
+                
                 if (Physics.Raycast(ray, out RaycastHit hitInfo, 500f))
                 {
                     playerTarget = hitInfo.collider.GetComponent<CubeBehavior_Movement>();
