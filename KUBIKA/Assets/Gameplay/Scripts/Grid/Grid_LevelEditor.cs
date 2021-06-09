@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
+// TODO : refactor this into its own class 
 [ExecuteInEditMode]
 public class Grid_LevelEditor : AbstractGrid
 {

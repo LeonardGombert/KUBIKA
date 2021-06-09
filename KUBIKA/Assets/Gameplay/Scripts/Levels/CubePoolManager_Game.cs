@@ -12,14 +12,14 @@ public class CubePoolManager_Game : AbstractCubePoolManager
             {
                 for (int z = 0; z < grid.GetLength(2); z++)
                 { 
-                    if (grid[x, y, z].CubeTypeType == ComplexCubeType.None) continue;
+                    if (grid[x, y, z].CubeType == ComplexCubeType.None) continue;
 
                     // hell yes
-                    var newCube = _cubeFactories[(CubeBehaviors) grid[x, y, z].CubeTypeType].SpawnCube();
+                    var newCube = _cubeFactories[(CubeBehaviors) grid[x, y, z].CubeType].SpawnCube();
 
                     var cubeObject = newCube.GetComponent<CubeObject_Game>();
 
-                    cubeObject.ConfigCube(grid[x, y, z].Coords, grid[x, y, z].CubeTypeType, grid[x, y, z].Position, gameGrid.transform);
+                    cubeObject.ConfigCube(grid[x, y, z].Coords, grid[x, y, z].CubeType, grid[x, y, z].Position, gameGrid.transform);
 
                     //_gameGrid.placedCubes.Add(cubeObject);
                 }

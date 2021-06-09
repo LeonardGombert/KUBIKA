@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,15 +12,22 @@ namespace Gameplay.Scripts.Cubes.Managers
         // convert player input into a direction
         // send direction info to the targetCube
 
-        [Header("Player Input")]
-        [SerializeField] private Camera mainCamera;
+        [Header("Player Input")] [SerializeField]
+        private Camera mainCamera;
+
         [SerializeField] private float swipeTolerance;
-        
-        [Header("Input Debugging")]
-        [SerializeField, ReadOnly] private CubeBehavior_Movement playerTarget;
+        [SerializeField] private Grid_Kubo kuboGrid;
+
+        [Header("Input Debugging")] [SerializeField, ReadOnly]
+        private CubeBehavior_Movement targetCube_Movement;
+
+        private CubeObject_Game targetCube_Object;
+
         [SerializeField, ReadOnly] private Vector2 pointerPosition;
         [SerializeField, ReadOnly] private Vector2 pointerTapPosition;
         [SerializeField, ReadOnly] private MoveDirection moveDirection;
+        [SerializeField, ReadOnly] private TriCoords originCoords;
+        [SerializeField, ReadOnly] private TriCoords targetCoords;
         private bool _pointerTap = false;
         private bool _swiping = false;
         private Vector2 _swipeDirection;
@@ -39,16 +47,42 @@ namespace Gameplay.Scripts.Cubes.Managers
                 if (swipeTolerance * swipeTolerance <= (pointerPosition - pointerTapPosition).sqrMagnitude)
                 {
                     SwipeToDirection();
-                    _swiping = true;
+                   _swiping = true;
                 }
             }
 
             // else if he is swiping
             if (_swiping)
             {
-                playerTarget?.PerformBehavior(moveDirection);
-                playerTarget = null;
+                // if the target spot is occupied
+                // TODO : find a way to only make this "run" once
+                if (kuboGrid.nodeDictionary[TargetPositionToCoords()] != CubeBehaviors.None) return;
+                targetCube_Movement?.PerformBehavior(moveDirection);
+                targetCube_Movement = null;
             }
+        }
+
+        private TriCoords TargetPositionToCoords()
+        {
+            TriCoords newCoords = targetCube_Object.Coords;
+
+            switch (moveDirection)
+            {
+                case MoveDirection.Forward:
+                    newCoords += Vector3Int.forward;
+                    break;
+                case MoveDirection.Right:
+                    newCoords += Vector3Int.right;
+                    break;
+                case MoveDirection.Back:
+                    newCoords += Vector3Int.back;
+                    break;
+                case MoveDirection.Left:
+                    newCoords += Vector3Int.left;
+                    break;
+            }
+
+            return targetCoords = newCoords;
         }
 
         private void SwipeToDirection()
@@ -85,7 +119,6 @@ namespace Gameplay.Scripts.Cubes.Managers
         // click/tap
         public void TryGetCube(InputAction.CallbackContext context)
         {
-
             // on finger down
             if (context.started)
             {
@@ -96,7 +129,8 @@ namespace Gameplay.Scripts.Cubes.Managers
 
                 if (Physics.Raycast(ray, out RaycastHit hitInfo, 500f))
                 {
-                    playerTarget = hitInfo.collider.GetComponent<CubeBehavior_Movement>();
+                    targetCube_Movement = hitInfo.collider.GetComponent<CubeBehavior_Movement>();
+                    targetCube_Object = hitInfo.collider.GetComponent<CubeObject_Game>();
                 }
             }
 

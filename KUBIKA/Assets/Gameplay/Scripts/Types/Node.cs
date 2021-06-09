@@ -14,7 +14,7 @@ public struct Node
     /// </summary>
     //public Vector3 CurrCoordPos => triCoords.Pos[(int) AbstractGrid.State];
     public TriCoords Coords => triCoords;
-    public ComplexCubeType CubeTypeType => cubeType;
+    public ComplexCubeType CubeType => cubeType;
     public Vector3 Position => worldPos;
     public Vector3 Rotation => rotation;
 

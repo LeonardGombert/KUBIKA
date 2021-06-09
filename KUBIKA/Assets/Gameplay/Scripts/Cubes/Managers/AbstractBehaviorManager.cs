@@ -9,7 +9,7 @@ namespace Gameplay.Scripts.Cubes.Managers
         /// BehaviorManagers have a single dictionary that references all behaviors of its type. They
         /// are indexed by their coordinates, and automatically updated.
         /// </summary>
-        protected Dictionary<TriCoords, T> CubeBehaviors =
+        protected Dictionary<TriCoords, T> CubeBehaviorsDictionary =
             new Dictionary<TriCoords, T>();
 
         /// <summary>
@@ -19,6 +19,6 @@ namespace Gameplay.Scripts.Cubes.Managers
         /// </summary>
         /// <param name="coordinates">The current position of the Managed Cube. Is updated as the cube moves.</param>
         /// <param name="behavior">The Behaviour Type of the Cube. Serves as a reference to access its functionality.</param>
-        public virtual void AddBehaviour(TriCoords coordinates, T behavior) => CubeBehaviors.Add(coordinates, behavior);
+        public virtual void AddBehaviour(TriCoords coordinates, T behavior) => CubeBehaviorsDictionary.Add(coordinates, behavior);
     }
 }
