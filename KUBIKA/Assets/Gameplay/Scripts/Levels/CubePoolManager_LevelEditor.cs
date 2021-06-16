@@ -21,7 +21,7 @@ public class CubePoolManager_LevelEditor : AbstractCubePoolManager
                     // hell yes
                     var newCube = _cubeFactories[(CubeBehaviors) grid[x, y, z].CubeType].SpawnCube();
 
-                    var cubeObject = newCube.GetComponent<CubeObject_LevelEditor>();
+                    var cubeObject = newCube.GetComponent<CubeBehaviour_Base>();
 
                     cubeObject.ConfigCube(grid[x, y, z].Coords, grid[x, y, z].CubeType, grid[x, y, z].Position,
                         GridLevelEditor.transform);

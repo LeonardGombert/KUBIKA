@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace Gameplay.Scripts.Cubes.Managers
 {
-    public abstract class AbstractBehaviorManager<T> : SerializedMonoBehaviour
+    public abstract class AbstractBehaviorManager<T> : SerializedMonoBehaviour where T : AbstractCubeBehavior
     {
         /// <summary>
         /// BehaviorManagers have a single dictionary that references all behaviors of its type. They
@@ -19,6 +20,17 @@ namespace Gameplay.Scripts.Cubes.Managers
         /// </summary>
         /// <param name="coordinates">The current position of the Managed Cube. Is updated as the cube moves.</param>
         /// <param name="behavior">The Behaviour Type of the Cube. Serves as a reference to access its functionality.</param>
-        public virtual void AddBehaviour(TriCoords coordinates, T behavior) => CubeBehaviorsDictionary.Add(coordinates, behavior);
+        public virtual void AddBehaviour(TriCoords coordinates, T behavior) =>
+            CubeBehaviorsDictionary.Add(coordinates, behavior);
+
+        [SerializeField] protected List<T> managedCubes = new List<T>();
+
+        private void OnEnable()
+        {
+            foreach (var cube in managedCubes)
+            {
+                cube.InitBehavior();
+            }
+        }
     }
 }

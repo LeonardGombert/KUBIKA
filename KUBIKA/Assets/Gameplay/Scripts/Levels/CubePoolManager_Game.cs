@@ -17,7 +17,7 @@ public class CubePoolManager_Game : AbstractCubePoolManager
                     // hell yes
                     var newCube = _cubeFactories[(CubeBehaviors) grid[x, y, z].CubeType].SpawnCube();
 
-                    var cubeObject = newCube.GetComponent<CubeObject_Game>();
+                    var cubeObject = newCube.GetComponent<CubeBehaviour_Base>();
 
                     cubeObject.ConfigCube(grid[x, y, z].Coords, grid[x, y, z].CubeType, grid[x, y, z].Position, gameGrid.transform);
 

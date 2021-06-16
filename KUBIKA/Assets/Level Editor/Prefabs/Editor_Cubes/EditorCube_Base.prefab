@@ -105,13 +105,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4379866824700456880}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d121cf3ccef748f1be0a1f83f39a4e99, type: 3}
+  m_Script: {fileID: 11500000, guid: 0bcef03dfa80b204490be74caf3f6803, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _coords:
-    _pos:
-    - {x: 0, y: 0, z: 0}
-    - {x: 0, y: 0, z: 0}
-    - {x: 0, y: 0, z: 0}
-  _type: 0
-  cubeBehaviors: []
+  gridPosition:
+    pos: []
+  cubeType: 0

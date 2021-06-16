@@ -23,12 +23,19 @@ public struct TriCoords
     public static TriCoords Right => new TriCoords(1, 0, 0);
     public static TriCoords Back => new TriCoords(0, 0, -1);
     public static TriCoords Left => new TriCoords(-1, 0, 0);
+    public static TriCoords Down => new TriCoords(0, -1, 0);
 
+    public static TriCoords operator +(TriCoords lhs, TriCoords rhs)
+    {
+        return new TriCoords(lhs.pos[0].x + rhs.pos[0].x, lhs.pos[0].y + rhs.pos[0].y, lhs.pos[0].z + rhs.pos[0].z);
+    }
+    
     public static TriCoords operator +(TriCoords lhs, Vector3Int rhs)
     {
-        Debug.Log("LHS : " + new Vector3(lhs.pos[0].x, lhs.pos[0].y, lhs.pos[0].z));
+        return new TriCoords(lhs.pos[0].x + rhs.x, lhs.pos[0].y + rhs.y, lhs.pos[0].z + rhs.z);
+        /*Debug.Log("LHS : " + new Vector3(lhs.pos[0].x, lhs.pos[0].y, lhs.pos[0].z));
         Debug.Log("RHS : " + rhs);
-
+        
         lhs.pos[0].x += rhs.x;
         lhs.pos[0].y += rhs.y;
         lhs.pos[0].z += rhs.z;
@@ -41,20 +48,24 @@ public struct TriCoords
         lhs.pos[2].y += rhs.z;
         lhs.pos[2].z += rhs.x;
 
-        /*lhs.pos[0].x += rhs.pos[0].x;
-        lhs.pos[0].y += rhs.pos[0].y;
-        lhs.pos[0].z += rhs.pos[0].z;
-
-        lhs.pos[1].x += rhs.pos[1].x;
-        lhs.pos[1].y += rhs.pos[1].y;
-        lhs.pos[1].z += rhs.pos[1].z;
-
-        lhs.pos[2].x += rhs.pos[2].x;
-        lhs.pos[2].y += rhs.pos[2].y;
-        lhs.pos[2].z += rhs.pos[2].z;*/
-
         Debug.Log("FINAL VALUES : " + new Vector3(lhs.pos[0].x, lhs.pos[0].y, lhs.pos[0].z));
+        return lhs;*/
+    }
+
+    /*public static TriCoords operator -(Vector3Int rhs, TriCoords lhs)
+    {
+        rhs.x -= lhs.pos[0].x;
+        rhs.y -= lhs.pos[0].y;
+        rhs.z -= lhs.pos[0].z;
+
+        rhs.z -= lhs.pos[1].x;
+        rhs.x -= lhs.pos[1].y;
+        rhs.y -= lhs.pos[1].z;
+
+        rhs.y -= lhs.pos[2].x;
+        rhs.z -= lhs.pos[2].y;
+        rhs.x -= lhs.pos[2].z;
 
         return lhs;
-    }
+    }*/
 }

@@ -7,11 +7,11 @@ using UnityEngine;
 public class MoveManager_DictionaryTest : SerializedMonoBehaviour
 {
     [ShowInInspector] Dictionary<TriCoords, CubeBehavior_Movement> movementCubes = new Dictionary<TriCoords, CubeBehavior_Movement>();
-    public AbstractCubeObject cubes;
-    public AbstractCubeObject cubes2;
+    public CubeBehaviour_Base cubes;
+    public CubeBehaviour_Base cubes2;
     private void Awake()
     {
-        movementCubes.Add(cubes.Coords, cubes.GetComponent<CubeBehavior_Movement>());
-        movementCubes.Add(cubes2.Coords, cubes2.GetComponent<CubeBehavior_Movement>());
+        movementCubes.Add(cubes.TriCoords, cubes.GetComponent<CubeBehavior_Movement>());
+        movementCubes.Add(cubes2.TriCoords, cubes2.GetComponent<CubeBehavior_Movement>());
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class Grid_LevelEditor : AbstractGrid
 {
-    [SerializeField, ReadOnly] public List<AbstractCubeObject> placedCubes;
+    [SerializeField, ReadOnly] public List<CubeBehaviour_Base> placedCubes;
     [SerializeField, ReadOnly] public int sizeX, sizeY, sizeZ;
 
     private void Awake() => GenerateNodes();
@@ -29,7 +29,7 @@ public class Grid_LevelEditor : AbstractGrid
                     // check if this position is occupied by a placed cube
                     for (int j = 0; j < placedCubes.Count; j++)
                     {
-                        if (placedCubes[j].Coords.Pos[0] != currentPos) continue;
+                        if (placedCubes[j].TriCoords.Pos[0] != currentPos) continue;
 
                         currentCubeType = placedCubes[j].CubeType;
                         currentRot = placedCubes[j].transform.eulerAngles;

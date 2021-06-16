@@ -18,20 +18,17 @@ namespace Gameplay.Scripts.Cubes.Managers
         [SerializeField] private float swipeTolerance;
         [SerializeField] private Grid_Kubo kuboGrid;
 
-        [Header("Input Debugging")] [SerializeField, ReadOnly]
-        private CubeBehavior_Movement targetCube_Movement;
+        private CubeBehavior_Movement targetCubeMovement;
+        private CubeBehaviour_Base targetCubeBase;
 
-        private CubeObject_Game targetCube_Object;
+        private Vector2 pointerPosition;
+        private Vector2 pointerTapPosition;
+        private MoveDirection moveDirection;
 
-        [SerializeField, ReadOnly] private Vector2 pointerPosition;
-        [SerializeField, ReadOnly] private Vector2 pointerTapPosition;
-        [SerializeField, ReadOnly] private MoveDirection moveDirection;
-        [SerializeField, ReadOnly] private TriCoords originCoords;
-        [SerializeField, ReadOnly] private TriCoords targetCoords;
-        private bool _pointerTap = false;
-        private bool _swiping = false;
+        private bool _pointerTap;
+        private bool _swiping;
         private Vector2 _swipeDirection;
-        [SerializeField, ReadOnly] private float _swipeDirX, _swipeDirY;
+        private float _swipeDirX, _swipeDirY;
 
         // constant update
         public void UpdatePointerPos(InputAction.CallbackContext context)
@@ -39,6 +36,7 @@ namespace Gameplay.Scripts.Cubes.Managers
             pointerPosition = context.action.ReadValue<Vector2>();
 
             if (!_pointerTap) return;
+            if (!targetCubeMovement) return;
 
             // if the player isn't in a swiping state
             if (!_swiping)
@@ -47,42 +45,55 @@ namespace Gameplay.Scripts.Cubes.Managers
                 if (swipeTolerance * swipeTolerance <= (pointerPosition - pointerTapPosition).sqrMagnitude)
                 {
                     SwipeToDirection();
-                   _swiping = true;
+                    _swiping = true;
                 }
             }
 
             // else if he is swiping
             if (_swiping)
             {
-                // if the target spot is occupied
-                // TODO : find a way to only make this "run" once
-                if (kuboGrid.nodeDictionary[TargetPositionToCoords()] != CubeBehaviors.None) return;
-                targetCube_Movement?.PerformBehavior(moveDirection);
-                targetCube_Movement = null;
+                // if the target position is open
+                if (bIsOpen(TargetPositionToCoords())) 
+                    targetCubeMovement.PerformBehavior(moveDirection);
+
+                targetCubeMovement = null;
             }
+        }
+
+        private bool bIsOpen(TriCoords targetPosition)
+        {
+            Debug.Log(targetPosition.Pos[0]);
+            kuboGrid.nodeDictionary.TryGetValue(targetPosition, out var temp);
+            Debug.Log(temp);
+            
+            // if the target spot is open
+            return temp == CubeBehaviors.None;
         }
 
         private TriCoords TargetPositionToCoords()
         {
-            TriCoords newCoords = targetCube_Object.Coords;
+            Vector3Int value;
 
             switch (moveDirection)
             {
                 case MoveDirection.Forward:
-                    newCoords += Vector3Int.forward;
+                    value = Vector3Int.forward;
                     break;
                 case MoveDirection.Right:
-                    newCoords += Vector3Int.right;
+                    value = Vector3Int.right;
                     break;
                 case MoveDirection.Back:
-                    newCoords += Vector3Int.back;
+                    value = Vector3Int.back;
                     break;
                 case MoveDirection.Left:
-                    newCoords += Vector3Int.left;
+                    value = Vector3Int.left;
+                    break;
+                default:
+                    value = Vector3Int.zero;
                     break;
             }
-
-            return targetCoords = newCoords;
+            
+            return targetCubeBase.TriCoords + value;
         }
 
         private void SwipeToDirection()
@@ -129,8 +140,8 @@ namespace Gameplay.Scripts.Cubes.Managers
 
                 if (Physics.Raycast(ray, out RaycastHit hitInfo, 500f))
                 {
-                    targetCube_Movement = hitInfo.collider.GetComponent<CubeBehavior_Movement>();
-                    targetCube_Object = hitInfo.collider.GetComponent<CubeObject_Game>();
+                    targetCubeMovement = hitInfo.collider.GetComponent<CubeBehavior_Movement>();
+                    targetCubeBase = hitInfo.collider.GetComponent<CubeBehaviour_Base>();
                 }
             }
 

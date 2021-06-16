@@ -201,17 +201,17 @@ public class KuboLevelEditorWindow : OdinEditorWindow
     private void PlaceCube(RaycastHit hit)
     {
         // get hit cube
-        var hitCube = hit.collider.GetComponent<CubeObject_LevelEditor>();
+        var hitCube = hit.collider.GetComponent<CubeBehaviour_Base>();
 
         // deduce where it is you want to place the cube
-        Vector3 newIndex = hitCube.Coords.Pos[0] + hit.normal;
+        Vector3 newIndex = hitCube.TriCoords.Pos[0] + hit.normal;
         TriCoords cubeCoords = new TriCoords((int) newIndex.x, (int) newIndex.y, (int) newIndex.z);
 
         //if (LevelEditorGrid.Nodes[hitCube.]) ;
 
         // spawn the new cube
         GameObject prefabCube = PoolManager.PlaceCube((CubeBehaviors)_placingCubeType);
-        var newCube = prefabCube.GetComponent<CubeObject_LevelEditor>();
+        var newCube = prefabCube.GetComponent<CubeBehaviour_Base>();
         
         // set cube type and position
         newCube.ConfigCube(cubeCoords, _placingCubeType);
@@ -219,7 +219,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         prefabCube.transform.parent = GridParentObj;
         
         // keep ref to cube
-        LevelEditorGrid.placedCubes.Add(prefabCube.GetComponent<AbstractCubeObject>());
+        LevelEditorGrid.placedCubes.Add(prefabCube.GetComponent<CubeBehaviour_Base>());
 
         UpdateGrid();
         
@@ -231,7 +231,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
     {
         GameObject destroyed = hit.transform.gameObject;
 
-        LevelEditorGrid.placedCubes.Remove(destroyed.GetComponent<AbstractCubeObject>());
+        LevelEditorGrid.placedCubes.Remove(destroyed.GetComponent<CubeBehaviour_Base>());
 
         Undo.DestroyObjectImmediate(destroyed);
 
@@ -385,13 +385,13 @@ public class KuboLevelEditorWindow : OdinEditorWindow
 
             GameObject newObject = PoolManager.PlaceCube((CubeBehaviors)_startingCubeType);
 
-            var newCube = newObject.GetComponent<CubeObject_LevelEditor>();
+            var newCube = newObject.GetComponent<CubeBehaviour_Base>();
 
             // set cube type and data
             newCube.ConfigCube(TriCoords.Zero, _startingCubeType);
 
             LevelEditorGrid.ClearNodes();
-            LevelEditorGrid.placedCubes.Add(newObject.GetComponent<AbstractCubeObject>());
+            LevelEditorGrid.placedCubes.Add(newObject.GetComponent<CubeBehaviour_Base>());
 
             newObject.transform.position = Vector3.zero;
             newObject.transform.parent = GridParentObj;
@@ -435,14 +435,14 @@ public class KuboLevelEditorWindow : OdinEditorWindow
             // 
             if (LevelEditorGrid.placedCubes[i])
             {
-                sizeX = sizeX < LevelEditorGrid.placedCubes[i].Coords.Pos[0].x
-                    ? (int) LevelEditorGrid.placedCubes[i].Coords.Pos[0].x
+                sizeX = sizeX < LevelEditorGrid.placedCubes[i].TriCoords.Pos[0].x
+                    ? (int) LevelEditorGrid.placedCubes[i].TriCoords.Pos[0].x
                     : sizeX;
-                sizeY = sizeY < LevelEditorGrid.placedCubes[i].Coords.Pos[0].y
-                    ? (int) LevelEditorGrid.placedCubes[i].Coords.Pos[0].y
+                sizeY = sizeY < LevelEditorGrid.placedCubes[i].TriCoords.Pos[0].y
+                    ? (int) LevelEditorGrid.placedCubes[i].TriCoords.Pos[0].y
                     : sizeY;
-                sizeZ = sizeZ < LevelEditorGrid.placedCubes[i].Coords.Pos[0].z
-                    ? (int) LevelEditorGrid.placedCubes[i].Coords.Pos[0].z
+                sizeZ = sizeZ < LevelEditorGrid.placedCubes[i].TriCoords.Pos[0].z
+                    ? (int) LevelEditorGrid.placedCubes[i].TriCoords.Pos[0].z
                     : sizeZ;
                 continue;
             }
