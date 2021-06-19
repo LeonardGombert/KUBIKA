@@ -7,7 +7,7 @@ public struct Node
 {
     [SerializeField, ReadOnly] private TriCoords triCoords;
     [SerializeField, ReadOnly] private ComplexCubeType cubeType;
-    [SerializeField, HideInInspector] private Vector3 worldPos, rotation;
+    [SerializeField, ReadOnly] private Vector3 worldPos, rotation;
 
     /// <summary>
     /// Returns the Coordinates of the GridNode, based on the current Rotational State of the Kubo.

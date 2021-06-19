@@ -7,11 +7,11 @@ public class Grid_Kubo : SerializedMonoBehaviour
     [ShowInInspector, ReadOnly, TableList] public static KuboState State;
     [SerializeField] private int sizeX, sizeY, sizeZ;
 
-    [ReadOnly, TableList] public Dictionary<TriCoords, CubeBehaviors> nodeDictionary;
+    [ReadOnly, TableList] public Dictionary<TriCoords, Node> NodeDictionary;
 
     public void NodesToDictionary(Node[,,] newGrid)
     {
-        nodeDictionary = new Dictionary<TriCoords, CubeBehaviors>();
+        NodeDictionary = new Dictionary<TriCoords, Node>();
 
         for (int x = 0; x < newGrid.GetLength(0); x++)
         {
@@ -20,7 +20,8 @@ public class Grid_Kubo : SerializedMonoBehaviour
                 for (int z = 0; z < newGrid.GetLength(2); z++)
                 {
                     Node currNode = newGrid[x, y, z];
-                    nodeDictionary.Add(currNode.Coords, (CubeBehaviors)currNode.CubeType);
+                    TriCoords tempCoords = currNode.Coords;
+                    NodeDictionary.Add(tempCoords, currNode);
                 }
             }
         }

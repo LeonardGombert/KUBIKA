@@ -10,6 +10,7 @@ public struct TriCoords
     [SerializeField] private Vector3Int[] pos;
     public Vector3Int[] Pos => pos;
 
+    // default constructor
     public TriCoords(int x, int y, int z)
     {
         pos = new Vector3Int[3];
@@ -18,6 +19,14 @@ public struct TriCoords
         pos[2] = new Vector3Int(y, z, x); // position 3
     }
 
+    // copy constructor
+    public TriCoords(TriCoords copy)
+    {
+        pos = copy.Pos;
+        pos[0] = copy.Pos[0];
+        pos[1] = copy.Pos[1];
+        pos[2] = copy.Pos[2];
+    }
     public static TriCoords Zero => new TriCoords(0, 0, 0);
     public static TriCoords Forward => new TriCoords(0, 0, 1);
     public static TriCoords Right => new TriCoords(1, 0, 0);
@@ -29,7 +38,7 @@ public struct TriCoords
     {
         return new TriCoords(lhs.pos[0].x + rhs.pos[0].x, lhs.pos[0].y + rhs.pos[0].y, lhs.pos[0].z + rhs.pos[0].z);
     }
-    
+
     public static TriCoords operator +(TriCoords lhs, Vector3Int rhs)
     {
         return new TriCoords(lhs.pos[0].x + rhs.x, lhs.pos[0].y + rhs.y, lhs.pos[0].z + rhs.z);
@@ -51,6 +60,7 @@ public struct TriCoords
         Debug.Log("FINAL VALUES : " + new Vector3(lhs.pos[0].x, lhs.pos[0].y, lhs.pos[0].z));
         return lhs;*/
     }
+
 
     /*public static TriCoords operator -(Vector3Int rhs, TriCoords lhs)
     {

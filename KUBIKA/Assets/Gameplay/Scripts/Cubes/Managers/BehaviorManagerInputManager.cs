@@ -1,12 +1,10 @@
-﻿using System;
-using Sirenix.OdinInspector;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Gameplay.Scripts.Cubes.Managers
 {
     // player input
-    public partial class BehaviorManager_Movement
+    public class BehaviorManager_InputManager :AbstractBehaviorManager<CubeBehavior_Movement>
     {
         // hold reference to touched cube
         // convert player input into a direction
@@ -29,6 +27,8 @@ namespace Gameplay.Scripts.Cubes.Managers
         private bool _swiping;
         private Vector2 _swipeDirection;
         private float _swipeDirX, _swipeDirY;
+        private Node targetNode;
+        private TriCoords targetPosition;
 
         // constant update
         public void UpdatePointerPos(InputAction.CallbackContext context)
@@ -44,7 +44,7 @@ namespace Gameplay.Scripts.Cubes.Managers
                 // check if he should be
                 if (swipeTolerance * swipeTolerance <= (pointerPosition - pointerTapPosition).sqrMagnitude)
                 {
-                    SwipeToDirection();
+                    GetMoveDirection();
                     _swiping = true;
                 }
             }
@@ -53,50 +53,48 @@ namespace Gameplay.Scripts.Cubes.Managers
             if (_swiping)
             {
                 // if the target position is open
-                if (bIsOpen(TargetPositionToCoords())) 
-                    targetCubeMovement.PerformBehavior(moveDirection);
+                if (bIsOpen())
+                    targetCubeMovement.PerformBehavior(targetNode.Position);
 
                 targetCubeMovement = null;
             }
         }
 
-        private bool bIsOpen(TriCoords targetPosition)
+        private bool bIsOpen()
         {
-            Debug.Log(targetPosition.Pos[0]);
-            kuboGrid.nodeDictionary.TryGetValue(targetPosition, out var temp);
-            Debug.Log(temp);
-            
-            // if the target spot is open
-            return temp == CubeBehaviors.None;
-        }
-
-        private TriCoords TargetPositionToCoords()
-        {
-            Vector3Int value;
+            TriCoords targetPosition = targetCubeBase.TriCoords;
 
             switch (moveDirection)
             {
                 case MoveDirection.Forward:
-                    value = Vector3Int.forward;
+                    targetPosition += TriCoords.Forward;
                     break;
                 case MoveDirection.Right:
-                    value = Vector3Int.right;
+                    targetPosition += TriCoords.Right;
                     break;
                 case MoveDirection.Back:
-                    value = Vector3Int.back;
+                    targetPosition += TriCoords.Back;
                     break;
                 case MoveDirection.Left:
-                    value = Vector3Int.left;
+                    targetPosition += TriCoords.Left;
                     break;
-                default:
-                    value = Vector3Int.zero;
+                case MoveDirection.Down:
+                    targetPosition += TriCoords.Down;
                     break;
             }
-            
-            return targetCubeBase.TriCoords + value;
+
+            Debug.Log("Target Pos is " + targetPosition.Pos[0]);
+            Debug.Log("Target Pos is " + targetPosition.Pos[1]);
+            Debug.Log("Target Pos is " + targetPosition.Pos[2]);
+            Debug.Log("Node Dictionary " + kuboGrid.NodeDictionary[targetPosition].Coords.Pos[0]);
+            Debug.Log("Node Dictionary " + kuboGrid.NodeDictionary[targetPosition].Coords.Pos[1]);
+            Debug.Log("Node Dictionary " + kuboGrid.NodeDictionary[targetPosition].Coords.Pos[2]);
+            // check to see if target position is occupied in the Grid
+            kuboGrid.NodeDictionary.TryGetValue(targetPosition, out targetNode);
+            return ((CubeBehaviors)targetNode.CubeType) == CubeBehaviors.None;
         }
 
-        private void SwipeToDirection()
+        private void GetMoveDirection()
         {
             _swipeDirection = (pointerPosition - pointerTapPosition).normalized;
             _swipeDirX = Mathf.Sign(_swipeDirection.x);

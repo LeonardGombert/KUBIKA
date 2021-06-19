@@ -1,7 +1,7 @@
 ﻿namespace Gameplay.Scripts.Cubes.Managers
 {
     // cubes carrying other cubes
-    public partial class BehaviorManager_Movement
+    public class BehaviorManager_Carry : AbstractBehaviorManager<CubeBehavior_Movement>
     {
         // 
     }
