@@ -14,7 +14,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "CubeSwipe",
+                    "name": "MoveCube",
                     "type": "Button",
                     "id": "d5a236da-3a5b-4728-9ba7-dd1590d3c7f0",
                     "expectedControlType": "Button",
@@ -52,7 +52,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse;Composite",
-                    "action": "CubeSwipe",
+                    "action": "MoveCube",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -63,7 +63,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Touch;Composite",
-                    "action": "CubeSwipe",
+                    "action": "MoveCube",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
