@@ -3,20 +3,17 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 
 [Serializable]
-public struct Node
+public class Node
 {
-    [SerializeField, ReadOnly] private TriCoords triCoords;
-    [SerializeField, ReadOnly] private ComplexCubeType cubeType;
-    [SerializeField, ReadOnly] private Vector3 worldPos, rotation;
-
-    /// <summary>
-    /// Returns the Coordinates of the GridNode, based on the current Rotational State of the Kubo.
-    /// </summary>
-    //public Vector3 CurrCoordPos => triCoords.Pos[(int) AbstractGrid.State];
-    public TriCoords Coords => triCoords;
-    public ComplexCubeType CubeType => cubeType;
-    public Vector3 Position => worldPos;
-    public Vector3 Rotation => rotation;
+    public ComplexCubeType cubeType;
+    [SerializeField] private Vector3Kubo vector3Kubo;
+    [SerializeField] private Vector3 worldPos, worldRot;
+    
+    public Vector3Int position => vector3Kubo.positions[(int) Grid_Kubo.State];
+    public Vector3Int[] positions => vector3Kubo.positions;
+    
+    public Vector3 worldPosition => worldPos;
+    public Vector3 worldRotation => worldRot;
 
     /// <summary>
     /// Construct a new GridNode.
@@ -24,14 +21,24 @@ public struct Node
     /// <param name="x">Default Kubo State x position.</param>
     /// <param name="y">Default Kubo State y position.</param>
     /// <param name="z">Default Kubo State z position.</param>
-    /// <param name="pos">The Node's precise world position.</param>
-    /// <param name="rot">World Rotation of the Cube at Node Position</param>
-    /// <param name="type">The Composite Behaviours of the cube, represented by the ComplexCubeType.</param>
-    public Node(int x, int y, int z, Vector3 pos, Vector3 rot, ComplexCubeType type)
+    /// <param name="worldPos">The Node's precise world position.</param>
+    /// <param name="worldRot">World Rotation of the Cube at Node Position</param>
+    /// <param name="cubeType">The Composite Behaviours of the cube, represented by the ComplexCubeType.</param>
+    public Node(int x, int y, int z, Vector3 worldPos, Vector3 worldRot, ComplexCubeType cubeType)
     {
-        triCoords = new TriCoords(x, y, z);
-        worldPos = pos;
-        rotation = rot;
-        cubeType = type;
+        vector3Kubo = new Vector3Kubo(x, y, z);
+        this.worldPos = worldPos;
+        this.worldRot = worldRot;
+        this.cubeType = cubeType;
     }
+
+    public Node(Vector3Kubo vector3Kubo)
+    {
+        this.vector3Kubo = vector3Kubo;
+        worldPos = Vector3.zero;
+        worldRot = Vector3.zero;
+        cubeType = ComplexCubeType.None;
+    }
+
+    public static Node Zero => new Node(0, 0, 0, Vector3.zero, Vector3.zero, ComplexCubeType.None);
 }

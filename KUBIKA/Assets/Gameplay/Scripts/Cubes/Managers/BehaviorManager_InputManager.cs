@@ -9,7 +9,6 @@ namespace Gameplay.Scripts.Cubes.Managers
         // hold reference to touched cube
         // convert player input into a direction
         // send direction info to the targetCube
-
         [Header("Player Input")] [SerializeField]
         private Camera mainCamera;
 
@@ -83,7 +82,10 @@ namespace Gameplay.Scripts.Cubes.Managers
         private void TryMovingCubeInSwipeDirection()
         {
             if (CheckIfTargetIsOpen())
-                targetCubeMovement.PerformBehavior(targetNode.Position);
+            {
+                kuboGrid.grid[targetCubeBase.gridPosition[0]].cubeType = ComplexCubeType.None;
+                targetCubeMovement.PerformBehavior(ref targetNode);
+            }
 
             targetCubeMovement = null;
         }
@@ -111,9 +113,11 @@ namespace Gameplay.Scripts.Cubes.Managers
                     break;
             }
 
+            Debug.Log(targetPosition);
+            
             // check to see if target position is occupied in the Grid
-            kuboGrid.config1NodeDictionary.TryGetValue(targetPosition, out targetNode);
-            return ((CubeBehaviors)targetNode.CubeType) == CubeBehaviors.None;
+            kuboGrid.grid.TryGetValue(targetPosition, out targetNode);
+            return ((CubeBehaviors)targetNode.cubeType) == CubeBehaviors.None;
         }
 
         // click/tap

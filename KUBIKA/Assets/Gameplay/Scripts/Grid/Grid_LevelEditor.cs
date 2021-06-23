@@ -29,9 +29,9 @@ public class Grid_LevelEditor : AbstractGrid
                     // check if this position is occupied by a placed cube
                     for (int j = 0; j < placedCubes.Count; j++)
                     {
-                        if (placedCubes[j].TriCoords.Pos[0] != currentPos) continue;
+                        if (placedCubes[j].gridPosition[0] != currentPos) continue;
 
-                        currentCubeType = placedCubes[j].CubeType;
+                        currentCubeType = placedCubes[j].cubeType;
                         currentRot = placedCubes[j].transform.eulerAngles;
                     }
 

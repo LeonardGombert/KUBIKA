@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class CubeBehavior_Movement : AbstractCubeBehavior
 {
+    private CubeBehaviour_Base cubeBase;
+    
     public override void InitBehavior()
     {
+        cubeBase = GetComponent<CubeBehaviour_Base>();
     }
 
     // function overload
-    public void PerformBehavior(Vector3 targetPosition)
+    public void PerformBehavior(ref Node targetNode)
     {
-        // TODO : transform.translate to targetCoords position
-        Debug.Log("Moving to " + targetPosition);
-        transform.position = targetPosition;
+        targetNode.cubeType = cubeBase.cubeType;
+        cubeBase.currNode = targetNode;
+        transform.position = targetNode.worldPosition;
     }
 
     public override void ResetBehavior()
