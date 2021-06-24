@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CubeBehavior_Movement : AbstractCubeBehavior
 {
-    private CubeBehaviour_Base cubeBase;
+    public CubeBehaviour_Base cubeBase;
     
     public override void InitBehavior()
     {

@@ -27,6 +27,14 @@ namespace Gameplay.Scripts.Cubes.Managers
 
         private void OnEnable()
         {
+            OnLevelLoaded();
+        }
+
+        void OnLevelLoaded()
+        {
+            managedCubes.Clear();
+            managedCubes.AddRange(FindObjectsOfType<T>());
+            
             foreach (var cube in managedCubes)
             {
                 cube.InitBehavior();

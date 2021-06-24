@@ -214,7 +214,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         var newCube = prefabCube.GetComponent<CubeBehaviour_Base>();
         
         // set cube type and position
-        newCube.ConfigCube(new Node(cubeCoords), _placingCubeType);
+        newCube.ConfigCube(new Node(cubeCoords), cubeCoords.positions[0], _placingCubeType);
         prefabCube.transform.position = hit.transform.position + hit.normal * AbstractGrid.width;
         prefabCube.transform.parent = GridParentObj;
         
@@ -388,7 +388,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
             var newCube = newObject.GetComponent<CubeBehaviour_Base>();
 
             // set cube type and data
-            newCube.ConfigCube(Node.Zero, _startingCubeType);
+            newCube.ConfigCube(Node.Zero, Vector3Int.zero, _startingCubeType);
 
             LevelEditorGrid.ClearNodes();
             LevelEditorGrid.placedCubes.Add(newObject.GetComponent<CubeBehaviour_Base>());

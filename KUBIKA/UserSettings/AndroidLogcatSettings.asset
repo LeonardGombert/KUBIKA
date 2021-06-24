@@ -3,8 +3,8 @@
     "m_SelectedPackage": {
         "deviceId": "FPMDU18126000360",
         "name": "com.Kubika.ACubeStory",
-        "processId": 11067,
-        "exited": true
+        "processId": 17812,
+        "exited": false
     },
     "m_SelectedPriority": 0,
     "m_KnownPackagesForSerialization": [
@@ -19,6 +19,18 @@
             "name": "com.Kubika.ACubeStory",
             "processId": 11067,
             "exited": true
+        },
+        {
+            "deviceId": "FPMDU18126000360",
+            "name": "com.Kubika.ACubeStory",
+            "processId": 17248,
+            "exited": false
+        },
+        {
+            "deviceId": "FPMDU18126000360",
+            "name": "com.Kubika.ACubeStory",
+            "processId": 17812,
+            "exited": false
         }
     ],
     "m_Tags": {
