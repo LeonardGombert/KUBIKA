@@ -5,15 +5,19 @@ using UnityEngine;
 [Serializable]
 public class Node
 {
-    public ComplexCubeType cubeType;
     [SerializeField] private Vector3Kubo vector3Kubo;
     [SerializeField] private Vector3 worldPos, worldRot;
+    public ComplexCubeType cubeType;
     
-    public Vector3Int position => vector3Kubo.positions[(int) Grid_Kubo.State];
-    public Vector3Int[] positions => vector3Kubo.positions;
+    /// <summary>
+    /// Called when the Kubo is rotated. Returns the new GridPosition of the current Node.
+    /// </summary>
+    public Vector3Int GetNodeCoordinates() => vector3Kubo.positions[(int) Grid_Kubo.State];
     
+    /// <summary>
+    /// Returns the accurate worldPosition of the Node.
+    /// </summary>
     public Vector3 worldPosition => worldPos;
-    public Vector3 worldRotation => worldRot;
 
     /// <summary>
     /// Construct a new GridNode.

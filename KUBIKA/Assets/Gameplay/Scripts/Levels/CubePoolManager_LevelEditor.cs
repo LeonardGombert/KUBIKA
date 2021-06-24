@@ -23,7 +23,7 @@ public class CubePoolManager_LevelEditor : AbstractCubePoolManager
 
                     var cubeObject = newCube.GetComponent<CubeBehaviour_Base>();
 
-                    cubeObject.ConfigCube(grid[x, y, z], grid[x, y, z].cubeType, grid[x, y, z].worldPosition,
+                    cubeObject.ConfigCube(grid[x, y, z], grid[x, y, z].GetNodeCoordinates(), grid[x, y, z].cubeType, grid[x, y, z].worldPosition,
                         GridLevelEditor.transform);
 
                     GridLevelEditor.placedCubes.Add(cubeObject);

@@ -15,7 +15,10 @@ public class CubeBehavior_Movement : AbstractCubeBehavior
     public void PerformBehavior(ref Node targetNode)
     {
         targetNode.cubeType = cubeBase.cubeType;
+        
         cubeBase.currNode = targetNode;
+        cubeBase.currCoordinates = targetNode.GetNodeCoordinates();
+        
         transform.position = targetNode.worldPosition;
     }
 

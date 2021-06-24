@@ -26,7 +26,7 @@ namespace Gameplay.Scripts.Cubes.Managers
         private Vector2 _swipeDirection;
         private float _swipeDirX, _swipeDirY;
         private Node targetNode;
-        private Vector3Int targetPosition;
+        private Vector3Int targetCoordinates;
 
         // constant update
         public void GetTouchPositionOnScreen(InputAction.CallbackContext context)
@@ -83,41 +83,42 @@ namespace Gameplay.Scripts.Cubes.Managers
         {
             if (CheckIfTargetIsOpen())
             {
-                kuboGrid.grid[targetCubeBase.gridPosition[0]].cubeType = ComplexCubeType.None;
+                kuboGrid.grid[targetCubeBase.currCoordinates].cubeType = ComplexCubeType.None;
                 targetCubeMovement.PerformBehavior(ref targetNode);
             }
-
             targetCubeMovement = null;
         }
 
         private bool CheckIfTargetIsOpen()
         {
-            targetPosition = targetCubeBase.CurrPosition;
+            targetCoordinates = targetCubeBase.currCoordinates;
 
             switch (moveDirection)
             {
                 case MoveDirection.Forward :
-                    targetPosition += Vector3Int.forward;
+                    targetCoordinates += Vector3Int.forward;
                     break;
                 case MoveDirection.Right:
-                    targetPosition += Vector3Int.right;
+                    targetCoordinates += Vector3Int.right;
                     break;
                 case MoveDirection.Back:
-                    targetPosition += Vector3Int.back;
+                    targetCoordinates += Vector3Int.back;
                     break;
                 case MoveDirection.Left:
-                    targetPosition += Vector3Int.left;
+                    targetCoordinates += Vector3Int.left;
                     break;
                 case MoveDirection.Down:
-                    targetPosition += Vector3Int.down;
+                    targetCoordinates += Vector3Int.down;
                     break;
             }
-
-            Debug.Log(targetPosition);
             
             // check to see if target position is occupied in the Grid
-            kuboGrid.grid.TryGetValue(targetPosition, out targetNode);
-            return ((CubeBehaviors)targetNode.cubeType) == CubeBehaviors.None;
+            kuboGrid.grid.TryGetValue(targetCoordinates, out targetNode);
+            
+            // if the targeted node doesn't exist
+            if (targetNode == null) return false;
+            
+            return ((CubeBehaviors) targetNode.cubeType) == CubeBehaviors.None;
         }
 
         // click/tap

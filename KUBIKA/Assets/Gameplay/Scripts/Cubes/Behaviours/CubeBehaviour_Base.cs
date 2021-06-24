@@ -3,14 +3,10 @@ using UnityEngine;
 
 public class CubeBehaviour_Base : AbstractCubeBehavior
 {
-    [SerializeField] public Node currNode;
+    public Node currNode;
+    public Vector3Int currCoordinates;
     public ComplexCubeType cubeType;
-    
-    /// <summary>
-    /// Returns the Cube's current coordinates relative to the Kubo's rotation.
-    /// </summary>
-    public Vector3Int CurrPosition => currNode.position;
-    public Vector3Int[] gridPosition => currNode.positions;
+    public Vector3 currWorldPosition => transform.position;
 
     /// <summary>
     /// Call when building a level. Is in charge of setting up the cube's position, rotation, type, etc. once it is instantiated.
@@ -19,9 +15,10 @@ public class CubeBehaviour_Base : AbstractCubeBehavior
     /// <param name="cubeType">The Cube's type.</param>
     /// <param name="position">The Cube's starting position.</param>
     /// <param name="parent">The Cube's transform parent.</param>
-    public void ConfigCube(Node currNode, ComplexCubeType cubeType, Vector3 position, Transform parent)
+    public void ConfigCube(Node currNode, Vector3Int currCoordinates, ComplexCubeType cubeType, Vector3 position, Transform parent)
     {
         this.currNode = currNode;
+        this.currCoordinates = currCoordinates;
         this.cubeType = cubeType;
         var @ref = transform;
         @ref.position = position;

@@ -204,7 +204,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         var hitCube = hit.collider.GetComponent<CubeBehaviour_Base>();
 
         // deduce where it is you want to place the cube
-        Vector3 newIndex = hitCube.gridPosition[0] + hit.normal;
+        Vector3 newIndex = hitCube.currCoordinates + hit.normal;
         Vector3Kubo cubeCoords = new Vector3Kubo((int) newIndex.x, (int) newIndex.y, (int) newIndex.z);
 
         //if (LevelEditorGrid.Nodes[hitCube.]) ;
@@ -435,14 +435,14 @@ public class KuboLevelEditorWindow : OdinEditorWindow
             // 
             if (LevelEditorGrid.placedCubes[i])
             {
-                sizeX = sizeX < LevelEditorGrid.placedCubes[i].gridPosition[0].x
-                    ? (int) LevelEditorGrid.placedCubes[i].gridPosition[0].x
+                sizeX = sizeX < LevelEditorGrid.placedCubes[i].currCoordinates.x
+                    ? (int) LevelEditorGrid.placedCubes[i].currCoordinates.x
                     : sizeX;
-                sizeY = sizeY < LevelEditorGrid.placedCubes[i].gridPosition[0].y
-                    ? (int) LevelEditorGrid.placedCubes[i].gridPosition[0].y
+                sizeY = sizeY < LevelEditorGrid.placedCubes[i].currCoordinates.y
+                    ? (int) LevelEditorGrid.placedCubes[i].currCoordinates.y
                     : sizeY;
-                sizeZ = sizeZ < LevelEditorGrid.placedCubes[i].gridPosition[0].z
-                    ? (int) LevelEditorGrid.placedCubes[i].gridPosition[0].z
+                sizeZ = sizeZ < LevelEditorGrid.placedCubes[i].currCoordinates.z
+                    ? (int) LevelEditorGrid.placedCubes[i].currCoordinates.z
                     : sizeZ;
                 continue;
             }
