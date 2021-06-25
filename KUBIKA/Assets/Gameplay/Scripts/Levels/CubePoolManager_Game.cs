@@ -20,8 +20,6 @@ public class CubePoolManager_Game : AbstractCubePoolManager
                     var cubeObject = newCube.GetComponent<CubeBehaviour_Base>();
                     
                     cubeObject.ConfigCube(grid[x, y, z], grid[x, y, z].GetNodeCoordinates(), grid[x, y, z].cubeType, grid[x, y, z].worldPosition, gameGrid.transform);
-
-                    //_gameGrid.placedCubes.Add(cubeObject);
                 }
             }
         }

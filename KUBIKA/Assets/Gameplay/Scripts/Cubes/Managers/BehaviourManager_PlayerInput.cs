@@ -12,7 +12,10 @@ namespace Gameplay.Scripts.Cubes.Managers
 
         private Camera mainCamera;
 
-        private float swipeTolerance = 10;
+        private float swipeTolerance = 30;
+        private Vector2 _swipeDirection;
+        private float _swipeDirX, _swipeDirY;
+
         private Vector2 currtouchPosition;
         private Vector2 startTouchPosition;
         private bool _pointerTap;
@@ -21,7 +24,7 @@ namespace Gameplay.Scripts.Cubes.Managers
 
         private void Start()
         {
-            mainCamera = Camera.current;
+            mainCamera = FindObjectOfType<Camera>();
         }
 
         public void GetTouchPositionOnScreen(InputAction.CallbackContext context)
@@ -36,11 +39,35 @@ namespace Gameplay.Scripts.Cubes.Managers
 
         private void CheckIfPlayerSwiping()
         {
-            if ((swipeTolerance * swipeTolerance) <= (currtouchPosition - startTouchPosition).sqrMagnitude)
+            if ((currtouchPosition - startTouchPosition).sqrMagnitude >= (swipeTolerance * swipeTolerance))
             {
-                movementManager.ConvertSwipeToMoveDirection((currtouchPosition - startTouchPosition).normalized);
-                movementManager.TryMovingCubeInSwipeDirection();
+                movementManager.TryMovingCubeInSwipeDirection(ConvertSwipeToMoveDirection());
+                targetCubeMovement = null;
             }
+        }
+
+        private MoveDirection ConvertSwipeToMoveDirection()
+        {
+            _swipeDirection = (currtouchPosition - startTouchPosition).normalized;
+            _swipeDirX = Mathf.Sign(_swipeDirection.x);
+            _swipeDirY = Mathf.Sign(_swipeDirection.y);
+
+            if (_swipeDirX >= 0 && _swipeDirY <= 0)
+            {
+                return MoveDirection.Forward;
+            }
+
+            if (_swipeDirX <= 0 && _swipeDirY <= 0)
+            {
+                return MoveDirection.Right;
+            }
+
+            if (_swipeDirX <= 0 && _swipeDirY >= 0)
+            {
+                return MoveDirection.Back;
+            }
+
+            return MoveDirection.Left;
         }
 
         public void TryGetCubeAtTouchPosition(InputAction.CallbackContext context)
@@ -54,8 +81,8 @@ namespace Gameplay.Scripts.Cubes.Managers
 
                 if (Physics.Raycast(ray, out RaycastHit hitInfo, 500f))
                 {
-                    movementManager.targetCubeMovement =
-                        targetCubeMovement = hitInfo.collider.GetComponent<CubeBehavior_Movement>();
+                    targetCubeMovement = movementManager.movingCube =
+                        hitInfo.collider.GetComponent<CubeBehavior_Movement>();
                 }
             }
 

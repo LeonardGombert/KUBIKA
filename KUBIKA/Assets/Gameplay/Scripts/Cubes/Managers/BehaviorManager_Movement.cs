@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Gameplay.Scripts.Cubes.Managers
 {
@@ -6,60 +7,37 @@ namespace Gameplay.Scripts.Cubes.Managers
     {
         [SerializeField] private Grid_Kubo kuboGrid;
         [SerializeField] BehaviorManager_Carry carryManager;
-        
-        private Vector2 _swipeDirection;
-        private float _swipeDirX, _swipeDirY;
+
+        public CubeBehavior_Movement movingCube;
         private MoveDirection moveDirection;
-        
-        public CubeBehavior_Movement targetCubeMovement;
         private Node targetNode;
-        private Vector3Int targetCoordinates;
+        Vector3Int targetCoordinates;
+        private List<CubeBehavior_Movement> CarryManagerCubesStack => carryManager.cubesStack;
 
-        private Vector3Int cubeCoordinates => targetCubeMovement.cubeBase.currCoordinates;
-        
-        public void ConvertSwipeToMoveDirection(Vector2 normalizedSwipeDirection)
+        public void TryMovingCubeInSwipeDirection(MoveDirection _moveDirection)
         {
-            _swipeDirection = normalizedSwipeDirection;
-            _swipeDirX = Mathf.Sign(_swipeDirection.x);
-            _swipeDirY = Mathf.Sign(_swipeDirection.y);
-
-            if (_swipeDirX >= 0 && _swipeDirY <= 0)
-            {
-                moveDirection = MoveDirection.Forward;
-                return;
-            }
-
-            if (_swipeDirX <= 0 && _swipeDirY <= 0)
-            {
-                moveDirection = MoveDirection.Right;
-                return;
-            }
-
-            if (_swipeDirX <= 0 && _swipeDirY >= 0)
-            {
-                moveDirection = MoveDirection.Back;
-                return;
-            }
-
-            carryManager.moveDirection = moveDirection = MoveDirection.Left;
+            moveDirection = _moveDirection;
+            MoveCubes();
         }
 
-        public void TryMovingCubeInSwipeDirection()
+        private void MoveCubes()
         {
-            if (TargetIsOpen() && HasCubeUnder())
-            {
-                kuboGrid.grid[cubeCoordinates].cubeType = ComplexCubeType.None;
-                targetCubeMovement.PerformBehavior(ref targetNode);
-                carryManager.TryMovingStack(cubeCoordinates);
-            }
+            carryManager.GetCarriedCubes(ref movingCube);
 
-            targetCubeMovement = null;
+            for (int i = 0; i < CarryManagerCubesStack.Count; i++)
+            {
+                targetNode = GetTargetNode(CarryManagerCubesStack[i].cubeBase.currCoordinates);
+                if (targetNode != null && HasCubeUnder())
+                {
+                    if (!CarryManagerCubesStack[i].TryMoveCubeToNode(ref targetNode)) break;
+                    CarryManagerCubesStack[i].TryAssignCarryingCube();
+                }
+            }
         }
 
-        public bool TargetIsOpen()
+        private Node GetTargetNode(Vector3Int cubeBaseCurrCoordinates)
         {
-            targetCoordinates = cubeCoordinates;
-
+            targetCoordinates = cubeBaseCurrCoordinates;
             switch (moveDirection)
             {
                 case MoveDirection.Forward:
@@ -80,17 +58,16 @@ namespace Gameplay.Scripts.Cubes.Managers
             }
 
             // check to see if target position is open in the Grid
-            kuboGrid.grid.TryGetValue(targetCoordinates, out targetNode);
-            if (targetNode == null) return false;
-            return ((CubeBehaviors) targetNode.cubeType) == CubeBehaviors.None;
+            kuboGrid.grid.TryGetValue(targetCoordinates, out var tempNode);
+            return tempNode;
         }
 
-        public bool HasCubeUnder()
+        private bool HasCubeUnder()
         {
             // check to see if target position has a cube underneath
-            kuboGrid.grid.TryGetValue(targetCoordinates + Vector3Int.down, out var targetNode2);
-            if (targetNode2 == null) return false;
-            return ((CubeBehaviors) targetNode2.cubeType) != CubeBehaviors.None;
+            kuboGrid.grid.TryGetValue(targetCoordinates + Vector3Int.down, out var tempNode);
+            if (tempNode == null) return false;
+            return ((CubeBehaviors) tempNode.cubeType) != CubeBehaviors.None;
         }
     }
 }

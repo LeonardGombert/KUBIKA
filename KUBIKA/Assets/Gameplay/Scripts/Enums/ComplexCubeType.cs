@@ -1,4 +1,7 @@
-﻿public enum ComplexCubeType
+﻿using System;
+
+[Flags]
+public enum ComplexCubeType
 {
     None = 0,
     Static = CubeBehaviors.Static,
