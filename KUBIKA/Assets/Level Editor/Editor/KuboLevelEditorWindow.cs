@@ -18,9 +18,9 @@ public class KuboLevelEditorWindow : OdinEditorWindow
     private static GameObject CubeToPlace =>
         AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Level Editor/Prefabs/Editor_Cube.prefab");
 
-    private EditorAction _editorAction;
-    private ComplexCubeType _placingCubeType;
-    private ComplexCubeType _startingCubeType;
+    private EditorAction _editorAction = EditorAction.Place;
+    private ComplexCubeType _placingCubeType = ComplexCubeType.Static;
+    private ComplexCubeType _startingCubeType = ComplexCubeType.Static;
     private string _levelName;
     private string _currentSavedLevelName;
 
@@ -62,7 +62,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
     private void OnBecameInvisible()
     {
         LevelEditorGrid.ClearNodes();
-        
+
         _currentSavedLevelName = null;
     }
 
@@ -137,7 +137,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
                 SaveCurrentLevel();
         }
 
-        
+
         EditorGUILayout.Space(); // Space
 
         GUILayout.BeginHorizontal();
@@ -158,11 +158,11 @@ public class KuboLevelEditorWindow : OdinEditorWindow
     {
         _event = Event.current;
         RegisterActions();
-        
+
         ContextMenu_Left();
         ContextMenu_Right();
-        
-        if(LevelEditorGrid == null) Close();
+
+        if (LevelEditorGrid == null) Close();
     }
 
     #endregion
@@ -210,19 +210,19 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         //if (LevelEditorGrid.Nodes[hitCube.]) ;
 
         // spawn the new cube
-        GameObject prefabCube = PoolManager.PlaceCube((CubeBehaviors)_placingCubeType);
+        GameObject prefabCube = PoolManager.PlaceCube((CubeBehaviors) _placingCubeType);
         var newCube = prefabCube.GetComponent<CubeBehaviour_Base>();
-        
+
         // set cube type and position
         newCube.ConfigCube(new Node(cubeCoords), cubeCoords.positions[0], _placingCubeType);
         prefabCube.transform.position = hit.transform.position + hit.normal * AbstractGrid.width;
         prefabCube.transform.parent = GridParentObj;
-        
+
         // keep ref to cube
         LevelEditorGrid.placedCubes.Add(prefabCube.GetComponent<CubeBehaviour_Base>());
 
         UpdateGrid();
-        
+
         Undo.RegisterCreatedObjectUndo(prefabCube, "Undo New Cube");
         _event.Use();
     }
@@ -383,7 +383,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
         {
             LevelEditorGrid.ClearNodes();
 
-            GameObject newObject = PoolManager.PlaceCube((CubeBehaviors)_startingCubeType);
+            GameObject newObject = PoolManager.PlaceCube((CubeBehaviors) _startingCubeType);
 
             var newCube = newObject.GetComponent<CubeBehaviour_Base>();
 
@@ -399,7 +399,7 @@ public class KuboLevelEditorWindow : OdinEditorWindow
             _currentSavedLevelName = null;
         }
     }
-    
+
     // Called by user to save the level as a new file
     private void SaveLevelAs()
     {

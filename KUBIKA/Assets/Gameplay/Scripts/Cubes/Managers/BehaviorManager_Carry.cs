@@ -7,18 +7,18 @@ namespace Gameplay.Scripts.Cubes.Managers
     {
         public CubeBehavior_Movement cubeToMove;
         public List<CubeBehavior_Movement> cubesStack = new List<CubeBehavior_Movement>();
-        
-        public void GetCarriedCubes(ref CubeBehavior_Movement  movingCube)
+
+        public void GetCarriedCubes(ref CubeBehavior_Movement movingCube)
         {
             cubeToMove = movingCube;
             cubesStack.Clear();
             RecursivelyFindCubesToMove();
         }
-        
+
         private void RecursivelyFindCubesToMove()
         {
             cubesStack.Add(cubeToMove);
-            
+
             if (cubeToMove.carryingCube != null)
             {
                 cubeToMove = cubeToMove.carryingCube;

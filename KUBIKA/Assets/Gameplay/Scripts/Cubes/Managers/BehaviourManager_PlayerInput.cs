@@ -21,10 +21,16 @@ namespace Gameplay.Scripts.Cubes.Managers
         private bool _pointerTap;
 
         private CubeBehavior_Movement targetCubeMovement;
+        [SerializeField] private Grid_Kubo kuboGrid;
 
         private void Start()
         {
             mainCamera = FindObjectOfType<Camera>();
+
+            foreach (var moveableCube in managedCubes)
+            {
+                moveableCube.cubeBase.currNode = kuboGrid.grid[moveableCube.cubeBase.currCoordinates];
+            }
         }
 
         public void GetTouchPositionOnScreen(InputAction.CallbackContext context)

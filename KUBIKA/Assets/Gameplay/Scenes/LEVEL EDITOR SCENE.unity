@@ -385,9 +385,9 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   placedCubes: []
-  sizeX: 3
-  sizeY: 3
-  sizeZ: 3
+  sizeX: 4
+  sizeY: 4
+  sizeZ: 4
 --- !u!114 &3880120517220324192 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5850231621809046361, guid: 3b3374bc157df1e4a88e094f97576f5a, type: 3}

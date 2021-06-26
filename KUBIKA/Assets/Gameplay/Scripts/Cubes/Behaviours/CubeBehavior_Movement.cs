@@ -4,7 +4,6 @@ public class CubeBehavior_Movement : AbstractCubeBehavior
 {
     public CubeBehaviour_Base cubeBase;
     public CubeBehavior_Movement carryingCube;
-
     private CubeBehavior_Movement bottomCube; 
 
     public override void InitBehavior()
@@ -25,6 +24,7 @@ public class CubeBehavior_Movement : AbstractCubeBehavior
         targetNode.cubeType = cubeBase.cubeType;
         cubeBase.currNode.cubeType = ComplexCubeType.None;
 
+
         // Update cube base values
         cubeBase.currNode = targetNode;
         cubeBase.currCoordinates = targetNode.GetNodeCoordinates();
@@ -38,7 +38,7 @@ public class CubeBehavior_Movement : AbstractCubeBehavior
 
     public void TryAssignCarryingCube()
     {
-        if (Physics.Raycast(transform.position, Vector3.down, out var hitInfo))
+        if (Physics.Raycast(transform.position, Vector3.down, out var hitInfo, 1.25f))
         {
             bottomCube = hitInfo.collider.GetComponent<CubeBehavior_Movement>();
             if(bottomCube) bottomCube.carryingCube = this;

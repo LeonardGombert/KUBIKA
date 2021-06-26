@@ -15,7 +15,7 @@ public class CubeBehaviour_Base : AbstractCubeBehavior
     /// <param name="cubeType">The Cube's type.</param>
     /// <param name="position">The Cube's starting position.</param>
     /// <param name="parent">The Cube's transform parent.</param>
-    public void ConfigCube(Node currNode, Vector3Int currCoordinates, ComplexCubeType cubeType, Vector3 position,
+    public void ConfigCube(ref Node currNode, Vector3Int currCoordinates, ComplexCubeType cubeType, Vector3 position,
         Transform parent)
     {
         this.currNode = currNode;

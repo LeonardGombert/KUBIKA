@@ -12,6 +12,7 @@ namespace Gameplay.Scripts.Cubes.Managers
         private MoveDirection moveDirection;
         private Node targetNode;
         Vector3Int targetCoordinates;
+        
         private List<CubeBehavior_Movement> CarryManagerCubesStack => carryManager.cubesStack;
 
         public void TryMovingCubeInSwipeDirection(MoveDirection _moveDirection)
@@ -29,6 +30,7 @@ namespace Gameplay.Scripts.Cubes.Managers
                 targetNode = GetTargetNode(CarryManagerCubesStack[i].cubeBase.currCoordinates);
                 if (targetNode != null && HasCubeUnder())
                 {
+                    // breaking stops any cubes on top from moving
                     if (!CarryManagerCubesStack[i].TryMoveCubeToNode(ref targetNode)) break;
                     CarryManagerCubesStack[i].TryAssignCarryingCube();
                 }

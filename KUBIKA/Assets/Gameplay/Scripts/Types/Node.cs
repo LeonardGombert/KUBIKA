@@ -17,7 +17,7 @@ public class Node
     /// Returns the accurate worldPosition of the Node.
     /// </summary>
     public Vector3 worldPosition => worldPos;
-
+    
     /// <summary>
     /// Construct a new GridNode.
     /// </summary>
