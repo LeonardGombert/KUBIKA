@@ -30,11 +30,16 @@ namespace Gameplay.Scripts.Cubes.Managers
                 if (targetNode != null && bHasCubeUnder())
                 {
                     // breaking stops any cubes on top from moving
-                    if (!CarryManagerCubesStack[i].bMovingCubeToNode(ref targetNode)) break;
+                    if (!CarryManagerCubesStack[i].bMovingCubeToNode(ref targetNode))
+                    {
+                        gravityManager.CheckCubeGravity(CarryManagerCubesStack[i]);
+                        break;
+                    }
                     CarryManagerCubesStack[i].AssignCarriedByCube();
                     CarryManagerCubesStack[i].AssignCarryingCube();
                 }
             }
+
         }
         
         private void GetTargetNode(Vector3Int cubeBaseCurrCoordinates)

@@ -54,7 +54,7 @@ public class CubeBehavior_Movement : AbstractCubeBehavior
             if(carrying) carrying.carriedBy = this;
         }
     }
-
+    
     private void ResetCurrNode()
     {
         cubeBase.currNode = Grid_Kubo.Instance.grid[cubeBase.currCoordinates];

@@ -19,11 +19,6 @@ namespace Gameplay.Scripts.Cubes.Managers
 
         private CubeBehavior_Movement targetCubeMovement;
 
-        private void Start()
-        {
-            OnLevelLoaded();
-        }
-        
         public void GetTouchPositionOnScreen(InputAction.CallbackContext context)
         {
             currtouchPosition = context.action.ReadValue<Vector2>();

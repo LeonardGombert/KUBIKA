@@ -25,6 +25,11 @@ namespace Gameplay.Scripts.Cubes.Managers
 
         [SerializeField] protected List<T> managedCubes = new List<T>();
 
+        private void Start()
+        {
+            OnLevelLoaded();
+        }
+
         public void OnLevelLoaded()
         {
             managedCubes.Clear();
