@@ -7,8 +7,6 @@ namespace Gameplay.Scripts.Cubes.Managers
     public class BehaviourManager_PlayerInput : AbstractBehaviorManager<CubeBehavior_Movement>
     {
         [SerializeField] BehaviorManager_Movement movementManager;
-        [SerializeField] BehaviorManager_Gravity gravityManager;
-        [SerializeField] BehaviorManager_Push pushManager;
 
         private Camera mainCamera;
 
@@ -21,15 +19,19 @@ namespace Gameplay.Scripts.Cubes.Managers
         private bool _pointerTap;
 
         private CubeBehavior_Movement targetCubeMovement;
-        [SerializeField] private Grid_Kubo kuboGrid;
 
         private void Start()
         {
             mainCamera = FindObjectOfType<Camera>();
+        }
 
+        public override void OnLevelLoaded()
+        {
+            base.OnLevelLoaded();
+            
             foreach (var moveableCube in managedCubes)
             {
-                moveableCube.cubeBase.currNode = kuboGrid.grid[moveableCube.cubeBase.currCoordinates];
+                moveableCube.cubeBase.currNode = movementManager.kuboGrid.grid[moveableCube.cubeBase.currCoordinates];
             }
         }
 

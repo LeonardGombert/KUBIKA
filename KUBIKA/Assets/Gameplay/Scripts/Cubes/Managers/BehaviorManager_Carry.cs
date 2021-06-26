@@ -19,9 +19,9 @@ namespace Gameplay.Scripts.Cubes.Managers
         {
             cubesStack.Add(cubeToMove);
 
-            if (cubeToMove.carryingCube != null)
+            if (cubeToMove.carrying != null)
             {
-                cubeToMove = cubeToMove.carryingCube;
+                cubeToMove = cubeToMove.carrying;
                 RecursivelyFindCubesToMove();
             }
         }
