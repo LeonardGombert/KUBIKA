@@ -4,13 +4,15 @@ public class CubeBehavior_Movement : AbstractCubeBehavior
 {
     public CubeBehaviour_Base cubeBase;
     public CubeBehavior_Movement carrying;
-    private CubeBehavior_Movement carriedBy; 
+    public CubeBehavior_Movement carriedBy; 
 
     public override void InitBehavior()
     {
-        cubeBase = GetComponent<CubeBehaviour_Base>();
+        AssignCarriedByCube();
+        AssignCarryingCube();
+        ResetCurrNode();
     }
-
+    
     public bool bMovingCubeToNode(ref Node targetNode)
     {
         // the cube is occupied. Cannot move.
@@ -52,6 +54,12 @@ public class CubeBehavior_Movement : AbstractCubeBehavior
             if(carrying) carrying.carriedBy = this;
         }
     }
+
+    private void ResetCurrNode()
+    {
+        cubeBase.currNode = Grid_Kubo.Instance.grid[cubeBase.currCoordinates];
+    }
+
 
     public override void ResetBehavior()
     {

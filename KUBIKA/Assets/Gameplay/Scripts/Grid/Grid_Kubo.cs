@@ -8,6 +8,20 @@ public class Grid_Kubo : SerializedMonoBehaviour
     [SerializeField] private int sizeX, sizeY, sizeZ;
     public Dictionary<Vector3Int, Node> grid;
 
+    #region Singleton
+
+    private static Grid_Kubo _instance;
+    public static Grid_Kubo Instance => _instance;
+
+    public void Awake()
+    {
+        if (_instance != null && _instance != this) Destroy(this);
+        else _instance = this;
+
+        Debug.Log("Instance = " + _instance);
+    }
+
+    #endregion
     public void NodesToDictionary(Node[,,] newGrid)
     {
         grid = new Dictionary<Vector3Int, Node>();

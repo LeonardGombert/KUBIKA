@@ -7,8 +7,7 @@ namespace Gameplay.Scripts.Cubes.Managers
     public class BehaviourManager_PlayerInput : AbstractBehaviorManager<CubeBehavior_Movement>
     {
         [SerializeField] BehaviorManager_Movement movementManager;
-
-        private Camera mainCamera;
+        [SerializeField] private Camera mainCamera;
 
         private float swipeTolerance = 30;
         private Vector2 _swipeDirection;
@@ -22,19 +21,9 @@ namespace Gameplay.Scripts.Cubes.Managers
 
         private void Start()
         {
-            mainCamera = FindObjectOfType<Camera>();
+            OnLevelLoaded();
         }
-
-        public override void OnLevelLoaded()
-        {
-            base.OnLevelLoaded();
-            
-            foreach (var moveableCube in managedCubes)
-            {
-                moveableCube.cubeBase.currNode = movementManager.kuboGrid.grid[moveableCube.cubeBase.currCoordinates];
-            }
-        }
-
+        
         public void GetTouchPositionOnScreen(InputAction.CallbackContext context)
         {
             currtouchPosition = context.action.ReadValue<Vector2>();

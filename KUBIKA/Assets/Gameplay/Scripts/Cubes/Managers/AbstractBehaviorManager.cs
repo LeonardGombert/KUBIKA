@@ -1,10 +1,10 @@
+using System;
 using System.Collections.Generic;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Gameplay.Scripts.Cubes.Managers
 {
-    public abstract class AbstractBehaviorManager<T> : SerializedMonoBehaviour where T : AbstractCubeBehavior
+    public abstract class AbstractBehaviorManager<T> : MonoBehaviour where T : AbstractCubeBehavior
     {
         /// <summary>
         /// BehaviorManagers have a single dictionary that references all behaviors of its type. They
@@ -25,12 +25,7 @@ namespace Gameplay.Scripts.Cubes.Managers
 
         [SerializeField] protected List<T> managedCubes = new List<T>();
 
-        private void OnEnable()
-        {
-            OnLevelLoaded();
-        }
-
-        public virtual void OnLevelLoaded()
+        public void OnLevelLoaded()
         {
             managedCubes.Clear();
             managedCubes.AddRange(FindObjectsOfType<T>());
