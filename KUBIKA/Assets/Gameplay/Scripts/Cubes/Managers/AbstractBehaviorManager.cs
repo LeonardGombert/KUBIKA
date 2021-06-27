@@ -30,7 +30,7 @@ namespace Gameplay.Scripts.Cubes.Managers
             OnLevelLoaded();
         }
 
-        public void OnLevelLoaded()
+        private void OnLevelLoaded()
         {
             managedCubes.Clear();
             managedCubes.AddRange(FindObjectsOfType<T>());

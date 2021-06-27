@@ -386,7 +386,7 @@ MonoBehaviour:
     SerializationNodes: []
   placedCubes: []
   sizeX: 3
-  sizeY: 4
+  sizeY: 2
   sizeZ: 3
 --- !u!114 &3880120517220324192 stripped
 MonoBehaviour:

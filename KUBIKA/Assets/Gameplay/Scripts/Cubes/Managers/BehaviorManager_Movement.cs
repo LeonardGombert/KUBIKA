@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Gameplay.Scripts.Cubes.Managers
@@ -14,35 +15,76 @@ namespace Gameplay.Scripts.Cubes.Managers
         private MoveDirection moveDirection;
         private Node targetNode;
         Vector3Int targetCoordinates;
-
-        private List<CubeBehavior_Movement> CarryManagerCubesStack => carryManager.cubesStack;
+        List<CubeBehavior_Movement> CarryManagerCubesStack => carryManager.cubesStack;
 
         public void TryMovingCubeInSwipeDirection(MoveDirection _moveDirection)
         {
             moveDirection = _moveDirection;
-            
+            CheckCarriedPushAndGravity(ref movingCube);
+        }
+
+        private void CheckCarriedPushAndGravity(ref CubeBehavior_Movement movingCube)
+        {
             carryManager.GetCarriedCubes(ref movingCube);
 
             for (int i = 0; i < CarryManagerCubesStack.Count; i++)
             {
-                GetTargetNode(CarryManagerCubesStack[i].cubeBase.currCoordinates);
+                targetNode = GetTargetNode(CarryManagerCubesStack[i].cubeBase.currCoordinates);
 
                 if (targetNode != null && bHasCubeUnder())
                 {
-                    // breaking stops any cubes on top from moving
-                    if (!CarryManagerCubesStack[i].bMovingCubeToNode(ref targetNode))
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    // try pushing cube if there is one
+                    if ((targetNode.cubeType & ComplexCubeType.Moveable) != 0)
                     {
+                        CarryManagerCubesStack[i].AssignPushingCube(pushManager.GetPushDirection(moveDirection));
+                        if (CarryManagerCubesStack[i].pushing != null)
+                        {
+                            pushManager.ListPushingCubes(ref CarryManagerCubesStack[i].pushing);
+                        }
+
+                        for (int j = 0; j < pushManager.pushingCubes.Count; j++)
+                        {
+                            var pushManagerPushingCube = pushManager.pushingCubes[i];
+                            CheckCarriedPushAndGravity(ref pushManagerPushingCube);
+                        }
+                    }
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+
+                    // breaking stops any cubes on top from moving
+                    bool movedSuccessfully = CarryManagerCubesStack[i].bMovingCubeToNode(ref targetNode);
+                    if (!movedSuccessfully)
+                    {
+                        // check the current cube in case the cube under it managed to move successfully
                         gravityManager.CheckCubeGravity(CarryManagerCubesStack[i]);
                         break;
                     }
+
                     CarryManagerCubesStack[i].AssignCarriedByCube();
                     CarryManagerCubesStack[i].AssignCarryingCube();
                 }
             }
-
         }
-        
-        private void GetTargetNode(Vector3Int cubeBaseCurrCoordinates)
+
+        private Node GetTargetNode(Vector3Int cubeBaseCurrCoordinates)
         {
             targetCoordinates = cubeBaseCurrCoordinates;
             switch (moveDirection)
@@ -65,7 +107,8 @@ namespace Gameplay.Scripts.Cubes.Managers
             }
 
             // check to see if target position is open in the Grid
-            kuboGrid.grid.TryGetValue(targetCoordinates, out targetNode);
+            kuboGrid.grid.TryGetValue(targetCoordinates, out var targetNode);
+            return targetNode;
         }
 
         private bool bHasCubeUnder()

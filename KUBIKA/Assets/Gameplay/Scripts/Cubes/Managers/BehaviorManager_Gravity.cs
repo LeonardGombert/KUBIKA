@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Gameplay.Scripts.Cubes.Managers
 {
@@ -10,7 +11,7 @@ namespace Gameplay.Scripts.Cubes.Managers
 
         public void CheckCubeGravity(CubeBehavior_Movement cube)
         {
-            Grid_Kubo.Instance.grid.TryGetValue(cube.cubeBase.currCoordinates + Vector3Int.down, out var targetNode);
+            ReferenceProvider.Instance.KuboGrid.grid.TryGetValue(cube.cubeBase.currCoordinates + Vector3Int.down, out var targetNode);
 
             if (targetNode != null && targetNode.cubeType == ComplexCubeType.None)
             {

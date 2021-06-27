@@ -3,17 +3,11 @@
     "m_SelectedPackage": {
         "deviceId": "FPMDU18126000360",
         "name": "com.Kubika.ACubeStory",
-        "processId": 23736,
+        "processId": 1876,
         "exited": false
     },
     "m_SelectedPriority": 0,
     "m_KnownPackagesForSerialization": [
-        {
-            "deviceId": "FPMDU18126000360",
-            "name": "com.Kubika.ACubeStory",
-            "processId": 8662,
-            "exited": false
-        },
         {
             "deviceId": "FPMDU18126000360",
             "name": "com.Kubika.ACubeStory",
@@ -24,24 +18,42 @@
             "deviceId": "FPMDU18126000360",
             "name": "com.Kubika.ACubeStory",
             "processId": 17248,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "FPMDU18126000360",
             "name": "com.Kubika.ACubeStory",
             "processId": 17812,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "FPMDU18126000360",
             "name": "com.Kubika.ACubeStory",
             "processId": 1092,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "FPMDU18126000360",
             "name": "com.Kubika.ACubeStory",
             "processId": 23736,
+            "exited": true
+        },
+        {
+            "deviceId": "FPMDU18126000360",
+            "name": "com.Kubika.ACubeStory",
+            "processId": 27907,
+            "exited": false
+        },
+        {
+            "deviceId": "FPMDU18126000360",
+            "name": "com.Kubika.ACubeStory",
+            "processId": 32008,
+            "exited": false
+        },
+        {
+            "deviceId": "FPMDU18126000360",
+            "name": "com.Kubika.ACubeStory",
+            "processId": 1876,
             "exited": false
         }
     ],
