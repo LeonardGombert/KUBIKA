@@ -13,7 +13,7 @@ public class BehaviorManager_Delivery : AbstractBehaviorManager<CubeBehavior_Del
 
     private void DeliveryCubesCheck(object sender, EventArgs e)
     {
-        Debug.Log("Delivery Cubes are checking.");
+        Debug.LogWarning("Delivery Cubes are checking.");
         victoryCount = 0;
         
         for (int i = 0; i < managedCubes.Count; i++)
@@ -26,7 +26,7 @@ public class BehaviorManager_Delivery : AbstractBehaviorManager<CubeBehavior_Del
 
         if (victoryCount >= managedCubes.Count)
         {
-            Debug.Log("All " + victoryCount + " Victory cubes have been delivered !");
+            Debug.LogWarning("All " + victoryCount + " Victory cubes have been delivered !");
         }
     }
 }

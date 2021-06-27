@@ -1,3 +1,4 @@
+using System.Collections;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -18,12 +19,20 @@ public class CubeBehavior_Movement : AbstractCubeBehavior
 
     public bool bMovingCubeToNode(ref Node targetNode)
     {
+        if (targetNode == null)
+        {
+            // this happens when the cube is pushed to the edge of the map
+            StartCoroutine(Reassign());
+            return false;
+        }
+        
         // the cube is occupied. Cannot move.
         if ((CubeBehaviors) targetNode.cubeType != CubeBehaviors.None)
         {
+            StartCoroutine(Reassign());
             return false;
         }
-
+        
         // update nodes' Cube Types
         targetNode.cubeType = cubeBase.cubeType;
         cubeBase.currNode.cubeType = ComplexCubeType.None;
@@ -35,7 +44,16 @@ public class CubeBehavior_Movement : AbstractCubeBehavior
         // Move cube 
         transform.position = targetNode.worldPosition;
 
+        StartCoroutine(Reassign());
+        
         return true;
+    }
+
+    private IEnumerator Reassign()
+    {
+        yield return null;
+        AssignCarryingCube();
+        AssignCarriedByCube();
     }
 
     // check below
@@ -46,6 +64,7 @@ public class CubeBehavior_Movement : AbstractCubeBehavior
             carriedBy = hitInfo.collider.GetComponent<CubeBehavior_Movement>();
             if (carriedBy) carriedBy.carrying = this;
         }
+        else carriedBy = null;
     }
 
     // check above
@@ -55,6 +74,10 @@ public class CubeBehavior_Movement : AbstractCubeBehavior
         {
             carrying = hitInfo.collider.GetComponent<CubeBehavior_Movement>();
             if (carrying) carrying.carriedBy = this;
+        }
+        else
+        {
+            carrying = null;
         }
     }
 

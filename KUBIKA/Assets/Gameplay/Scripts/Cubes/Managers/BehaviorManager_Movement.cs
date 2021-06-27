@@ -13,78 +13,83 @@ namespace Gameplay.Scripts.Cubes.Managers
 
         public CubeBehavior_Movement movingCube;
         private MoveDirection moveDirection;
-        private Node targetNode;
         Vector3Int targetCoordinates;
-        List<CubeBehavior_Movement> CarryManagerCubesStack => carryManager.cubesStack;
+        List<CubeBehavior_Movement> CubeStack => carryManager.cubesStack;
+        [SerializeField] List<CubeBehavior_Movement> movingCubes = new List<CubeBehavior_Movement>();
 
         public void TryMovingCubeInSwipeDirection(MoveDirection _moveDirection)
         {
             moveDirection = _moveDirection;
-            CheckCarriedPushAndGravity(ref movingCube);
+            pushManager.pushDirection = _moveDirection;
+            movingCubes.Clear();
+            
+            // Check to see if there are cubes in the way
+            AreThereCubesInTheWayOf(ref movingCube);
         }
 
-        private void CheckCarriedPushAndGravity(ref CubeBehavior_Movement movingCube)
+        private void AreThereCubesInTheWayOf(ref CubeBehavior_Movement movingCube)
         {
-            carryManager.GetCarriedCubes(ref movingCube);
-
-            for (int i = 0; i < CarryManagerCubesStack.Count; i++)
-            {
-                targetNode = GetTargetNode(CarryManagerCubesStack[i].cubeBase.currCoordinates);
-
-                if (targetNode != null && bHasCubeUnder())
+            // does the target Node exist, and is there a cube I can move onto ?
+            Node targetNode = GetMovingCubeTargetNode(movingCube.cubeBase.currCoordinates);
+                if (targetNode != null  && bHasCubeUnder()) 
                 {
+                    // are there cubes in the way of the moving cube ? 
                     
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    // try pushing cube if there is one
-                    if ((targetNode.cubeType & ComplexCubeType.Moveable) != 0)
+                    // no -> call the move function and repeat for cubes that you are carrying
+                    if ((CubeBehaviors)targetNode.cubeType == CubeBehaviors.None)
                     {
-                        CarryManagerCubesStack[i].AssignPushingCube(pushManager.GetPushDirection(moveDirection));
-                        if (CarryManagerCubesStack[i].pushing != null)
-                        {
-                            pushManager.ListPushingCubes(ref CarryManagerCubesStack[i].pushing);
-                        }
-
-                        for (int j = 0; j < pushManager.pushingCubes.Count; j++)
-                        {
-                            var pushManagerPushingCube = pushManager.pushingCubes[i];
-                            CheckCarriedPushAndGravity(ref pushManagerPushingCube);
-                        }
-                    }
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-
-                    // breaking stops any cubes on top from moving
-                    bool movedSuccessfully = CarryManagerCubesStack[i].bMovingCubeToNode(ref targetNode);
-                    if (!movedSuccessfully)
-                    {
-                        // check the current cube in case the cube under it managed to move successfully
-                        gravityManager.CheckCubeGravity(CarryManagerCubesStack[i]);
-                        break;
+                        MoveTheCurrentCube(ref movingCube);
+                        AreThereAnyCubesAboveYou(ref movingCube);
                     }
 
-                    CarryManagerCubesStack[i].AssignCarriedByCube();
-                    CarryManagerCubesStack[i].AssignCarryingCube();
+                    // otherwise, get a list of the cubes you are trying to push
+                    else
+                    {
+                        pushManager.GetPushingCubes(ref movingCube);
+                    }
+                    
+                    // if you can't push these cubes, simply apply gravity to yourself
+                    if (!pushManager.bCanMovePushingCubes())
+                    {
+                        gravityManager.CheckCubeGravity(movingCube);
+                    }
+                    
+                    // if you can push them, then move all of those cubes, followed by yourself, and repeat for cubes that you are carrying
+                    else if (pushManager.bCanMovePushingCubes())
+                    {
+                        pushManager.cubesToPush.Reverse();
+                        
+                        for (int i = 0; i < pushManager.cubesToPush.Count; i++)
+                        {
+                            Debug.Log(i);
+                            var cubeBehaviorMovement = pushManager.cubesToPush[i];
+                            MoveTheCurrentCube(ref cubeBehaviorMovement);
+                            AreThereAnyCubesAboveYou(ref cubeBehaviorMovement);
+                        }
+                        pushManager.ClearPushingCubes();
+                    }
                 }
-            }
         }
 
-        private Node GetTargetNode(Vector3Int cubeBaseCurrCoordinates)
+        private void MoveTheCurrentCube(ref CubeBehavior_Movement movingCube)
+        {
+            Node targetNode = GetMovingCubeTargetNode(movingCube.cubeBase.currCoordinates);
+            movingCube.bMovingCubeToNode(ref targetNode);
+        }
+
+        private void AreThereAnyCubesAboveYou(ref CubeBehavior_Movement theMovingCube)
+        {
+            // is there a carriedCube in the moving cube ? 
+                // no -> do nothing
+                
+                // yes -> then call AreThereCubesInTheWayOf(carriedCube)
+                if (theMovingCube.carrying != null)
+                {
+                    AreThereCubesInTheWayOf(ref theMovingCube.carrying);
+                }
+        }
+
+        private Node GetMovingCubeTargetNode(Vector3Int cubeBaseCurrCoordinates)
         {
             targetCoordinates = cubeBaseCurrCoordinates;
             switch (moveDirection)

@@ -172,6 +172,8 @@ MonoBehaviour:
   cubeBase: {fileID: 38976088}
   carrying: {fileID: 0}
   carriedBy: {fileID: 0}
+  pushing: {fileID: 0}
+  pushedBy: {fileID: 0}
 --- !u!114 &38976088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7365,6 +7367,8 @@ MonoBehaviour:
   cubeBase: {fileID: 589415269}
   carrying: {fileID: 0}
   carriedBy: {fileID: 0}
+  pushing: {fileID: 0}
+  pushedBy: {fileID: 0}
 --- !u!114 &589415269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7820,6 +7824,8 @@ MonoBehaviour:
   cubeBase: {fileID: 702121175}
   carrying: {fileID: 0}
   carriedBy: {fileID: 0}
+  pushing: {fileID: 0}
+  pushedBy: {fileID: 0}
 --- !u!114 &702121174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9109,9 +9115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2b646b7ebdf4eb587436af6439009e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  managedCubes:
-  - {fileID: 0}
-  - {fileID: 0}
+  managedCubes: []
 --- !u!4 &1247146383
 Transform:
   m_ObjectHideFlags: 0
@@ -10049,6 +10053,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   managedCubes: []
+  pushingCubes: []
+  pushDirection: 0
 --- !u!1 &1688325685
 GameObject:
   m_ObjectHideFlags: 0
@@ -10214,6 +10220,8 @@ MonoBehaviour:
   cubeBase: {fileID: 1728028967}
   carrying: {fileID: 0}
   carriedBy: {fileID: 0}
+  pushing: {fileID: 0}
+  pushedBy: {fileID: 0}
 --- !u!114 &1728028967
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -91,7 +91,7 @@ namespace Gameplay.Scripts.Cubes.Managers
 
         protected virtual void OnCubesMoved()
         {
-            Debug.Log("Cubes were moved.");
+            Debug.LogWarning("Cubes were moved.");
             PlayerInput?.Invoke(this, EventArgs.Empty);
         }
     }
