@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 namespace Gameplay.Scripts.Cubes.Managers
 {
-    public class BehaviourManager_PlayerInput : AbstractBehaviorManager<CubeBehavior_Movement>
+    public class BehaviourManager_PlayerInput : MonoBehaviour
     {
         [SerializeField] BehaviorManager_Movement movementManager;
         [SerializeField] private Camera mainCamera;
@@ -16,9 +16,8 @@ namespace Gameplay.Scripts.Cubes.Managers
 
         private Vector2 currtouchPosition;
         private Vector2 startTouchPosition;
-        private bool _pointerTap;
 
-        private CubeBehavior_Movement targetCubeMovement;
+        public CubeBehavior_Movement targetCubeMovement;
 
         public event EventHandler PlayerInput;
 
@@ -26,7 +25,6 @@ namespace Gameplay.Scripts.Cubes.Managers
         {
             currtouchPosition = context.action.ReadValue<Vector2>();
 
-            if (!_pointerTap) return;
             if (!targetCubeMovement) return;
 
             StartCoroutine(CheckIfPlayerSwiping());
@@ -72,26 +70,18 @@ namespace Gameplay.Scripts.Cubes.Managers
             if (context.started)
             {
                 startTouchPosition = currtouchPosition;
-                _pointerTap = true;
-
+                
                 var ray = mainCamera.ScreenPointToRay(currtouchPosition);
 
                 if (Physics.Raycast(ray, out RaycastHit hitInfo, 500f))
                 {
-                    targetCubeMovement = movementManager.movingCube =
-                        hitInfo.collider.GetComponent<CubeBehavior_Movement>();
+                    targetCubeMovement = hitInfo.collider.GetComponent<CubeBehavior_Movement>();
                 }
-            }
-
-            if (context.canceled)
-            {
-                _pointerTap = false;
             }
         }
 
         protected virtual void OnCubesMoved()
         {
-            Debug.LogWarning("Cubes were moved.");
             PlayerInput?.Invoke(this, EventArgs.Empty);
         }
     }

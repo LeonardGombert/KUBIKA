@@ -5,24 +5,20 @@ namespace Gameplay.Scripts.Cubes.Managers
 {
     public class BehaviorManager_Carry : MonoBehaviour
     {
-        public CubeBehavior_Movement cubeToMove;
-        public List<CubeBehavior_Movement> cubesStack = new List<CubeBehavior_Movement>();
-
-        public void GetCarriedCubes(ref CubeBehavior_Movement movingCube)
+        public bool bAreThereAnyCubesAbove(ref CubeBehavior_Movement cubeBehaviorMovement)
         {
-            cubeToMove = movingCube;
-            cubesStack.Clear();
-            RecursivelyFindCubesToMove();
-        }
+            // is there a carriedCube in the moving cube ? 
+            // no -> do nothing
 
-        private void RecursivelyFindCubesToMove()
-        {
-            cubesStack.Add(cubeToMove);
-
-            if (cubeToMove.carrying != null)
+            // yes -> then call AreThereCubesInTheWayOf(carriedCube)
+            if (cubeBehaviorMovement.carrying != null)
             {
-                cubeToMove = cubeToMove.carrying;
-                RecursivelyFindCubesToMove();
+                return true;
+            }
+
+            else
+            {
+                return false;
             }
         }
     }

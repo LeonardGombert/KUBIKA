@@ -17,21 +17,21 @@ public class CubeBehavior_Movement : AbstractCubeBehavior
         ResetCurrNode();
     }
 
-    public bool bMovingCubeToNode(ref Node targetNode)
+    public void MoveCubeToNode(ref Node targetNode)
     {
+        // this happens when the cube is pushed to the edge of the map
         if (targetNode == null)
         {
-            // this happens when the cube is pushed to the edge of the map
-            StartCoroutine(Reassign());
-            return false;
-        }
+            StartCoroutine(WaitAndAssignCarryCubes());
+            return;
+        } // TODO : a better implementation of pushing cubes where they cannot go further
         
         // the cube is occupied. Cannot move.
         if ((CubeBehaviors) targetNode.cubeType != CubeBehaviors.None)
         {
-            StartCoroutine(Reassign());
-            return false;
-        }
+            StartCoroutine(WaitAndAssignCarryCubes());
+            return;
+        } // TODO : a better implementation of pushing cubes where they cannot go further
         
         // update nodes' Cube Types
         targetNode.cubeType = cubeBase.cubeType;
@@ -44,12 +44,11 @@ public class CubeBehavior_Movement : AbstractCubeBehavior
         // Move cube 
         transform.position = targetNode.worldPosition;
 
-        StartCoroutine(Reassign());
-        
-        return true;
+        StartCoroutine(WaitAndAssignCarryCubes());
     }
 
-    private IEnumerator Reassign()
+    // waits for the next frame to reassign carrying/carried cube
+    private IEnumerator WaitAndAssignCarryCubes()
     {
         yield return null;
         AssignCarryingCube();
@@ -57,7 +56,7 @@ public class CubeBehavior_Movement : AbstractCubeBehavior
     }
 
     // check below
-    public void AssignCarriedByCube()
+    private void AssignCarriedByCube()
     {
         if (Physics.Raycast(transform.position, Vector3.down, out var hitInfo, 1.25f))
         {
@@ -68,7 +67,7 @@ public class CubeBehavior_Movement : AbstractCubeBehavior
     }
 
     // check above
-    public void AssignCarryingCube()
+    private void AssignCarryingCube()
     {
         if (Physics.Raycast(transform.position, Vector3.up, out var hitInfo, 1.25f))
         {
@@ -78,19 +77,6 @@ public class CubeBehavior_Movement : AbstractCubeBehavior
         else
         {
             carrying = null;
-        }
-    }
-
-    public void AssignPushingCube(Vector3 moveDirection)
-    {
-        if (Physics.Raycast(transform.position, moveDirection, out var hitInfo, 1.25f))
-        {
-            pushing = hitInfo.collider.GetComponent<CubeBehavior_Movement>();
-
-            if (pushing)
-            {
-                pushing.AssignPushingCube(moveDirection);
-            }
         }
     }
 
