@@ -19,6 +19,8 @@ namespace Gameplay.Scripts.Cubes.Managers
                 {
                     CheckCubeGravity(cube.carrying);
                 }
+                // call the function again on the same cube, making it loop until it hits the ground floor
+                CheckCubeGravity(cube);
             }
         }
     }

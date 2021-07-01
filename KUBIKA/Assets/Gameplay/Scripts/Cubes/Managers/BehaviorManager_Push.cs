@@ -18,7 +18,7 @@ namespace Gameplay.Scripts.Cubes.Managers
         }
 
         public void ReversePushingCubesList() => cubesToPush.Reverse();
-        
+
         public void ClearPushingCubes() => cubesToPush.Clear();
 
         public bool bCanMovePushingCubes() => canPushCubes;
@@ -35,6 +35,7 @@ namespace Gameplay.Scripts.Cubes.Managers
                 {
                     // then the cube cannot move, nor any of the cubes before it
                     canPushCubes = false;
+                    cubesToPush.Clear();
                     return;
                 }
 
@@ -49,28 +50,38 @@ namespace Gameplay.Scripts.Cubes.Managers
             else
             {
                 // then there is an available free space, and all nodes can move in that direction
-                canPushCubes = true;
+                canPushCubes = CheckIfFree();
             }
         }
 
-        private Vector3 GetPushDirection()
+        private bool CheckIfFree()
+        {
+            ReferenceProvider.Instance.KuboGrid.grid.TryGetValue(
+                cubesToPush[cubesToPush.Count - 1].cubeBase.currCoordinates + GetPushDirection(),
+                out var targetNode);
+
+            if (targetNode == null)
+                return false;
+            return true;
+        }
+
+        private Vector3Int GetPushDirection()
         {
             switch (pushDirection)
             {
                 case MoveDirection.Forward:
-                    return Vector3.forward;
+                    return Vector3Int.forward;
                 case MoveDirection.Right:
-                    return Vector3.right;
+                    return Vector3Int.right;
                 case MoveDirection.Back:
-                    return Vector3.back;
+                    return Vector3Int.back;
                 case MoveDirection.Left:
-                    return Vector3.left;
+                    return Vector3Int.left;
                 case MoveDirection.Down:
-                    return Vector3.down;
+                    return Vector3Int.down;
                 default:
-                    return Vector3.zero;
+                    return Vector3Int.zero;
             }
         }
-
     }
 }
