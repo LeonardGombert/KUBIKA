@@ -10,7 +10,7 @@ namespace Gameplay.Scripts.Cubes.Managers
         [SerializeField] BehaviorManager_Movement movementManager;
         [SerializeField] private Camera mainCamera;
 
-        private float swipeTolerance = 30;
+        [SerializeField] private float swipeTolerance = 120;
         private Vector2 _swipeDirection;
         private float _swipeDirX, _swipeDirY;
 
@@ -35,7 +35,7 @@ namespace Gameplay.Scripts.Cubes.Managers
             if ((currtouchPosition - startTouchPosition).sqrMagnitude >= (swipeTolerance * swipeTolerance))
             {
                 movementManager.TryMovingCubeInSwipeDirection(ConvertSwipeToMoveDirection());
-                targetCubeMovement = null;
+                startTouchPosition = currtouchPosition;
                 yield return null;
                 OnCubesMoved();
             }
@@ -77,6 +77,11 @@ namespace Gameplay.Scripts.Cubes.Managers
                 {
                     targetCubeMovement = hitInfo.collider.GetComponent<CubeBehavior_Movement>();
                 }
+            }
+
+            if (context.canceled)
+            {
+                targetCubeMovement = null;
             }
         }
 
