@@ -7,8 +7,6 @@ public class CubeBehavior_Movement : AbstractCubeBehavior
     public CubeBehaviour_Base cubeBase;
     [ReadOnly] public CubeBehavior_Movement carrying;
     [ReadOnly] public CubeBehavior_Movement carriedBy;
-    [ReadOnly] public CubeBehavior_Movement pushing;
-    [ReadOnly] public CubeBehavior_Movement pushedBy;
 
     public override void InitBehavior()
     {
@@ -19,29 +17,16 @@ public class CubeBehavior_Movement : AbstractCubeBehavior
 
     public void MoveCubeToNode(ref Node targetNode)
     {
-        // this happens when the cube is pushed to the edge of the map
-        /*if (targetNode == null)
-        {
-            AssignCarryingCube();
-            AssignCarriedByCube();
-        }*/
+        // update nodes' Cube Types
+        targetNode.cubeType = cubeBase.cubeType;
+        cubeBase.currNode.cubeType = ComplexCubeType.None;
 
-        if ((CubeBehaviors) targetNode.cubeType == CubeBehaviors.None)
-        {
-            // update nodes' Cube Types
-            targetNode.cubeType = cubeBase.cubeType;
-            cubeBase.currNode.cubeType = ComplexCubeType.None;
+        // Update cube base values
+        cubeBase.currNode = targetNode;
+        cubeBase.currCoordinates = targetNode.GetNodeCoordinates();
 
-            // Update cube base values
-            cubeBase.currNode = targetNode;
-            cubeBase.currCoordinates = targetNode.GetNodeCoordinates();
-
-            // Move cube 
-            transform.position = targetNode.worldPosition;
-        }
-
-        /*AssignCarryingCube();
-        AssignCarriedByCube();*/
+        // Move cube 
+        transform.position = targetNode.worldPosition;
     }
 
     // waits for the next frame to reassign carrying/carried cube
