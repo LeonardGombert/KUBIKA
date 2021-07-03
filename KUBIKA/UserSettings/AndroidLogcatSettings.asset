@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "FPMDU18126000360",
         "name": "com.Kubika.ACubeStory",
-        "processId": 14466,
+        "processId": 24403,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -60,6 +60,36 @@
             "deviceId": "FPMDU18126000360",
             "name": "com.Kubika.ACubeStory",
             "processId": 14466,
+            "exited": false
+        },
+        {
+            "deviceId": "FPMDU18126000360",
+            "name": "com.Kubika.ACubeStory",
+            "processId": 21512,
+            "exited": false
+        },
+        {
+            "deviceId": "FPMDU18126000360",
+            "name": "com.Kubika.ACubeStory",
+            "processId": 23078,
+            "exited": false
+        },
+        {
+            "deviceId": "FPMDU18126000360",
+            "name": "com.Kubika.ACubeStory",
+            "processId": 23653,
+            "exited": false
+        },
+        {
+            "deviceId": "FPMDU18126000360",
+            "name": "com.Kubika.ACubeStory",
+            "processId": 23957,
+            "exited": false
+        },
+        {
+            "deviceId": "FPMDU18126000360",
+            "name": "com.Kubika.ACubeStory",
+            "processId": 24403,
             "exited": false
         }
     ],

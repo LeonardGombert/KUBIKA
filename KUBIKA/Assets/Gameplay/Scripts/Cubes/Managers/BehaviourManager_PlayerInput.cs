@@ -21,22 +21,27 @@ namespace Gameplay.Scripts.Cubes.Managers
         private CubeBehavior_Movement targetCubeMovement;
         public UnityEvent cubesMoved;
 
+        bool canSwipe = true;
+
         public void GetTouchPositionOnScreen(InputAction.CallbackContext context)
         {
             currtouchPosition = context.action.ReadValue<Vector2>();
 
-            if (!targetCubeMovement) return;
-
-            StartCoroutine(CheckIfPlayerSwiping());
+            if (targetCubeMovement != null && canSwipe)
+            {
+                StartCoroutine(CheckIfPlayerSwiping());
+            }
         }
 
         private IEnumerator CheckIfPlayerSwiping()
         {
             if ((currtouchPosition - startTouchPosition).sqrMagnitude >= (swipeTolerance * swipeTolerance))
             {
+                canSwipe = false;
                 movementManager.TryMovingCubeInSwipeDirection(ref targetCubeMovement);
                 startTouchPosition = currtouchPosition;
                 yield return null;
+                canSwipe = true;
                 cubesMoved.Invoke();
             }
         }
@@ -70,7 +75,7 @@ namespace Gameplay.Scripts.Cubes.Managers
             if (context.started)
             {
                 startTouchPosition = currtouchPosition;
-                
+
                 var ray = mainCamera.ScreenPointToRay(currtouchPosition);
 
                 if (Physics.Raycast(ray, out RaycastHit hitInfo, 500f))

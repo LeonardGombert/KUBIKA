@@ -85,12 +85,27 @@ namespace Gameplay.Scripts.Cubes.Managers
 
             if (!pushManager.bCanMovePushingCubes())
             {
-                gravityManager.CheckCubeGravity(currentCube);
+                MakeCubesFall();
             }
 
             else
             {
                 PushCubesInList();
+            }
+        }
+
+        private void MakeCubesFall()
+        {
+            gravityManager.CheckCubeGravity(currentCube);
+            ReassignCubeStacks();
+        }
+
+        private void ReassignCubeStacks()
+        {
+            // TODO : only reassign from the stack and not all managed cubes (?)
+            foreach (var stackedCube in managedCubes)
+            {
+                StartCoroutine(stackedCube.ReassignCubes());
             }
         }
 

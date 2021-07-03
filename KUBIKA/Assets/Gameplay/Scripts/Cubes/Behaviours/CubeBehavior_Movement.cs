@@ -20,35 +20,32 @@ public class CubeBehavior_Movement : AbstractCubeBehavior
     public void MoveCubeToNode(ref Node targetNode)
     {
         // this happens when the cube is pushed to the edge of the map
-        if (targetNode == null)
+        /*if (targetNode == null)
         {
-            StartCoroutine(WaitAndAssignCarryCubes());
-            return;
-        } // TODO : a better implementation of pushing cubes where they cannot go further
-        
-        // the cube is occupied. Cannot move.
-        if ((CubeBehaviors) targetNode.cubeType != CubeBehaviors.None)
+            AssignCarryingCube();
+            AssignCarriedByCube();
+        }*/
+
+        if ((CubeBehaviors) targetNode.cubeType == CubeBehaviors.None)
         {
-            StartCoroutine(WaitAndAssignCarryCubes());
-            return;
-        } // TODO : a better implementation of pushing cubes where they cannot go further
-        
-        // update nodes' Cube Types
-        targetNode.cubeType = cubeBase.cubeType;
-        cubeBase.currNode.cubeType = ComplexCubeType.None;
+            // update nodes' Cube Types
+            targetNode.cubeType = cubeBase.cubeType;
+            cubeBase.currNode.cubeType = ComplexCubeType.None;
 
-        // Update cube base values
-        cubeBase.currNode = targetNode;
-        cubeBase.currCoordinates = targetNode.GetNodeCoordinates();
+            // Update cube base values
+            cubeBase.currNode = targetNode;
+            cubeBase.currCoordinates = targetNode.GetNodeCoordinates();
 
-        // Move cube 
-        transform.position = targetNode.worldPosition;
+            // Move cube 
+            transform.position = targetNode.worldPosition;
+        }
 
-        StartCoroutine(WaitAndAssignCarryCubes());
+        /*AssignCarryingCube();
+        AssignCarriedByCube();*/
     }
 
     // waits for the next frame to reassign carrying/carried cube
-    private IEnumerator WaitAndAssignCarryCubes()
+    public IEnumerator ReassignCubes()
     {
         yield return null;
         AssignCarryingCube();
