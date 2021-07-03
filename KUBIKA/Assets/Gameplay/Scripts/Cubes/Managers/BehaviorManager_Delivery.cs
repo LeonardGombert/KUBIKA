@@ -6,12 +6,7 @@ public class BehaviorManager_Delivery : AbstractBehaviorManager<CubeBehavior_Del
 {
     private int victoryCount;
     
-    private void Start()
-    {
-        ReferenceProvider.Instance.PlayerInput.PlayerInput += DeliveryCubesCheck;
-    }
-
-    private void DeliveryCubesCheck(object sender, EventArgs e)
+    public void DeliveryCubesCheck()
     {
         Debug.LogWarning("Delivery Cubes are checking.");
         victoryCount = 0;

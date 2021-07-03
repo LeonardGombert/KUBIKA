@@ -8,80 +8,110 @@ namespace Gameplay.Scripts.Cubes.Managers
     {
         public Grid_Kubo kuboGrid;
         [SerializeField] private BehaviourManager_PlayerInput playerInput;
-        [SerializeField] private BehaviorManager_Carry carryManager;
         [SerializeField] private BehaviorManager_Gravity gravityManager;
         [SerializeField] private BehaviorManager_Push pushManager;
 
         private MoveDirection moveDirection;
         private Vector3Int targetCoordinates;
-        
-        public void TryMovingCubeInSwipeDirection(MoveDirection _moveDirection)
+        private int currentCubeInStack;
+
+        private CubeBehavior_Movement currentCube;
+        private Node destinationNode;
+
+        public void TryMovingCubeInSwipeDirection(ref CubeBehavior_Movement targetCube)
         {
-            moveDirection = _moveDirection;
-            pushManager.pushDirection = _moveDirection;
+            moveDirection = playerInput.CalculateMoveDirection();
+            currentCube = targetCube;
 
-            Node targetNode = GetTargetNode(playerInput.targetCubeMovement.cubeBase.currCoordinates);
+            // see about this later//
+            pushManager.pushDirection = moveDirection;
 
-            if (targetNode != null && bHasCubeUnder())
+            MoveBaseCubeInDirection();
+        }
+
+        #region Moving
+
+        private void MoveBaseCubeInDirection()
+        {
+            Vector3Int coords = currentCube.cubeBase.currCoordinates;
+            destinationNode = TryGettingBaseCubeNode(coords);
+            currentCubeInStack = 0;
+
+            if (destinationNode == null) return;
+
+            if (OriginHasCubeUnder(coords) && TargetHasCubeUnder())
             {
-                TryMovingInDirection(ref playerInput.targetCubeMovement);
+                TryMovingCurrentCube();
             }
         }
-        
-        private void TryMovingInDirection(ref CubeBehavior_Movement movingCube)
+
+        private void TryMovingCurrentCube()
         {
-            // if there are no cubes in front of you
-            if ((CubeBehaviors) GetTargetNode(movingCube.cubeBase.currCoordinates).cubeType == CubeBehaviors.None)
+            if ((CubeBehaviors) destinationNode.cubeType == CubeBehaviors.None)
             {
-                TryMovingCube(ref movingCube);
+                MoveCurrentCube();
             }
 
             else
             {
-                TryPushingCubes(ref movingCube);
+                TryPushing();
             }
         }
-        
-        private void TryMovingCube(ref CubeBehavior_Movement movingCube)
+
+        private void MoveCurrentCube()
         {
-            Node targetNode = GetTargetNode(movingCube.cubeBase.currCoordinates);
-            movingCube.MoveCubeToNode(ref targetNode);
-            
-            if (carryManager.bAreThereAnyCubesAbove(ref movingCube))
+            currentCube.MoveCubeToNode(ref destinationNode);
+
+            if (currentCube.carrying)
             {
-                TryMovingInDirection(ref movingCube.carrying);
+                MakeCarriedCubeFollow();
             }
         }
-        
-        // TODO : cubes shouldn't be pushed if they are pushed into nothingness
-        private void TryPushingCubes(ref CubeBehavior_Movement movingCube)
+
+        private void MakeCarriedCubeFollow()
         {
-            // get cubes to push
-            pushManager.ListCubesToPush(ref movingCube);
-            
-            // if you can't push these cubes, simply apply gravity to yourself in case the cubes below you moved
+            currentCube = currentCube.carrying;
+            destinationNode = GetCarriedCubeTargetNode();
+            TryMovingCurrentCube();
+        }
+
+        #endregion
+
+        #region Pushing
+
+        private void TryPushing()
+        {
+            pushManager.ListOfCubesToPush(ref currentCube);
+
             if (!pushManager.bCanMovePushingCubes())
             {
-                // make cube fall if there is room under
-                gravityManager.CheckCubeGravity(movingCube);
-                return;
+                gravityManager.CheckCubeGravity(currentCube);
             }
 
-            // if you can push them, then move all of those cubes, followed by yourself, and repeat for cubes that you are carrying
+            else
+            {
+                PushCubesInList();
+            }
+        }
+
+        private void PushCubesInList()
+        {
             pushManager.ReversePushingCubesList();
 
-            // push each cube in the list
             for (int i = 0; i < pushManager.cubesToPush.Count; i++)
             {
-                var pushedCube = pushManager.cubesToPush[i];
-                TryMovingCube(ref pushedCube);
+                currentCube = pushManager.cubesToPush[i];
+                MoveBaseCubeInDirection();
             }
 
-            // clear the list
             pushManager.ClearPushingCubes();
         }
-        
-        private Node GetTargetNode(Vector3Int cubeBaseCurrCoordinates)
+
+        #endregion
+
+        #region Helper Functions
+
+        private Node TryGettingBaseCubeNode(Vector3Int cubeBaseCurrCoordinates)
         {
             targetCoordinates = cubeBaseCurrCoordinates;
             switch (moveDirection)
@@ -108,12 +138,27 @@ namespace Gameplay.Scripts.Cubes.Managers
             return targetNode;
         }
 
-        private bool bHasCubeUnder()
+        private Node GetCarriedCubeTargetNode()
+        {
+            return kuboGrid.grid[targetCoordinates + (Vector3Int.up * ++currentCubeInStack)];
+        }
+
+        private bool OriginHasCubeUnder(Vector3Int cubeBaseCurrCoordinates)
+        {
+            // check to see if current cube has a cube underneath
+            kuboGrid.grid.TryGetValue(cubeBaseCurrCoordinates + Vector3Int.down, out var tempNode);
+            if (tempNode == null) return false;
+            return ((CubeBehaviors) tempNode.cubeType) != CubeBehaviors.None;
+        }
+
+        private bool TargetHasCubeUnder()
         {
             // check to see if target position has a cube underneath
             kuboGrid.grid.TryGetValue(targetCoordinates + Vector3Int.down, out var tempNode);
             if (tempNode == null) return false;
             return ((CubeBehaviors) tempNode.cubeType) != CubeBehaviors.None;
         }
+
+        #endregion
     }
 }

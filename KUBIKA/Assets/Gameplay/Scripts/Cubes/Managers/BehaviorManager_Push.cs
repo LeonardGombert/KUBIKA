@@ -11,7 +11,7 @@ namespace Gameplay.Scripts.Cubes.Managers
         public MoveDirection pushDirection;
         private bool canPushCubes;
 
-        public void ListCubesToPush(ref CubeBehavior_Movement pushingCube)
+        public void ListOfCubesToPush(ref CubeBehavior_Movement pushingCube)
         {
             ClearPushingCubes();
             RecursivelyAddPushingCubes(ref pushingCube);

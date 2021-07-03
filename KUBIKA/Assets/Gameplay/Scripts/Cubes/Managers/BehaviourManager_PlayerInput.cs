@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace Gameplay.Scripts.Cubes.Managers
@@ -17,9 +18,8 @@ namespace Gameplay.Scripts.Cubes.Managers
         private Vector2 currtouchPosition;
         private Vector2 startTouchPosition;
 
-        public CubeBehavior_Movement targetCubeMovement;
-
-        public event EventHandler PlayerInput;
+        private CubeBehavior_Movement targetCubeMovement;
+        public UnityEvent cubesMoved;
 
         public void GetTouchPositionOnScreen(InputAction.CallbackContext context)
         {
@@ -34,14 +34,14 @@ namespace Gameplay.Scripts.Cubes.Managers
         {
             if ((currtouchPosition - startTouchPosition).sqrMagnitude >= (swipeTolerance * swipeTolerance))
             {
-                movementManager.TryMovingCubeInSwipeDirection(ConvertSwipeToMoveDirection());
+                movementManager.TryMovingCubeInSwipeDirection(ref targetCubeMovement);
                 startTouchPosition = currtouchPosition;
                 yield return null;
-                OnCubesMoved();
+                cubesMoved.Invoke();
             }
         }
 
-        private MoveDirection ConvertSwipeToMoveDirection()
+        public MoveDirection CalculateMoveDirection()
         {
             _swipeDirection = (currtouchPosition - startTouchPosition).normalized;
             _swipeDirX = Mathf.Sign(_swipeDirection.x);
@@ -83,11 +83,6 @@ namespace Gameplay.Scripts.Cubes.Managers
             {
                 targetCubeMovement = null;
             }
-        }
-
-        protected virtual void OnCubesMoved()
-        {
-            PlayerInput?.Invoke(this, EventArgs.Empty);
         }
     }
 }
