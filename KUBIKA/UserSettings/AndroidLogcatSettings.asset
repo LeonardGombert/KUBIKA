@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "FPMDU18126000360",
         "name": "com.Kubika.ACubeStory",
-        "processId": 6372,
+        "processId": 23134,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -11,103 +11,49 @@
         {
             "deviceId": "FPMDU18126000360",
             "name": "com.Kubika.ACubeStory",
-            "processId": 11067,
+            "processId": 9624,
             "exited": true
         },
         {
             "deviceId": "FPMDU18126000360",
             "name": "com.Kubika.ACubeStory",
-            "processId": 17248,
+            "processId": 10191,
             "exited": true
         },
         {
             "deviceId": "FPMDU18126000360",
             "name": "com.Kubika.ACubeStory",
-            "processId": 17812,
+            "processId": 10421,
+            "exited": true
+        },
+        {
+            "deviceId": "FPMDU18126000360",
+            "name": "com.huawei.android.launcher",
+            "processId": 1819,
+            "exited": false
+        },
+        {
+            "deviceId": "FPMDU18126000360",
+            "name": "com.Kubika.ACubeStory",
+            "processId": 10984,
             "exited": true
         },
         {
             "deviceId": "FPMDU18126000360",
             "name": "com.Kubika.ACubeStory",
-            "processId": 1092,
+            "processId": 19746,
             "exited": true
         },
         {
             "deviceId": "FPMDU18126000360",
-            "name": "com.Kubika.ACubeStory",
-            "processId": 23736,
-            "exited": true
-        },
-        {
-            "deviceId": "FPMDU18126000360",
-            "name": "com.Kubika.ACubeStory",
-            "processId": 27907,
+            "name": "com.instagram.android",
+            "processId": 22454,
             "exited": false
         },
         {
             "deviceId": "FPMDU18126000360",
             "name": "com.Kubika.ACubeStory",
-            "processId": 32008,
-            "exited": false
-        },
-        {
-            "deviceId": "FPMDU18126000360",
-            "name": "com.Kubika.ACubeStory",
-            "processId": 1876,
-            "exited": false
-        },
-        {
-            "deviceId": "FPMDU18126000360",
-            "name": "com.Kubika.ACubeStory",
-            "processId": 14466,
-            "exited": false
-        },
-        {
-            "deviceId": "FPMDU18126000360",
-            "name": "com.Kubika.ACubeStory",
-            "processId": 21512,
-            "exited": false
-        },
-        {
-            "deviceId": "FPMDU18126000360",
-            "name": "com.Kubika.ACubeStory",
-            "processId": 23078,
-            "exited": false
-        },
-        {
-            "deviceId": "FPMDU18126000360",
-            "name": "com.Kubika.ACubeStory",
-            "processId": 23653,
-            "exited": false
-        },
-        {
-            "deviceId": "FPMDU18126000360",
-            "name": "com.Kubika.ACubeStory",
-            "processId": 23957,
-            "exited": false
-        },
-        {
-            "deviceId": "FPMDU18126000360",
-            "name": "com.Kubika.ACubeStory",
-            "processId": 24403,
-            "exited": false
-        },
-        {
-            "deviceId": "FPMDU18126000360",
-            "name": "com.Kubika.ACubeStory",
-            "processId": 27706,
-            "exited": false
-        },
-        {
-            "deviceId": "FPMDU18126000360",
-            "name": "com.Kubika.ACubeStory",
-            "processId": 29605,
-            "exited": false
-        },
-        {
-            "deviceId": "FPMDU18126000360",
-            "name": "com.Kubika.ACubeStory",
-            "processId": 6372,
+            "processId": 23134,
             "exited": false
         }
     ],
@@ -119,7 +65,7 @@
             },
             {
                 "m_Name": "No Filter",
-                "m_Selected": true
+                "m_Selected": false
             },
             {
                 "m_Name": "",
@@ -135,7 +81,7 @@
             },
             {
                 "m_Name": "Unity",
-                "m_Selected": false
+                "m_Selected": true
             },
             {
                 "m_Name": "CRASH",

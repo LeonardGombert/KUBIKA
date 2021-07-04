@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
+using MoreMountains.NiceVibrations;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -63,9 +63,9 @@ namespace Gameplay.Scripts.Cubes.Managers
 
         public void HoldScreen(InputAction.CallbackContext context)
         {
-            if (context.performed)
+            if (context.performed && targetCubeMovement == null)
             {
-                // TODO : add haptic feedback
+                MMVibrationManager.Haptic (HapticTypes.SoftImpact);
                 movingCamera = true;
             }
 
@@ -79,7 +79,6 @@ namespace Gameplay.Scripts.Cubes.Managers
 
         private void MoveCamera()
         {
-            Debug.Log("Moving camera");
         }
 
         #region Helper Functions
@@ -91,9 +90,10 @@ namespace Gameplay.Scripts.Cubes.Managers
                 canSwipe = false;
                 movementManager.TryMovingCubeInSwipeDirection(ref targetCubeMovement);
                 startTouchPosition = currtouchPosition;
+                
                 yield return null;
                 canSwipe = true;
-                cubesMoved.Invoke();
+                cubesMoved.Invoke(); // check victory cubes
             }
         }
 

@@ -138,6 +138,7 @@ PlayerSettings:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -683,7 +684,7 @@ PlayerSettings:
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
     1: ODIN_INSPECTOR
-    7: ODIN_INSPECTOR
+    7: ODIN_INSPECTOR;MOREMOUNTAINS_NICEVIBRATIONS_RUMBLE;MOREMOUNTAINS_NICEVIBRATIONS
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}
