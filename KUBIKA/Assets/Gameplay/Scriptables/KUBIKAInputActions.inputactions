@@ -1,12 +1,12 @@
 {
-    "name": "KUBIKA",
+    "name": "KUBIKAInputActions",
     "maps": [
         {
             "name": "Player",
             "id": "2b45168a-7735-4b16-8485-98cc67495dbb",
             "actions": [
                 {
-                    "name": "TouchCube",
+                    "name": "TouchScreen",
                     "type": "Button",
                     "id": "d5a236da-3a5b-4728-9ba7-dd1590d3c7f0",
                     "expectedControlType": "Button",
@@ -82,7 +82,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse;Composite",
-                    "action": "TouchCube",
+                    "action": "TouchScreen",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -93,7 +93,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Touch;Composite",
-                    "action": "TouchCube",
+                    "action": "TouchScreen",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

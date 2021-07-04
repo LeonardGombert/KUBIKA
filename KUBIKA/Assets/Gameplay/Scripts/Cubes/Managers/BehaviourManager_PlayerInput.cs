@@ -1,8 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using MoreMountains.NiceVibrations;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 
 namespace Gameplay.Scripts.Cubes.Managers
 {
@@ -18,36 +21,63 @@ namespace Gameplay.Scripts.Cubes.Managers
         private Vector2 currtouchPosition;
         private Vector2 startTouchPosition;
 
-        private CubeBehavior_Movement targetCubeMovement;
-        public UnityEvent cubesMoved;
+        [SerializeField, ReadOnly] private CubeBehavior_Movement targetCubeMovement;
 
         bool canSwipe = true;
         private CameraRotation cameraRotation;
         private bool movingCamera;
 
+        private KUBIKAInputActions kubikaInput;
+
+        #region Input Setup
+
+        private void Awake() => SetupInputSystem();
+
+        private void SetupInputSystem()
+        {
+            kubikaInput = new KUBIKAInputActions();
+
+            kubikaInput.Player.TouchScreen.performed += ctx => TryToTouchMovementCube();
+            kubikaInput.Player.TouchScreen.canceled += ctx => ClearCachedCube();
+
+            kubikaInput.Player.SwipeScreen.performed += SwipedScreen;
+
+            kubikaInput.Player.HoldScreen.performed += ctx => HoldingScreen();
+            kubikaInput.Player.HoldScreen.canceled += ctx => StopMovingCamera();
+        }
+
+        private void OnEnable()
+        {
+            kubikaInput.Enable();
+        }
+
+        private void OnDisable()
+        {
+            kubikaInput.Disable();
+        }
+
+        #endregion
+
         #region Input Callbacks
 
-        public void TouchedScreen(InputAction.CallbackContext context)
+        private void TryToTouchMovementCube()
         {
-            if (context.started)
+            startTouchPosition = currtouchPosition;
+
+            var ray = mainCamera.ScreenPointToRay(currtouchPosition);
+
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, 500f))
             {
-                startTouchPosition = currtouchPosition;
-
-                var ray = mainCamera.ScreenPointToRay(currtouchPosition);
-
-                if (Physics.Raycast(ray, out RaycastHit hitInfo, 500f))
-                {
-                    targetCubeMovement = hitInfo.collider.GetComponent<CubeBehavior_Movement>();
-                }
-            }
-
-            if (context.canceled)
-            {
-                targetCubeMovement = null;
+                targetCubeMovement = hitInfo.collider.GetComponent<CubeBehavior_Movement>();
             }
         }
 
-        public void SwipedScreen(InputAction.CallbackContext context)
+        private void ClearCachedCube()
+        {
+            targetCubeMovement = null;
+        }
+
+        private void SwipedScreen(InputAction.CallbackContext context)
         {
             currtouchPosition = context.action.ReadValue<Vector2>();
 
@@ -55,32 +85,33 @@ namespace Gameplay.Scripts.Cubes.Managers
             {
                 StartCoroutine(CheckIfPlayerSwiping());
             }
-            else if (movingCamera)
+        }
+
+        private void HoldingScreen()
+        {
+            if (targetCubeMovement == null)
             {
-                MoveCamera();
+                MMVibrationManager.Haptic(HapticTypes.SoftImpact);
+                movingCamera = true;
             }
         }
 
-        public void HoldScreen(InputAction.CallbackContext context)
+        private void StopMovingCamera()
         {
-            if (context.performed && targetCubeMovement == null)
-            {
-                MMVibrationManager.Haptic (HapticTypes.SoftImpact);
-                movingCamera = true;
-            }
+            movingCamera = false;
+        }
 
-            if (context.canceled)
+
+        public void MovingCamera(InputAction.CallbackContext context)
+        {
+            Debug.Log(context.ReadValue<float>());
+            if (movingCamera)
             {
-                movingCamera = false;
             }
         }
 
         #endregion
-
-        private void MoveCamera()
-        {
-        }
-
+        
         #region Helper Functions
 
         private IEnumerator CheckIfPlayerSwiping()
@@ -90,10 +121,10 @@ namespace Gameplay.Scripts.Cubes.Managers
                 canSwipe = false;
                 movementManager.TryMovingCubeInSwipeDirection(ref targetCubeMovement);
                 startTouchPosition = currtouchPosition;
-                
+
                 yield return null;
                 canSwipe = true;
-                cubesMoved.Invoke(); // check victory cubes
+                // TODO : cubes moved event to check delivery cubes
             }
         }
 
