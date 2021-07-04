@@ -23,8 +23,8 @@ namespace Gameplay.Scripts.Cubes.Managers
 
         [SerializeField, ReadOnly] private CubeBehavior_Movement targetCubeMovement;
 
-        bool canSwipe = true;
-        private CameraRotation cameraRotation;
+        private bool canSwipe = true;
+        [SerializeField] private CameraRotation cameraRotation;
         private bool movingCamera;
 
         private KUBIKAInputActions kubikaInput;
@@ -40,9 +40,10 @@ namespace Gameplay.Scripts.Cubes.Managers
             kubikaInput.Player.TouchScreen.performed += ctx => TryToTouchMovementCube();
             kubikaInput.Player.TouchScreen.canceled += ctx => ClearCachedCube();
 
-            kubikaInput.Player.SwipeScreen.performed += SwipedScreen;
+            kubikaInput.Player.SwipeScreen.performed += SwipingScreen;
+            kubikaInput.Player.SwipeScreen.performed += ctx => MovingCamera();
 
-            kubikaInput.Player.HoldScreen.performed += ctx => HoldingScreen();
+            kubikaInput.Player.HoldScreen.performed += ctx => HoldScreenCameraWarmup();
             kubikaInput.Player.HoldScreen.canceled += ctx => StopMovingCamera();
         }
 
@@ -77,7 +78,7 @@ namespace Gameplay.Scripts.Cubes.Managers
             targetCubeMovement = null;
         }
 
-        private void SwipedScreen(InputAction.CallbackContext context)
+        private void SwipingScreen(InputAction.CallbackContext context)
         {
             currtouchPosition = context.action.ReadValue<Vector2>();
 
@@ -87,7 +88,7 @@ namespace Gameplay.Scripts.Cubes.Managers
             }
         }
 
-        private void HoldingScreen()
+        private void HoldScreenCameraWarmup()
         {
             if (targetCubeMovement == null)
             {
@@ -102,16 +103,26 @@ namespace Gameplay.Scripts.Cubes.Managers
         }
 
 
-        public void MovingCamera(InputAction.CallbackContext context)
+        private void MovingCamera()
         {
-            Debug.Log(context.ReadValue<float>());
             if (movingCamera)
             {
+                if ((currtouchPosition - startTouchPosition).sqrMagnitude >= (swipeTolerance * swipeTolerance))
+                {
+                    if (CameraRotation() == MoveDirection.Left)
+                    {
+                        cameraRotation.MoveLeft();
+                    }
+                    else
+                    {
+                        cameraRotation.MoveRight();
+                    }
+                }
             }
         }
 
         #endregion
-        
+
         #region Helper Functions
 
         private IEnumerator CheckIfPlayerSwiping()
@@ -147,6 +158,20 @@ namespace Gameplay.Scripts.Cubes.Managers
             if (_swipeDirX <= 0 && _swipeDirY >= 0)
             {
                 return MoveDirection.Back;
+            }
+
+            return MoveDirection.Left;
+        }
+
+        public MoveDirection CameraRotation()
+        {
+            _swipeDirection = (currtouchPosition - startTouchPosition).normalized;
+            _swipeDirX = Mathf.Sign(_swipeDirection.x);
+            _swipeDirY = Mathf.Sign(_swipeDirection.y);
+
+            if (_swipeDirection.x > 0)
+            {
+                return MoveDirection.Right;
             }
 
             return MoveDirection.Left;
