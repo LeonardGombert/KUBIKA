@@ -14,7 +14,7 @@ namespace Gameplay.Scripts.Cubes.Managers
         public void ListOfCubesToPush(ref CubeBehavior_Movement pushingCube)
         {
             ClearPushingCubes();
-            RecursivelyAddPushingCubes(ref pushingCube);
+            RecursivelyAddPushingCubes(pushingCube);
         }
 
         public void ReversePushingCubesList() => cubesToPush.Reverse();
@@ -23,11 +23,11 @@ namespace Gameplay.Scripts.Cubes.Managers
 
         public bool bCanMovePushingCubes() => canPushCubes;
 
-        private void RecursivelyAddPushingCubes(ref CubeBehavior_Movement movingCube)
+        private void RecursivelyAddPushingCubes(CubeBehavior_Movement movingCube)
         {
             cubesToPush.Add(movingCube);
 
-            if (Physics.Raycast(movingCube.transform.position, GetPushDirection(), out var hitInfo, 1.25f))
+            if (Physics.Raycast(movingCube.transform.position, GetPushDirection(), out var hitInfo, 1f))
             {
                 CubeBehaviour_Base touchedCube = hitInfo.collider.GetComponent<CubeBehaviour_Base>();
 
@@ -36,14 +36,13 @@ namespace Gameplay.Scripts.Cubes.Managers
                     // then the cube cannot move, nor any of the cubes before it
                     canPushCubes = false;
                     cubesToPush.Clear();
-                    return;
                 }
 
-                if ((touchedCube.cubeType & ComplexCubeType.Moveable) != 0)
+                else if ((touchedCube.cubeType & ComplexCubeType.Moveable) != 0)
                 {
                     // then there is business to be done. recursively call the function.
                     var pushedCube = hitInfo.collider.GetComponent<CubeBehavior_Movement>();
-                    RecursivelyAddPushingCubes(ref pushedCube);
+                    RecursivelyAddPushingCubes(pushedCube);
                 }
             }
 
@@ -59,10 +58,12 @@ namespace Gameplay.Scripts.Cubes.Managers
             ReferenceProvider.Instance.KuboGrid.grid.TryGetValue(
                 cubesToPush[cubesToPush.Count - 1].cubeBase.currCoordinates + GetPushDirection(),
                 out var targetNode);
+            
+            /*ReferenceProvider.Instance.KuboGrid.grid.TryGetValue(
+                cubesToPush[cubesToPush.Count - 1].cubeBase.currCoordinates + GetPushDirection() + Vector3Int.down,
+                out var underTargetNode);*/
 
-            if (targetNode == null)
-                return false;
-            return true;
+            return (targetNode != null); // && underTargetNode != null);
         }
 
         private Vector3Int GetPushDirection()

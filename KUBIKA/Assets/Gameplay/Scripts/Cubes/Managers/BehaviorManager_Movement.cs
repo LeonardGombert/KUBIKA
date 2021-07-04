@@ -54,7 +54,7 @@ namespace Gameplay.Scripts.Cubes.Managers
 
             else
             {
-                TryPushing();
+                StartCoroutine(TryPushing());
             }
         }
 
@@ -79,13 +79,15 @@ namespace Gameplay.Scripts.Cubes.Managers
 
         #region Pushing
 
-        private void TryPushing()
+        private IEnumerator TryPushing()
         {
             pushManager.ListOfCubesToPush(ref currentCube);
-
+            
+            yield return null;
+            
             if (!pushManager.bCanMovePushingCubes())
             {
-                MakeCubesFall();
+                MakeBlockedCubesFall();
             }
 
             else
@@ -94,7 +96,7 @@ namespace Gameplay.Scripts.Cubes.Managers
             }
         }
 
-        private void MakeCubesFall()
+        private void MakeBlockedCubesFall()
         {
             gravityManager.CheckCubeGravity(currentCube);
             ReassignCubeStacks();
