@@ -9891,6 +9891,7 @@ MonoBehaviour:
   mainCamera: {fileID: 1688325687}
   swipeTolerance: 120
   targetCubeMovement: {fileID: 0}
+  cameraRotation: {fileID: 1688325690}
 --- !u!114 &1582402292
 MonoBehaviour:
   m_ObjectHideFlags: 0

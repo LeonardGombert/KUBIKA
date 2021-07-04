@@ -40,7 +40,15 @@ public class @KUBIKAInputActions : IInputActionCollection, IDisposable
                     ""id"": ""d7ea33c5-5232-49f5-b65a-0b0b3c87ca4c"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": ""Hold(duration=0.2)""
+                    ""interactions"": ""Hold""
+                },
+                {
+                    ""name"": ""RotateCamera"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""16e5953c-cb41-4f0c-8fa7-d3418edf2cf3"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": ""NormalizeVector2"",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -109,6 +117,28 @@ public class @KUBIKAInputActions : IInputActionCollection, IDisposable
                     ""action"": ""TouchScreen"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a8ad32fe-06a6-405d-8c3e-ce5126285305"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2228f25a-bd94-4269-865f-c373f4610d6f"",
+                    ""path"": ""<Touchscreen>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Touch;Composite"",
+                    ""action"": ""RotateCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -159,6 +189,7 @@ public class @KUBIKAInputActions : IInputActionCollection, IDisposable
         m_Player_TouchScreen = m_Player.FindAction("TouchScreen", throwIfNotFound: true);
         m_Player_SwipeScreen = m_Player.FindAction("SwipeScreen", throwIfNotFound: true);
         m_Player_HoldScreen = m_Player.FindAction("HoldScreen", throwIfNotFound: true);
+        m_Player_RotateCamera = m_Player.FindAction("RotateCamera", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -211,6 +242,7 @@ public class @KUBIKAInputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_TouchScreen;
     private readonly InputAction m_Player_SwipeScreen;
     private readonly InputAction m_Player_HoldScreen;
+    private readonly InputAction m_Player_RotateCamera;
     public struct PlayerActions
     {
         private @KUBIKAInputActions m_Wrapper;
@@ -218,6 +250,7 @@ public class @KUBIKAInputActions : IInputActionCollection, IDisposable
         public InputAction @TouchScreen => m_Wrapper.m_Player_TouchScreen;
         public InputAction @SwipeScreen => m_Wrapper.m_Player_SwipeScreen;
         public InputAction @HoldScreen => m_Wrapper.m_Player_HoldScreen;
+        public InputAction @RotateCamera => m_Wrapper.m_Player_RotateCamera;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -236,6 +269,9 @@ public class @KUBIKAInputActions : IInputActionCollection, IDisposable
                 @HoldScreen.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHoldScreen;
                 @HoldScreen.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHoldScreen;
                 @HoldScreen.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHoldScreen;
+                @RotateCamera.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRotateCamera;
+                @RotateCamera.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRotateCamera;
+                @RotateCamera.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRotateCamera;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -249,6 +285,9 @@ public class @KUBIKAInputActions : IInputActionCollection, IDisposable
                 @HoldScreen.started += instance.OnHoldScreen;
                 @HoldScreen.performed += instance.OnHoldScreen;
                 @HoldScreen.canceled += instance.OnHoldScreen;
+                @RotateCamera.started += instance.OnRotateCamera;
+                @RotateCamera.performed += instance.OnRotateCamera;
+                @RotateCamera.canceled += instance.OnRotateCamera;
             }
         }
     }
@@ -285,5 +324,6 @@ public class @KUBIKAInputActions : IInputActionCollection, IDisposable
         void OnTouchScreen(InputAction.CallbackContext context);
         void OnSwipeScreen(InputAction.CallbackContext context);
         void OnHoldScreen(InputAction.CallbackContext context);
+        void OnRotateCamera(InputAction.CallbackContext context);
     }
 }

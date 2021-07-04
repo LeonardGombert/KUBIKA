@@ -2,6 +2,7 @@
 using System.Collections;
 using MoreMountains.NiceVibrations;
 using Sirenix.OdinInspector;
+using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -41,7 +42,8 @@ namespace Gameplay.Scripts.Cubes.Managers
             kubikaInput.Player.TouchScreen.canceled += ctx => ClearCachedCube();
 
             kubikaInput.Player.SwipeScreen.performed += SwipingScreen;
-            kubikaInput.Player.SwipeScreen.performed += ctx => MovingCamera();
+
+            kubikaInput.Player.RotateCamera.performed += MovingCamera;
 
             kubikaInput.Player.HoldScreen.performed += ctx => HoldScreenCameraWarmup();
             kubikaInput.Player.HoldScreen.canceled += ctx => StopMovingCamera();
@@ -102,21 +104,19 @@ namespace Gameplay.Scripts.Cubes.Managers
             movingCamera = false;
         }
 
-
-        private void MovingCamera()
+        private void MovingCamera(InputAction.CallbackContext context)
         {
             if (movingCamera)
             {
-                if ((currtouchPosition - startTouchPosition).sqrMagnitude >= (swipeTolerance * swipeTolerance))
+                var axis = context.ReadValue<Vector2>();
+
+                if (axis.x >= 0.75f)
                 {
-                    if (CameraRotation() == MoveDirection.Left)
-                    {
-                        cameraRotation.MoveLeft();
-                    }
-                    else
-                    {
-                        cameraRotation.MoveRight();
-                    }
+                    cameraRotation.MoveRight();
+                }
+                else
+                {
+                    cameraRotation.MoveLeft();
                 }
             }
         }
@@ -158,20 +158,6 @@ namespace Gameplay.Scripts.Cubes.Managers
             if (_swipeDirX <= 0 && _swipeDirY >= 0)
             {
                 return MoveDirection.Back;
-            }
-
-            return MoveDirection.Left;
-        }
-
-        public MoveDirection CameraRotation()
-        {
-            _swipeDirection = (currtouchPosition - startTouchPosition).normalized;
-            _swipeDirX = Mathf.Sign(_swipeDirection.x);
-            _swipeDirY = Mathf.Sign(_swipeDirection.y);
-
-            if (_swipeDirection.x > 0)
-            {
-                return MoveDirection.Right;
             }
 
             return MoveDirection.Left;

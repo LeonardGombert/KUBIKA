@@ -27,7 +27,15 @@
                     "id": "d7ea33c5-5232-49f5-b65a-0b0b3c87ca4c",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Hold(duration=0.2)"
+                    "interactions": "Hold"
+                },
+                {
+                    "name": "RotateCamera",
+                    "type": "PassThrough",
+                    "id": "16e5953c-cb41-4f0c-8fa7-d3418edf2cf3",
+                    "expectedControlType": "Vector2",
+                    "processors": "NormalizeVector2",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -94,6 +102,28 @@
                     "processors": "",
                     "groups": "Touch;Composite",
                     "action": "TouchScreen",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a8ad32fe-06a6-405d-8c3e-ce5126285305",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotateCamera",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2228f25a-bd94-4269-865f-c373f4610d6f",
+                    "path": "<Touchscreen>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Touch;Composite",
+                    "action": "RotateCamera",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
