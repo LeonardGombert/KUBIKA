@@ -6,7 +6,15 @@
             "id": "2b45168a-7735-4b16-8485-98cc67495dbb",
             "actions": [
                 {
-                    "name": "TouchScreen",
+                    "name": "TouchCube",
+                    "type": "Button",
+                    "id": "d5a236da-3a5b-4728-9ba7-dd1590d3c7f0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SwipeScreen",
                     "type": "Value",
                     "id": "b4a7f368-efcf-4ccb-96bc-796cda4b2745",
                     "expectedControlType": "Vector2",
@@ -14,12 +22,12 @@
                     "interactions": ""
                 },
                 {
-                    "name": "MoveCube",
-                    "type": "Button",
-                    "id": "d5a236da-3a5b-4728-9ba7-dd1590d3c7f0",
-                    "expectedControlType": "Button",
+                    "name": "HoldScreen",
+                    "type": "PassThrough",
+                    "id": "d7ea33c5-5232-49f5-b65a-0b0b3c87ca4c",
+                    "expectedControlType": "",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Hold(duration=0.2)"
                 }
             ],
             "bindings": [
@@ -30,7 +38,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Composite;Keyboard&Mouse",
-                    "action": "TouchScreen",
+                    "action": "SwipeScreen",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -41,7 +49,29 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Touch;Composite",
-                    "action": "TouchScreen",
+                    "action": "SwipeScreen",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2124d13f-5837-4450-9ee0-b30965ad26fb",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Hold(duration=0.1)",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse;Composite",
+                    "action": "HoldScreen",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3ca84b82-ca0c-4385-90c6-e30c7d76a3d9",
+                    "path": "<Touchscreen>/primaryTouch/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Touch;Composite",
+                    "action": "HoldScreen",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -52,7 +82,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse;Composite",
-                    "action": "MoveCube",
+                    "action": "TouchCube",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -63,7 +93,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Touch;Composite",
-                    "action": "MoveCube",
+                    "action": "TouchCube",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -22,8 +22,32 @@ namespace Gameplay.Scripts.Cubes.Managers
         public UnityEvent cubesMoved;
 
         bool canSwipe = true;
+        private CameraRotation cameraRotation;
+        private bool movingCamera;
 
-        public void GetTouchPositionOnScreen(InputAction.CallbackContext context)
+        #region Input Callbacks
+
+        public void TouchedScreen(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                startTouchPosition = currtouchPosition;
+
+                var ray = mainCamera.ScreenPointToRay(currtouchPosition);
+
+                if (Physics.Raycast(ray, out RaycastHit hitInfo, 500f))
+                {
+                    targetCubeMovement = hitInfo.collider.GetComponent<CubeBehavior_Movement>();
+                }
+            }
+
+            if (context.canceled)
+            {
+                targetCubeMovement = null;
+            }
+        }
+
+        public void SwipedScreen(InputAction.CallbackContext context)
         {
             currtouchPosition = context.action.ReadValue<Vector2>();
 
@@ -31,7 +55,33 @@ namespace Gameplay.Scripts.Cubes.Managers
             {
                 StartCoroutine(CheckIfPlayerSwiping());
             }
+            else if (movingCamera)
+            {
+                MoveCamera();
+            }
         }
+
+        public void HoldScreen(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                movingCamera = true;
+            }
+
+            if (context.canceled)
+            {
+                movingCamera = false;
+            }
+        }
+
+        #endregion
+
+        private void MoveCamera()
+        {
+            Debug.Log("Moving camera");
+        }
+
+        #region Helper Functions
 
         private IEnumerator CheckIfPlayerSwiping()
         {
@@ -70,24 +120,6 @@ namespace Gameplay.Scripts.Cubes.Managers
             return MoveDirection.Left;
         }
 
-        public void TryGetCubeAtTouchPosition(InputAction.CallbackContext context)
-        {
-            if (context.started)
-            {
-                startTouchPosition = currtouchPosition;
-
-                var ray = mainCamera.ScreenPointToRay(currtouchPosition);
-
-                if (Physics.Raycast(ray, out RaycastHit hitInfo, 500f))
-                {
-                    targetCubeMovement = hitInfo.collider.GetComponent<CubeBehavior_Movement>();
-                }
-            }
-
-            if (context.canceled)
-            {
-                targetCubeMovement = null;
-            }
-        }
+        #endregion
     }
 }
