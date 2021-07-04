@@ -65,6 +65,7 @@ namespace Gameplay.Scripts.Cubes.Managers
         {
             if (context.performed)
             {
+                // TODO : add haptic feedback
                 movingCamera = true;
             }
 
