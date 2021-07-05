@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,8 +19,12 @@ namespace Gameplay.Scripts.Cubes.Managers
         private CubeBehavior_Movement currentCube;
         private Node destinationNode;
 
+        private List<KeyValuePair<CubeBehavior_Movement, Node>> cubesMoved = new List<KeyValuePair<CubeBehavior_Movement, Node>>();
+        public Action<List<KeyValuePair<CubeBehavior_Movement, Node>>> doneMovingCubes;
+        
         public void TryMovingCubeInSwipeDirection(ref CubeBehavior_Movement targetCube)
         {
+            cubesMoved.Clear();
             moveDirection = playerInput.CalculateMoveDirection();
             currentCube = targetCube;
 
@@ -60,11 +65,17 @@ namespace Gameplay.Scripts.Cubes.Managers
 
         private void MoveCurrentCube()
         {
+            cubesMoved.Add(new KeyValuePair<CubeBehavior_Movement, Node>(currentCube, currentCube.cubeBase.currNode));
             currentCube.MoveCubeToNode(ref destinationNode);
-
+            
             if (currentCube.carrying)
             {
                 MakeCarriedCubeFollow();
+            }
+            else
+            {
+                // done moving cubes
+                doneMovingCubes(cubesMoved);
             }
         }
 

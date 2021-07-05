@@ -66,9 +66,4 @@ public class CubeBehavior_Movement : AbstractCubeBehavior
     {
         cubeBase.currNode = ReferenceProvider.Instance.KuboGrid.grid[cubeBase.currCoordinates];
     }
-
-    public override void ResetBehavior()
-    {
-        throw new System.NotImplementedException();
-    }
 }
