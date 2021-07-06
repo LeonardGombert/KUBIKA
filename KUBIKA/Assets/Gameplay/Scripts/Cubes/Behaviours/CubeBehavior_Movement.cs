@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -7,6 +8,9 @@ public class CubeBehavior_Movement : AbstractCubeBehavior
     public CubeBehaviour_Base cubeBase;
     [ReadOnly] public CubeBehavior_Movement carrying;
     [ReadOnly] public CubeBehavior_Movement carriedBy;
+
+    [ShowInInspector] private Stack<Node> previousLocations = new Stack<Node>();
+    private bool undoing;
 
     public override void InitBehavior()
     {
@@ -17,6 +21,11 @@ public class CubeBehavior_Movement : AbstractCubeBehavior
 
     public void MoveCubeToNode(ref Node targetNode)
     {
+        if (!undoing)
+        {
+            previousLocations.Push(cubeBase.currNode);
+        }
+        
         // update nodes' Cube Types
         targetNode.cubeType = cubeBase.cubeType;
         cubeBase.currNode.cubeType = ComplexCubeType.None;
@@ -27,6 +36,8 @@ public class CubeBehavior_Movement : AbstractCubeBehavior
 
         // Move cube 
         transform.position = targetNode.worldPosition;
+
+        if (undoing) undoing = false;
     }
 
     // waits for the next frame to reassign carrying/carried cube
@@ -65,5 +76,12 @@ public class CubeBehavior_Movement : AbstractCubeBehavior
     private void ResetCurrNode()
     {
         cubeBase.currNode = ReferenceProvider.Instance.KuboGrid.grid[cubeBase.currCoordinates];
+    }
+
+    public override void UndoLast()
+    {
+        undoing = true;
+        var targetGoBackTo = previousLocations.Pop();
+        MoveCubeToNode(ref targetGoBackTo);
     }
 }

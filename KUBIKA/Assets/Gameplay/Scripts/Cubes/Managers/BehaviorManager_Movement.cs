@@ -19,8 +19,8 @@ namespace Gameplay.Scripts.Cubes.Managers
         private CubeBehavior_Movement currentCube;
         private Node destinationNode;
 
-        private List<KeyValuePair<CubeBehavior_Movement, Node>> cubesMoved = new List<KeyValuePair<CubeBehavior_Movement, Node>>();
-        public Action<List<KeyValuePair<CubeBehavior_Movement, Node>>> doneMovingCubes;
+        private List<CubeBehavior_Movement> cubesMoved = new List<CubeBehavior_Movement>();
+        public Action<List<CubeBehavior_Movement>> doneMovingCubes;
         
         public void TryMovingCubeInSwipeDirection(ref CubeBehavior_Movement targetCube)
         {
@@ -65,7 +65,7 @@ namespace Gameplay.Scripts.Cubes.Managers
 
         private void MoveCurrentCube()
         {
-            cubesMoved.Add(new KeyValuePair<CubeBehavior_Movement, Node>(currentCube, currentCube.cubeBase.currNode));
+            cubesMoved.Add(currentCube);
             currentCube.MoveCubeToNode(ref destinationNode);
             
             if (currentCube.carrying)
