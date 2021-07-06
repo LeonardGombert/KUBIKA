@@ -16,11 +16,18 @@ public class CameraRotation : MonoBehaviour
 
     public void MoveLeft()
     {
-        transform.RotateAround(new Vector3(3.60000014f, 0f, 3.60000014f) / 2, Vector3.up, 90 * Time.deltaTime);
+        if (sceneCamera.transform.eulerAngles.y < baseRotation.y + 45)
+        {
+            transform.RotateAround(new Vector3(3.60000014f, 0f, 3.60000014f) / 2, Vector3.up, 360 * Time.deltaTime);
+        }
     }
 
     public void MoveRight()
     {
-        transform.RotateAround(new Vector3(3.60000014f, 0f, 3.60000014f) / 2, Vector3.up, -90 * Time.deltaTime);
+        if (sceneCamera.transform.eulerAngles.y > baseRotation.y - 45)
+
+        {
+            transform.RotateAround(new Vector3(3.60000014f, 0f, 3.60000014f) / 2, Vector3.up, -360 * Time.deltaTime);
+        }
     }
 }

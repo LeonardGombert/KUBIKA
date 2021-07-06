@@ -21,12 +21,15 @@ namespace Gameplay.Scripts.Cubes.Managers
 
         public void Undo()
         {
-            for (int i = 0; i < thingsToUndo.Peek().Count; i++)
+            if (thingsToUndo.Count > 0)
             {
-                thingsToUndo.Peek()[i].UndoLast();
-            }
+                for (int i = 0; i < thingsToUndo.Peek().Count; i++)
+                {
+                    thingsToUndo.Peek()[i].UndoLast();
+                }
 
-            thingsToUndo.Pop();
+                thingsToUndo.Pop();
+            }
         }
     }
 }

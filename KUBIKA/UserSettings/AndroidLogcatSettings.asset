@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "FPMDU18126000360",
         "name": "com.Kubika.ACubeStory",
-        "processId": 27725,
+        "processId": 19505,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -66,6 +66,12 @@
             "deviceId": "FPMDU18126000360",
             "name": "com.Kubika.ACubeStory",
             "processId": 27725,
+            "exited": false
+        },
+        {
+            "deviceId": "FPMDU18126000360",
+            "name": "com.Kubika.ACubeStory",
+            "processId": 19505,
             "exited": false
         }
     ],

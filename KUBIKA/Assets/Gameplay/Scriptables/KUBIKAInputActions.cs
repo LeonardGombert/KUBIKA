@@ -40,7 +40,7 @@ public class @KUBIKAInputActions : IInputActionCollection, IDisposable
                     ""id"": ""d7ea33c5-5232-49f5-b65a-0b0b3c87ca4c"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": ""Hold""
+                    ""interactions"": ""Hold(duration=0.1)""
                 },
                 {
                     ""name"": ""RotateCamera"",
@@ -120,19 +120,8 @@ public class @KUBIKAInputActions : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""a8ad32fe-06a6-405d-8c3e-ce5126285305"",
-                    ""path"": ""<Mouse>/delta"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""RotateCamera"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""2228f25a-bd94-4269-865f-c373f4610d6f"",
-                    ""path"": ""<Touchscreen>/delta"",
+                    ""id"": ""764947f7-7c82-4fe4-b2a3-d863f6a793c3"",
+                    ""path"": ""<Touchscreen>/primaryTouch/startPosition"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Touch;Composite"",

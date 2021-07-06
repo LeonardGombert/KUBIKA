@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using MoreMountains.NiceVibrations;
 using Sirenix.OdinInspector;
-using UnityEditor.Rendering.LookDev;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
 
 namespace Gameplay.Scripts.Cubes.Managers
 {
@@ -104,17 +100,28 @@ namespace Gameplay.Scripts.Cubes.Managers
             movingCamera = false;
         }
 
+        private Vector2 axis; 
         private void MovingCamera(InputAction.CallbackContext context)
+        {
+            axis = context.ReadValue<Vector2>();
+            if (movingCamera)
+            {
+            }
+        }
+
+        private void Update()
         {
             if (movingCamera)
             {
-                var axis = context.ReadValue<Vector2>();
-
-                if (axis.x >= 0.75f)
+                _swipeDirection = (currtouchPosition - startTouchPosition).normalized;
+                _swipeDirX = Mathf.Sign(_swipeDirection.x);
+                
+                if (_swipeDirX >= 0)
                 {
                     cameraRotation.MoveRight();
                 }
-                else
+
+                if (_swipeDirX <= 0)
                 {
                     cameraRotation.MoveLeft();
                 }
