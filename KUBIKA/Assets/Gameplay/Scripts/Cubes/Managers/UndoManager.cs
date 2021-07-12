@@ -7,29 +7,29 @@ namespace Gameplay.Scripts.Cubes.Managers
     public class UndoManager : MonoBehaviour
     {
         [SerializeField] private BehaviorManager_Movement movementManager;
-        private Stack<List<CubeBehavior_Movement>> thingsToUndo = new Stack<List<CubeBehavior_Movement>>();
+        private Stack<List<IUndoable>> cubesToUndo = new Stack<List<IUndoable>>();
+        private List<IUndoable> hotList = new List<IUndoable>();
 
-        private void Start()
+        public void RegisterOne(IUndoable targetUndoable)
         {
-            movementManager.doneMovingCubes += RegisterOneMove;
+            hotList.Add(targetUndoable);
         }
-
-        private void RegisterOneMove(List<CubeBehavior_Movement> obj)
+        
+        public void RegisterOneMove()
         {
-            thingsToUndo.Push(obj);
+            var tempList = hotList;
+            cubesToUndo.Push(tempList);
+            hotList.Clear();
         }
-
+        
         public void Undo()
         {
-            if (thingsToUndo.Count > 0)
+            for (int i = 0; i < cubesToUndo.Peek().Count; i++)
             {
-                for (int i = 0; i < thingsToUndo.Peek().Count; i++)
-                {
-                    thingsToUndo.Peek()[i].UndoLast();
-                }
-
-                thingsToUndo.Pop();
+                cubesToUndo.Peek()[i].UndoLast();
             }
+
+            cubesToUndo.Pop();
         }
     }
 }

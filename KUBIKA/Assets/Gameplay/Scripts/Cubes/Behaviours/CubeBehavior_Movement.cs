@@ -1,31 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
+using Gameplay.Scripts.Cubes.Managers;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class CubeBehavior_Movement : AbstractCubeBehavior
+public class CubeBehavior_Movement : AbstractCubeBehavior, IUndoable
 {
     public CubeBehaviour_Base cubeBase;
     [ReadOnly] public CubeBehavior_Movement carrying;
     [ReadOnly] public CubeBehavior_Movement carriedBy;
 
-    [ShowInInspector] private Stack<Node> previousLocations = new Stack<Node>();
-    private bool undoing;
+    private UndoManager undoManager;
+
+    private Stack<Node> previousPositions = new Stack<Node>();
 
     public override void InitBehavior()
     {
         AssignCarriedByCube();
         AssignCarryingCube();
         ResetCurrNode();
+
+        undoManager = FindObjectOfType<UndoManager>();
     }
 
-    public void MoveCubeToNode(ref Node targetNode)
+    public void MoveCubeToNode(Node targetNode)
     {
-        if (!undoing)
-        {
-            previousLocations.Push(cubeBase.currNode);
-        }
-        
+        previousPositions.Push(cubeBase.currNode);
+        undoManager.RegisterOne(this);
+
         // update nodes' Cube Types
         targetNode.cubeType = cubeBase.cubeType;
         cubeBase.currNode.cubeType = ComplexCubeType.None;
@@ -37,7 +39,7 @@ public class CubeBehavior_Movement : AbstractCubeBehavior
         // Move cube 
         transform.position = targetNode.worldPosition;
 
-        if (undoing) undoing = false;
+        // StartCoroutine(ReassignCubes());
     }
 
     // waits for the next frame to reassign carrying/carried cube
@@ -80,8 +82,7 @@ public class CubeBehavior_Movement : AbstractCubeBehavior
 
     public override void UndoLast()
     {
-        undoing = true;
-        var targetGoBackTo = previousLocations.Pop();
-        MoveCubeToNode(ref targetGoBackTo);
+        var temp = previousPositions.Pop();
+        MoveCubeToNode(temp);
     }
 }

@@ -12,7 +12,7 @@ namespace Gameplay.Scripts.Cubes.Managers
 
             if (targetNode != null && targetNode.cubeType == ComplexCubeType.None)
             {
-                cube.MoveCubeToNode(ref targetNode);
+                cube.MoveCubeToNode(targetNode);
 
                 // recursively calls the function until there are no more carried cubes 
                 if (cube.carrying)
