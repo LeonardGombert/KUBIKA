@@ -7,6 +7,8 @@ public class Node
     [SerializeField] private Vector3Kubo vector3Kubo;
     [SerializeField] private Vector3 worldPos, worldRot;
     public ComplexCubeType cubeType;
+    public CubeBehaviour_Base cubeAtPosition;
+    
     /// <summary>
     /// Called when the Kubo is rotated. Returns the new GridPosition of the current Node.
     /// </summary>

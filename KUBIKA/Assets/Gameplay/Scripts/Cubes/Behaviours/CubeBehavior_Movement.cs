@@ -39,6 +39,9 @@ public class CubeBehavior_Movement : AbstractCubeBehavior, IUndoable
         // Move cube 
         transform.position = targetNode.worldPosition;
 
+        // assign the cube at the node position
+        targetNode.cubeAtPosition = cubeBase;
+
         // StartCoroutine(ReassignCubes());
     }
 
@@ -48,6 +51,11 @@ public class CubeBehavior_Movement : AbstractCubeBehavior, IUndoable
         yield return null;
         AssignCarryingCube();
         AssignCarriedByCube();
+    }
+
+    public void Reassign()
+    {
+        StartCoroutine(ReassignCubes());
     }
 
     // check below

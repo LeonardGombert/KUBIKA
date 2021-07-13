@@ -29,8 +29,22 @@ namespace Gameplay.Scripts.Cubes.Managers
             // see about this later//
             pushManager.pushDirection = moveDirection;
 
+            // reset list of cubes and size of stack
+            cubesThatCanMove.Clear();
+
             //MoveBaseCubeInDirection();
-            StartCheckAtBaseCube();
+            StartCheckAtBaseCube(baseCube);
+
+            // finally, move all cubes in the list of cubes that can move
+            foreach (var cube in cubesThatCanMove)
+            {
+                cube.Key.MoveCubeToNode(cube.Value);
+            }
+
+            if (baseFallingCube)
+            {
+                ApplyGravity();
+            }
         }
 
 
@@ -41,20 +55,18 @@ namespace Gameplay.Scripts.Cubes.Managers
         // once you've finished checking which cubes can move, apply all movement at the same time
         // if the stack of cubes has changed, reassign carried/carrying cubes. 
 
-        [ShowInInspector]
-        private Dictionary<CubeBehavior_Movement, Node>
+        [ShowInInspector] private Dictionary<CubeBehavior_Movement, Node>
             cubesThatCanMove = new Dictionary<CubeBehavior_Movement, Node>();
+
+        [ShowInInspector] private List<CubeBehavior_Movement>
+            cubesThatNeedCarryReassignement = new List<CubeBehavior_Movement>();
 
         private Vector3Int baseCubeDestinationCoords;
         private Node cubeBaseDestinationNode;
         private Vector3Int baseCubeOriginCoords;
 
-        private void StartCheckAtBaseCube()
+        private void StartCheckAtBaseCube(CubeBehavior_Movement baseCube)
         {
-            // reset list of cubes and size of stack
-            currentCubeInStack = 0;
-            cubesThatCanMove.Clear();
-            
             // get/set the target node of the base cube
             baseCubeOriginCoords = baseCube.cubeBase.currCoordinates;
             cubeBaseDestinationNode = TryGettingBaseCubeTargetNode(baseCubeOriginCoords);
@@ -67,22 +79,36 @@ namespace Gameplay.Scripts.Cubes.Managers
                 {
                     // if it does, get the coordinates of the target node and recursively check if each cube in the stack can move
                     baseCubeDestinationCoords = cubeBaseDestinationNode.GetNodeCoordinates();
-                    RecursivelyCheckIfCubesCanMove(baseCube);
-                }
-            
-                // finally, move all cubes in the list of cubes that can move
-                foreach (var cube in cubesThatCanMove)
-                {
-                    cube.Key.MoveCubeToNode(cube.Value);
+
+                    List<CubeBehavior_Movement> ListOfStackedCubes = GetNumberOfStackedCubes(baseCube);
+
+                    for (int i = 0; i < ListOfStackedCubes.Count; i++)
+                    {
+                        CheckIfCubeCanMove(ListOfStackedCubes[i]);
+                    }
                 }
             }
         }
 
-        private void RecursivelyCheckIfCubesCanMove(CubeBehavior_Movement currentCube)
+        private List<CubeBehavior_Movement> GetNumberOfStackedCubes(CubeBehavior_Movement baseCube)
+        {
+            List<CubeBehavior_Movement> cubeStackList = new List<CubeBehavior_Movement>();
+            CubeBehavior_Movement carriedCube = baseCube;
+
+            while (carriedCube)
+            {
+                cubeStackList.Add(carriedCube);
+                carriedCube = carriedCube.carrying;
+            }
+
+            return cubeStackList;
+        }
+
+        private void CheckIfCubeCanMove(CubeBehavior_Movement currentCube)
         {
             // get the current destination node, incremented based on how high you are n the stack
-            Node currCubeDest = GetCurrCubeDestinationNode();
-            
+            Node currCubeDest = TryGettingBaseCubeTargetNode(currentCube.cubeBase.currCoordinates);
+
             if (currCubeDest != null)
             {
                 // if there is no cube in the way, add the cube to the list of cubes that will move
@@ -90,23 +116,108 @@ namespace Gameplay.Scripts.Cubes.Managers
                 {
                     cubesThatCanMove.Add(currentCube, currCubeDest);
                 }
+
+                // otherwise, a cube is in the way -> PUSH or FALL
                 else
                 {
-                    // otherwise, you'll need to try and push the cube in the way
-                }
-            
-                if (currentCube.carrying)
-                {
-                    RecursivelyCheckIfCubesCanMove(currentCube.carrying);
+                    Debug.Log(currentCube.gameObject.name + " is blocked by " + currCubeDest.cubeType);
+
+                    // if the destination cube is of type static, then the cubes can't move anymore
+                    if ((currCubeDest.cubeType & ComplexCubeType.Static) != 0)
+                    {
+                        // add the cube that was doing the carrying to the list of cubes to reassign, 
+                        // as it is going to "lose" the cube that it was carrying
+                        cubesThatNeedCarryReassignement.Add(currentCube.carriedBy);
+                        baseFallingCube = currentCube;
+                    }
+                    else if ((currCubeDest.cubeType & ComplexCubeType.Moveable) != 0)
+                    {
+                        // these cubes can be pushed
+                        // get the cube at the base
+                        // get all cubes above it
+                        // try to move the base cube and all cubes above it
+                        // if the base cube can move, then so can this one
+
+                        CubeBehavior_Movement pushingCube =
+                            currCubeDest.cubeAtPosition.GetComponent<CubeBehavior_Movement>();
+
+                        List<CubeBehavior_Movement> ListOfStackedCubes = GetNumberOfStackedCubes(pushingCube);
+
+                        for (int i = 0; i < ListOfStackedCubes.Count; i++)
+                        {
+                            CheckIfCubeCanMove(ListOfStackedCubes[i]);
+                        }
+
+                        if (cubesThatCanMove.ContainsKey(pushingCube))
+                        {
+                            cubesThatCanMove.Add(currentCube, currCubeDest);
+                        }
+                    }
                 }
             }
-
-            Debug.Log("Finished Recursive Loop");
         }
-        
-        private Node GetCurrCubeDestinationNode()
+
+        private CubeBehavior_Movement baseFallingCube;
+
+        private void ApplyGravity()
         {
-            return kuboGrid.grid[baseCubeDestinationCoords + (Vector3Int.up * currentCubeInStack++)];
+            // make this cube fall
+            MakeCubeFall(baseFallingCube);
+
+            foreach (var fallenCube in cubesThatNeedCarryReassignement)
+            {
+                fallenCube.Reassign();
+            }
+
+            cubesThatNeedCarryReassignement.Clear();
+            baseFallingCube = null;
+        }
+
+        private void MakeCubeFall(CubeBehavior_Movement currentCube)
+        {
+            Node targetNode = Node.Zero;
+            int iterations = 1;
+
+            // get the node right under
+            kuboGrid.grid.TryGetValue(currentCube.cubeBase.currCoordinates + (Vector3Int.down * iterations),
+                out Node tmp);
+
+            // while the node under is free, keep falling
+            do
+            {
+                targetNode = tmp;
+                kuboGrid.grid.TryGetValue(currentCube.cubeBase.currCoordinates + (Vector3Int.down * ++iterations),
+                    out tmp);
+                // TODO : falling out of the kubo will undoubtedly break the game
+            } while ((CubeBehaviors) tmp.cubeType == CubeBehaviors.None);
+
+            currentCube.MoveCubeToNode(targetNode);
+            cubesThatNeedCarryReassignement.Add(currentCube);
+
+            if (currentCube.carrying)
+            {
+                RecursivelyMakeCarriedCubesFall(currentCube.carrying);
+            }
+        }
+
+        private void RecursivelyMakeCarriedCubesFall(CubeBehavior_Movement currentCube)
+        {
+            kuboGrid.grid.TryGetValue(currentCube.carriedBy.cubeBase.currCoordinates + (Vector3Int.up),
+                out Node targetNode);
+
+            currentCube.MoveCubeToNode(targetNode);
+
+            cubesThatNeedCarryReassignement.Add(currentCube);
+
+            if (currentCube.carrying)
+            {
+                RecursivelyMakeCarriedCubesFall(currentCube.carrying);
+            }
+        }
+
+        private Node GetCurrCubeDestinationNode(int stackedCubeIndex)
+        {
+            return kuboGrid.grid[baseCubeDestinationCoords + (Vector3Int.up * stackedCubeIndex)];
         }
 
 
@@ -206,6 +317,7 @@ namespace Gameplay.Scripts.Cubes.Managers
         private Node TryGettingBaseCubeTargetNode(Vector3Int cubeBaseCurrCoordinates)
         {
             targetCoordinates = cubeBaseCurrCoordinates;
+
             switch (moveDirection)
             {
                 case MoveDirection.Forward:
