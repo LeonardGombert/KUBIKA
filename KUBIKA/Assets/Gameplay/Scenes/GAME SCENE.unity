@@ -177,6 +177,7 @@ MonoBehaviour:
     worldPos: {x: 3.6000001, y: 0, z: 0}
     worldRot: {x: 0, y: 0, z: 0}
     cubeType: 1
+    cubeAtPosition: {fileID: 0}
   currCoordinates: {x: 3, y: 0, z: 0}
   cubeType: 1
 --- !u!65 &14339593
@@ -246,6 +247,7 @@ MonoBehaviour:
     worldPos: {x: 0, y: 0, z: 2.4}
     worldRot: {x: 0, y: 0, z: 0}
     cubeType: 1
+    cubeAtPosition: {fileID: 0}
   currCoordinates: {x: 0, y: 0, z: 2}
   cubeType: 1
 --- !u!65 &22958169
@@ -720,6 +722,7 @@ MonoBehaviour:
     worldPos: {x: 1.2, y: 0, z: 3.6000001}
     worldRot: {x: 0, y: 0, z: 0}
     cubeType: 1
+    cubeAtPosition: {fileID: 0}
   currCoordinates: {x: 1, y: 0, z: 3}
   cubeType: 1
 --- !u!65 &112993377
@@ -789,6 +792,7 @@ MonoBehaviour:
     worldPos: {x: 3.6000001, y: 0, z: 2.4}
     worldRot: {x: 0, y: 0, z: 0}
     cubeType: 1
+    cubeAtPosition: {fileID: 0}
   currCoordinates: {x: 3, y: 0, z: 2}
   cubeType: 1
 --- !u!65 &374733159
@@ -7089,6 +7093,7 @@ MonoBehaviour:
     worldPos: {x: 2.4, y: 0, z: 3.6000001}
     worldRot: {x: 0, y: 0, z: 0}
     cubeType: 1
+    cubeAtPosition: {fileID: 0}
   currCoordinates: {x: 2, y: 0, z: 3}
   cubeType: 1
 --- !u!65 &553384386
@@ -7373,6 +7378,7 @@ MonoBehaviour:
     worldPos: {x: 0, y: 4.8, z: 1.2}
     worldRot: {x: 0, y: 0, z: 0}
     cubeType: 1
+    cubeAtPosition: {fileID: 0}
   currCoordinates: {x: 0, y: 4, z: 1}
   cubeType: 1
 --- !u!65 &645701711
@@ -7685,6 +7691,7 @@ MonoBehaviour:
     worldPos: {x: 3.6000001, y: 0, z: 3.6000001}
     worldRot: {x: 0, y: 0, z: 0}
     cubeType: 1
+    cubeAtPosition: {fileID: 0}
   currCoordinates: {x: 3, y: 0, z: 3}
   cubeType: 1
 --- !u!65 &829069702
@@ -8215,6 +8222,7 @@ MonoBehaviour:
     worldPos: {x: 0, y: 2.4, z: 1.2}
     worldRot: {x: 0, y: 0, z: 0}
     cubeType: 1
+    cubeAtPosition: {fileID: 0}
   currCoordinates: {x: 0, y: 2, z: 1}
   cubeType: 1
 --- !u!65 &1030019260
@@ -8284,6 +8292,7 @@ MonoBehaviour:
     worldPos: {x: 1.2, y: 0, z: 2.4}
     worldRot: {x: 0, y: 0, z: 0}
     cubeType: 1
+    cubeAtPosition: {fileID: 0}
   currCoordinates: {x: 1, y: 0, z: 2}
   cubeType: 1
 --- !u!65 &1055351168
@@ -8382,6 +8391,7 @@ MonoBehaviour:
     worldPos: {x: 0, y: 2.4, z: 2.4}
     worldRot: {x: 0, y: 0, z: 0}
     cubeType: 6
+    cubeAtPosition: {fileID: 0}
   currCoordinates: {x: 0, y: 2, z: 2}
   cubeType: 6
 --- !u!65 &1060770133
@@ -8451,6 +8461,7 @@ MonoBehaviour:
     worldPos: {x: 2.4, y: 0, z: 0}
     worldRot: {x: 0, y: 0, z: 0}
     cubeType: 1
+    cubeAtPosition: {fileID: 0}
   currCoordinates: {x: 2, y: 0, z: 0}
   cubeType: 1
 --- !u!65 &1089960563
@@ -8601,6 +8612,7 @@ MonoBehaviour:
     worldPos: {x: 0, y: 0, z: 0}
     worldRot: {x: 0, y: 0, z: 0}
     cubeType: 1
+    cubeAtPosition: {fileID: 0}
   currCoordinates: {x: 0, y: 0, z: 0}
   cubeType: 1
 --- !u!65 &1172359254
@@ -8770,6 +8782,7 @@ MonoBehaviour:
     worldPos: {x: 1.2, y: 0, z: 1.2}
     worldRot: {x: 0, y: 0, z: 0}
     cubeType: 1
+    cubeAtPosition: {fileID: 0}
   currCoordinates: {x: 1, y: 0, z: 1}
   cubeType: 1
 --- !u!65 &1201787980
@@ -8839,6 +8852,7 @@ MonoBehaviour:
     worldPos: {x: 0, y: 0, z: 3.6000001}
     worldRot: {x: 0, y: 0, z: 0}
     cubeType: 1
+    cubeAtPosition: {fileID: 0}
   currCoordinates: {x: 0, y: 0, z: 3}
   cubeType: 1
 --- !u!65 &1245999451
@@ -8952,6 +8966,7 @@ MonoBehaviour:
     worldPos: {x: 2.4, y: 2.4, z: 2.4}
     worldRot: {x: 0, y: 0, z: 0}
     cubeType: 1
+    cubeAtPosition: {fileID: 0}
   currCoordinates: {x: 2, y: 2, z: 2}
   cubeType: 1
 --- !u!65 &1258379680
@@ -8980,7 +8995,7 @@ GameObject:
   - component: {fileID: 1279524544}
   - component: {fileID: 1279524543}
   m_Layer: 7
-  m_Name: GameCube_Moveable(Clone)
+  m_Name: GameCube_Moveable(Stacked)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9037,6 +9052,7 @@ MonoBehaviour:
     worldPos: {x: 0, y: 4.8, z: 2.4}
     worldRot: {x: 0, y: 0, z: 0}
     cubeType: 2
+    cubeAtPosition: {fileID: 0}
   currCoordinates: {x: 0, y: 4, z: 2}
   cubeType: 2
 --- !u!65 &1279524545
@@ -9268,6 +9284,7 @@ MonoBehaviour:
     worldPos: {x: 3.6000001, y: 0, z: 1.2}
     worldRot: {x: 0, y: 0, z: 0}
     cubeType: 1
+    cubeAtPosition: {fileID: 0}
   currCoordinates: {x: 3, y: 0, z: 1}
   cubeType: 1
 --- !u!65 &1343745695
@@ -9337,6 +9354,7 @@ MonoBehaviour:
     worldPos: {x: 2.4, y: 0, z: 2.4}
     worldRot: {x: 0, y: 0, z: 0}
     cubeType: 1
+    cubeAtPosition: {fileID: 0}
   currCoordinates: {x: 2, y: 0, z: 2}
   cubeType: 1
 --- !u!65 &1346140461
@@ -9922,6 +9940,7 @@ MonoBehaviour:
     worldPos: {x: 0, y: 1.2, z: 1.2}
     worldRot: {x: 0, y: 0, z: 0}
     cubeType: 1
+    cubeAtPosition: {fileID: 0}
   currCoordinates: {x: 0, y: 1, z: 1}
   cubeType: 1
 --- !u!65 &1618154835
@@ -9991,6 +10010,7 @@ MonoBehaviour:
     worldPos: {x: 0, y: 0, z: 1.2}
     worldRot: {x: 0, y: 0, z: 0}
     cubeType: 1
+    cubeAtPosition: {fileID: 0}
   currCoordinates: {x: 0, y: 0, z: 1}
   cubeType: 1
 --- !u!65 &1641376477
@@ -10141,6 +10161,7 @@ MonoBehaviour:
     worldPos: {x: 3.6000001, y: 3.6000001, z: 1.2}
     worldRot: {x: 0, y: 0, z: 0}
     cubeType: 1
+    cubeAtPosition: {fileID: 0}
   currCoordinates: {x: 3, y: 3, z: 1}
   cubeType: 1
 --- !u!65 &1657546147
@@ -10239,6 +10260,7 @@ MonoBehaviour:
     worldPos: {x: 0, y: 3.6000001, z: 2.4}
     worldRot: {x: 0, y: 0, z: 0}
     cubeType: 34
+    cubeAtPosition: {fileID: 0}
   currCoordinates: {x: 0, y: 3, z: 2}
   cubeType: 34
 --- !u!65 &1664099348
@@ -10389,6 +10411,7 @@ MonoBehaviour:
     worldPos: {x: 2.4, y: 0, z: 1.2}
     worldRot: {x: 0, y: 0, z: 0}
     cubeType: 1
+    cubeAtPosition: {fileID: 0}
   currCoordinates: {x: 2, y: 0, z: 1}
   cubeType: 1
 --- !u!65 &1684286611
@@ -10736,6 +10759,7 @@ MonoBehaviour:
     worldPos: {x: 1.2, y: 2.4, z: 1.2}
     worldRot: {x: 0, y: 0, z: 0}
     cubeType: 1
+    cubeAtPosition: {fileID: 0}
   currCoordinates: {x: 1, y: 2, z: 1}
   cubeType: 1
 --- !u!65 &1791735899
@@ -10805,6 +10829,7 @@ MonoBehaviour:
     worldPos: {x: 2.4, y: 2.4, z: 1.2}
     worldRot: {x: 0, y: 0, z: 0}
     cubeType: 1
+    cubeAtPosition: {fileID: 0}
   currCoordinates: {x: 2, y: 2, z: 1}
   cubeType: 1
 --- !u!65 &1802373116
@@ -10874,6 +10899,7 @@ MonoBehaviour:
     worldPos: {x: 2.4, y: 3.6000001, z: 1.2}
     worldRot: {x: 0, y: 0, z: 0}
     cubeType: 1
+    cubeAtPosition: {fileID: 0}
   currCoordinates: {x: 2, y: 3, z: 1}
   cubeType: 1
 --- !u!65 &1834593448
@@ -11444,7 +11470,7 @@ GameObject:
   - component: {fileID: 2014840388}
   - component: {fileID: 2014840387}
   m_Layer: 7
-  m_Name: GameCube_Moveable(Clone)
+  m_Name: GameCube_Moveable (Base)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11501,6 +11527,7 @@ MonoBehaviour:
     worldPos: {x: 0, y: 1.2, z: 2.4}
     worldRot: {x: 0, y: 0, z: 0}
     cubeType: 2
+    cubeAtPosition: {fileID: 0}
   currCoordinates: {x: 0, y: 1, z: 2}
   cubeType: 2
 --- !u!65 &2014840389
@@ -11732,6 +11759,7 @@ MonoBehaviour:
     worldPos: {x: 0, y: 3.6000001, z: 1.2}
     worldRot: {x: 0, y: 0, z: 0}
     cubeType: 1
+    cubeAtPosition: {fileID: 0}
   currCoordinates: {x: 0, y: 3, z: 1}
   cubeType: 1
 --- !u!65 &2060607187
@@ -11801,6 +11829,7 @@ MonoBehaviour:
     worldPos: {x: 1.2, y: 0, z: 0}
     worldRot: {x: 0, y: 0, z: 0}
     cubeType: 1
+    cubeAtPosition: {fileID: 0}
   currCoordinates: {x: 1, y: 0, z: 0}
   cubeType: 1
 --- !u!65 &2089197450
@@ -12028,6 +12057,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 1
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -12151,6 +12183,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 1
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -12274,6 +12309,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 1
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -12397,6 +12435,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 1
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -12520,6 +12561,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -12643,6 +12687,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 1
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -12766,6 +12813,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 2
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -12889,6 +12939,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -13012,6 +13065,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -13135,6 +13191,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 1
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -13258,6 +13317,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 6
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -13381,6 +13443,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -13504,6 +13569,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -13627,6 +13695,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 1
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -13750,6 +13821,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 34
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -13873,6 +13947,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -13996,6 +14073,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -14119,6 +14199,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 1
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -14242,6 +14325,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 2
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -14365,6 +14451,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -14488,6 +14577,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 1
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -14611,6 +14703,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 1
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -14734,6 +14829,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 1
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -14857,6 +14955,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 1
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -14980,6 +15081,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -15103,6 +15207,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -15226,6 +15333,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -15349,6 +15459,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -15472,6 +15585,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -15595,6 +15711,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 1
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -15718,6 +15837,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -15841,6 +15963,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -15964,6 +16089,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -16087,6 +16215,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -16210,6 +16341,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -16333,6 +16467,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -16456,6 +16593,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -16579,6 +16719,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -16702,6 +16845,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -16825,6 +16971,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -16948,6 +17097,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 1
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -17071,6 +17223,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 1
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -17194,6 +17349,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 1
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -17317,6 +17475,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 1
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -17440,6 +17601,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -17563,6 +17727,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -17686,6 +17853,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -17809,6 +17979,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -17932,6 +18105,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -18055,6 +18231,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 1
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -18178,6 +18357,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 1
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -18301,6 +18483,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -18424,6 +18609,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -18547,6 +18735,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 1
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -18670,6 +18861,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -18793,6 +18987,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -18916,6 +19113,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -19039,6 +19239,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -19162,6 +19365,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -19285,6 +19491,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -19408,6 +19617,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 1
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -19531,6 +19743,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 1
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -19654,6 +19869,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 1
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -19777,6 +19995,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 1
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -19900,6 +20121,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -20023,6 +20247,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -20146,6 +20373,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -20269,6 +20499,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -20392,6 +20625,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -20515,6 +20751,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -20638,6 +20877,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -20761,6 +21003,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -20884,6 +21129,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -21007,6 +21255,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 1
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -21130,6 +21381,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -21253,6 +21507,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -21376,6 +21633,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -21499,6 +21759,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -21622,6 +21885,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -21745,6 +22011,9 @@ MonoBehaviour:
     - Name: cubeType
       Entry: 3
       Data: 0
+    - Name: cubeAtPosition
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
