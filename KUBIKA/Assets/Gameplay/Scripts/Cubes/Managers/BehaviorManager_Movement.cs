@@ -96,13 +96,14 @@ namespace Gameplay.Scripts.Cubes.Managers
         {
             // get the current destination node, incremented based on how high you are n the stack
             var targetNode = GetMovingCubeTargetNode(movingCube.cubeBase.currCoordinates);
-
-            if (targetNode != null)
+            
+            if (targetNode != null && HasCubeUnderOrigin(targetNode.GetNodeCoordinates()))
             {
                 // if there is no cube in the way, add the cube to the list of cubes that will move
                 if ((CubeBehaviors) targetNode.cubeType == CubeBehaviors.None)
                 {
                     cubesTaggedForMovement.Add(movingCube, targetNode);
+                    targetNode.cubeType = movingCube.cubeBase.cubeType;
                     return true;
                 }
 
@@ -119,17 +120,18 @@ namespace Gameplay.Scripts.Cubes.Managers
                     CubeBehavior_Movement pushingCube =
                         targetNode.cubeAtPosition.GetComponent<CubeBehavior_Movement>();
 
-                    if (CheckIfCubeCanMove(pushingCube))
+                    if (CheckIfCubeCanMove(pushingCube)) // the pushed cube is tagged in this loop
                     {
                         cubesTaggedForMovement.Add(movingCube, targetNode);
+                        targetNode.cubeType = movingCube.cubeBase.cubeType;
 
                         if (pushingCube.carrying)
                         {
-                            var stackedCubesList = GetStackedCubes(pushingCube.carrying);
+                            var stackedCubesBeingPushed = GetStackedCubes(pushingCube.carrying);
 
-                            foreach (var cube in stackedCubesList)
+                            foreach (var pushedCube in stackedCubesBeingPushed)
                             {
-                                if (!CheckIfCubeCanMove(cube))
+                                if (!CheckIfCubeCanMove(pushedCube))
                                 {
                                     break;
                                 }
@@ -184,9 +186,9 @@ namespace Gameplay.Scripts.Cubes.Managers
 
         private void MakeCubeFall(CubeBehavior_Movement currentCube)
         {
-            var currNode = currentCube.cubeBase.currNode; 
+            var currNode = currentCube.cubeBase.currNode;
             int iterations = 1;
-            
+
             kuboGrid.grid.TryGetValue(currentCube.cubeBase.currCoordinates + (Vector3Int.down * iterations),
                 out var nodeUnder);
 

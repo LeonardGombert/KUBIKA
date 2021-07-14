@@ -1,3 +1,4 @@
+using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -6,7 +7,16 @@ public class CubeBehaviour_Base : AbstractCubeBehavior
     public Node currNode;
     public Vector3Int currCoordinates;
     public ComplexCubeType cubeType;
-    public Vector3 currWorldPosition => transform.position;
+
+    private void OnEnable()
+    {
+        InitBehavior();
+    }
+
+    public override void InitBehavior()
+    {
+        currNode.cubeAtPosition = this;
+    }
 
     /// <summary>
     /// Call when building a level. Is in charge of setting up the cube's position, rotation, type, etc. once it is instantiated.
