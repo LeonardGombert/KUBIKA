@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Sirenix.OdinInspector;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 namespace Gameplay.Scripts.Cubes.Managers
@@ -11,21 +8,18 @@ namespace Gameplay.Scripts.Cubes.Managers
     {
         public Grid_Kubo kuboGrid;
         [SerializeField] private BehaviourManager_PlayerInput playerInput;
-        [SerializeField] private BehaviorManager_Gravity gravityManager;
-        [SerializeField] private BehaviorManager_Push pushManager;
+        [SerializeField] UndoManager undoManager;
 
         private MoveDirection moveDirection;
         private Vector3Int targetCoordinates;
         private CubeBehavior_Movement playerMovedCube;
         private CubeBehavior_Movement baseFallingCube;
 
+        private readonly Dictionary<CubeBehavior_Movement, Node> cubesTaggedForMovement =
+            new Dictionary<CubeBehavior_Movement, Node>();
 
-        [ShowInInspector] private Dictionary<CubeBehavior_Movement, Node>
-            cubesTaggedForMovement = new Dictionary<CubeBehavior_Movement, Node>();
-
-        [ShowInInspector] private List<CubeBehavior_Movement>
-            cubesThatNeedCarryReassignement = new List<CubeBehavior_Movement>();
-
+        private readonly List<CubeBehavior_Movement> cubesThatNeedCarryReassignement =
+            new List<CubeBehavior_Movement>();
 
         public void TryMovingCubeInSwipeDirection(CubeBehavior_Movement targetCube)
         {
@@ -96,7 +90,7 @@ namespace Gameplay.Scripts.Cubes.Managers
         {
             // get the current destination node, incremented based on how high you are n the stack
             var targetNode = GetMovingCubeTargetNode(movingCube.cubeBase.currCoordinates);
-            
+
             if (targetNode != null && HasCubeUnderOrigin(targetNode.GetNodeCoordinates()))
             {
                 // if there is no cube in the way, add the cube to the list of cubes that will move
@@ -155,6 +149,8 @@ namespace Gameplay.Scripts.Cubes.Managers
 
         private void MoveTaggedCubes()
         {
+            undoManager.RegisterOneMove(cubesTaggedForMovement);
+
             foreach (var cube in cubesTaggedForMovement)
             {
                 cube.Key.MoveCubeToNode(cube.Value);

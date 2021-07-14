@@ -9,7 +9,6 @@ namespace Gameplay.Scripts.Cubes.Managers
     public class BehaviourManager_PlayerInput : MonoBehaviour
     {
         [SerializeField] BehaviorManager_Movement movementManager;
-        [SerializeField] UndoManager undoManager;
         [SerializeField] private Camera mainCamera;
 
         [SerializeField] private float swipeTolerance = 120;
@@ -139,7 +138,6 @@ namespace Gameplay.Scripts.Cubes.Managers
             {
                 canSwipe = false;
                 movementManager.TryMovingCubeInSwipeDirection(targetCubeMovement);
-                undoManager.RegisterOneMove();
                 startTouchPosition = currtouchPosition;
 
                 yield return null;

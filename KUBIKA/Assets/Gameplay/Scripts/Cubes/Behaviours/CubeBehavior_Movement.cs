@@ -9,9 +9,7 @@ public class CubeBehavior_Movement : AbstractCubeBehavior, IUndoable
     public CubeBehaviour_Base cubeBase;
     [ReadOnly] public CubeBehavior_Movement carrying;
     [ReadOnly] public CubeBehavior_Movement carriedBy;
-
-    private UndoManager undoManager;
-
+    
     private Stack<Node> previousPositions = new Stack<Node>();
 
     public override void InitBehavior()
@@ -19,14 +17,11 @@ public class CubeBehavior_Movement : AbstractCubeBehavior, IUndoable
         AssignCarriedByCube();
         AssignCarryingCube();
         ResetCurrNode();
-
-        undoManager = FindObjectOfType<UndoManager>();
     }
 
     public void MoveCubeToNode(Node targetNode)
     {
         previousPositions.Push(cubeBase.currNode);
-        undoManager.RegisterOne(this);
 
         // update nodes' Cube Types
         targetNode.cubeType = cubeBase.cubeType;
@@ -46,7 +41,7 @@ public class CubeBehavior_Movement : AbstractCubeBehavior, IUndoable
     }
 
     // waits for the next frame to reassign carrying/carried cube
-    public IEnumerator ReassignCubes()
+    private IEnumerator ReassignCubes()
     {
         yield return null;
         AssignCarryingCube();

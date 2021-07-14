@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Gameplay.Scripts.Cubes.Managers
@@ -7,26 +6,18 @@ namespace Gameplay.Scripts.Cubes.Managers
     public class UndoManager : MonoBehaviour
     {
         [SerializeField] private BehaviorManager_Movement movementManager;
-        private Stack<List<IUndoable>> cubesToUndo = new Stack<List<IUndoable>>();
-        private List<IUndoable> hotList = new List<IUndoable>();
+        private Stack<Dictionary<CubeBehavior_Movement, Node>> cubesToUndo = new Stack<Dictionary<CubeBehavior_Movement, Node> >();
 
-        public void RegisterOne(IUndoable targetUndoable)
+        public void RegisterOneMove(Dictionary<CubeBehavior_Movement, Node> list)
         {
-            hotList.Add(targetUndoable);
+            cubesToUndo.Push(list);
         }
-        
-        public void RegisterOneMove()
-        {
-            var tempList = hotList;
-            cubesToUndo.Push(tempList);
-            hotList.Clear();
-        }
-        
+
         public void Undo()
         {
-            for (int i = 0; i < cubesToUndo.Peek().Count; i++)
+            foreach (var cube in cubesToUndo.Peek())
             {
-                cubesToUndo.Peek()[i].UndoLast();
+                cube.Key.MoveCubeToNode(cube.Value);
             }
 
             cubesToUndo.Pop();
