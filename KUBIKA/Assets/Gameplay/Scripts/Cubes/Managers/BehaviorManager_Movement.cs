@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -10,7 +10,7 @@ namespace Gameplay.Scripts.Cubes.Managers
         [SerializeField] private BehaviourManager_PlayerInput playerInput;
         [SerializeField] UndoManager undoManager;
 
-        private MoveDirection moveDirection;
+        [SerializeField, ReadOnly] private MoveDirection moveDirection;
         private Vector3Int targetCoordinates;
         private CubeBehavior_Movement playerMovedCube;
         private CubeBehavior_Movement baseFallingCube;

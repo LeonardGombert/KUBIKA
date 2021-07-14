@@ -15,13 +15,14 @@ namespace Gameplay.Scripts.Cubes.Managers
         private Vector2 _swipeDirection;
         private float _swipeDirX, _swipeDirY;
 
-        private Vector2 currtouchPosition;
-        private Vector2 startTouchPosition;
+        private Vector3 currtouchPosition;
+        private Vector3 startTouchPosition;
+        private Vector2 raycastTargetPosition;
 
         [SerializeField, ReadOnly] private CubeBehavior_Movement targetCubeMovement;
 
         private bool canSwipe = true;
-        [SerializeField] private CameraRotation cameraRotation;
+        [SerializeField] private CameraRotation kuboStageRotation;
         private bool movingCamera;
 
         private KUBIKAInputActions kubikaInput;
@@ -63,7 +64,7 @@ namespace Gameplay.Scripts.Cubes.Managers
         {
             startTouchPosition = currtouchPosition;
 
-            var ray = mainCamera.ScreenPointToRay(currtouchPosition);
+            var ray = mainCamera.ScreenPointToRay(raycastTargetPosition);
 
             if (Physics.Raycast(ray, out RaycastHit hitInfo, 500f))
             {
@@ -78,7 +79,8 @@ namespace Gameplay.Scripts.Cubes.Managers
 
         private void SwipingScreen(InputAction.CallbackContext context)
         {
-            currtouchPosition = context.action.ReadValue<Vector2>();
+            raycastTargetPosition = context.action.ReadValue<Vector2>();
+            currtouchPosition = mainCamera.ScreenToWorldPoint(raycastTargetPosition);
 
             if (targetCubeMovement != null && canSwipe)
             {
@@ -100,7 +102,8 @@ namespace Gameplay.Scripts.Cubes.Managers
             movingCamera = false;
         }
 
-        private Vector2 axis; 
+        private Vector2 axis;
+
         private void MovingCamera(InputAction.CallbackContext context)
         {
             axis = context.ReadValue<Vector2>();
@@ -111,19 +114,21 @@ namespace Gameplay.Scripts.Cubes.Managers
 
         private void Update()
         {
-            if (movingCamera)
+            Debug.DrawLine(startTouchPosition, currtouchPosition, Color.white);
+            
+            if(movingCamera)
             {
                 _swipeDirection = (currtouchPosition - startTouchPosition).normalized;
                 _swipeDirX = Mathf.Sign(_swipeDirection.x);
                 
                 if (_swipeDirX >= 0)
                 {
-                    cameraRotation.MoveRight();
+                    kuboStageRotation.MoveRight();
                 }
 
                 if (_swipeDirX <= 0)
                 {
-                    cameraRotation.MoveLeft();
+                    kuboStageRotation.MoveLeft();
                 }
             }
         }
@@ -149,8 +154,10 @@ namespace Gameplay.Scripts.Cubes.Managers
         public MoveDirection CalculateMoveDirection()
         {
             _swipeDirection = (currtouchPosition - startTouchPosition).normalized;
-            _swipeDirX = Mathf.Sign(_swipeDirection.x);
+            _swipeDirX = - Mathf.Sign(_swipeDirection.x);
             _swipeDirY = Mathf.Sign(_swipeDirection.y);
+            
+            Debug.Log(new Vector2(_swipeDirX, _swipeDirY));
 
             if (_swipeDirX >= 0 && _swipeDirY <= 0)
             {

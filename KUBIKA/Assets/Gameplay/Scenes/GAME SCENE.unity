@@ -9802,8 +9802,6 @@ GameObject:
   - component: {fileID: 1582402288}
   - component: {fileID: 1582402289}
   - component: {fileID: 1582402292}
-  - component: {fileID: 1582402293}
-  - component: {fileID: 1582402294}
   m_Layer: 0
   m_Name: MovementManagers
   m_TagString: Untagged
@@ -9838,11 +9836,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementManager: {fileID: 1582402292}
-  undoManager: {fileID: 1005427218}
   mainCamera: {fileID: 1688325687}
-  swipeTolerance: 120
+  swipeTolerance: 1
   targetCubeMovement: {fileID: 0}
-  cameraRotation: {fileID: 1688325690}
+  kuboStageRotation: {fileID: 2124665054}
 --- !u!114 &1582402292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9858,34 +9855,8 @@ MonoBehaviour:
   managedCubes: []
   kuboGrid: {fileID: 2124665053}
   playerInput: {fileID: 1582402289}
-  gravityManager: {fileID: 1582402293}
-  pushManager: {fileID: 1582402294}
---- !u!114 &1582402293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1582402287}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a87dbfaecef1a344b01a3b34c518dee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1582402294
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1582402287}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b577bef04a4a764419f7811d80d3f119, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cubesToPush: []
-  pushDirection: 0
+  undoManager: {fileID: 1005427218}
+  moveDirection: 0
 --- !u!1 &1618154832
 GameObject:
   m_ObjectHideFlags: 0
@@ -10439,7 +10410,6 @@ GameObject:
   - component: {fileID: 1688325687}
   - component: {fileID: 1688325686}
   - component: {fileID: 1688325689}
-  - component: {fileID: 1688325690}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -10544,20 +10514,6 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!114 &1688325690
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1688325685}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a3370de59fd4440b54db78c5ac458f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneCamera: {fileID: 1688325687}
-  target: {fileID: 0}
 --- !u!1 &1785088256
 GameObject:
   m_ObjectHideFlags: 0
@@ -10585,16 +10541,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 1785088256}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
+  m_MoveRepeatDelay: 0.5
+  m_MoveRepeatRate: 0.1
+  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_PointAction: {fileID: 1054132383583890850, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MoveAction: {fileID: 3710738434707379630, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_SubmitAction: {fileID: 2064916234097673511, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_CancelAction: {fileID: -1967631576421560919, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_LeftClickAction: {fileID: 8056856818456041789, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MiddleClickAction: {fileID: 3279352641294131588, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_RightClickAction: {fileID: 3837173908680883260, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_ScrollWheelAction: {fileID: 4502412055082496612, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDevicePositionAction: {fileID: 4754684134866288074, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDeviceOrientationAction: {fileID: 1025543830046995696, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_DeselectOnBackgroundClick: 1
+  m_PointerBehavior: 0
 --- !u!114 &1785088258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11855,6 +11819,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2124665052}
   - component: {fileID: 2124665053}
+  - component: {fileID: 2124665054}
   m_Layer: 0
   m_Name: KuboGrid
   m_TagString: Untagged
@@ -22029,6 +21994,20 @@ MonoBehaviour:
   sizeX: 4
   sizeY: 4
   sizeZ: 4
+--- !u!114 &2124665054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2124665051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b956cd67435ac56419d58e4d3c32a975, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneCamera: {fileID: 1688325687}
+  target: {fileID: 1688325688}
 --- !u!1 &2136311867
 GameObject:
   m_ObjectHideFlags: 0
