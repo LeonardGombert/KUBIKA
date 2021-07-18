@@ -16,6 +16,6 @@ public class LevelLoader_Game : AbstractLevelLoader
         _levelFile = JsonUtility.FromJson<SaveFile>(json);
 
         cubePoolManager.AssembleLevel(_levelFile.Nodes);
-        gameGrid.NodesToDictionary(_levelFile.Nodes);
+        gameGrid.FillDictionaryWithLoadedNodes(_levelFile.Nodes);
     }
 }

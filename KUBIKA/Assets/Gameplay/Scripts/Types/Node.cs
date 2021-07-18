@@ -12,7 +12,7 @@ public class Node
     /// <summary>
     /// Called when the Kubo is rotated. Returns the new GridPosition of the current Node.
     /// </summary>
-    public Vector3Int GetNodeCoordinates() => vector3Kubo.positions[(int) Grid_Kubo.State];
+    public Vector3Int GetNodeCoordsInCurrentRotation() => vector3Kubo.positions[(int) KuboRotation.State];
     
     /// <summary>
     /// Returns the accurate worldPosition of the Node.

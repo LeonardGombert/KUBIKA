@@ -21,7 +21,7 @@ public class CubeBehavior_Movement : AbstractCubeBehavior, IUndoable
 
     public void MoveCubeToNode(Node targetNode)
     {
-        previousPositions.Push(cubeBase.currNode);
+        //previousPositions.Push(cubeBase.currNode);
 
         // update nodes' Cube Types
         targetNode.cubeType = cubeBase.cubeType;
@@ -29,10 +29,10 @@ public class CubeBehavior_Movement : AbstractCubeBehavior, IUndoable
 
         // Update cube base values
         cubeBase.currNode = targetNode;
-        cubeBase.currCoordinates = targetNode.GetNodeCoordinates();
+        //cubeBase.currCoordinates = targetNode.GetNodeCoordsInCurrentRotation();
 
         // Move cube 
-        transform.position = targetNode.worldPosition;
+        transform.position = targetNode.worldPosition; // TODO : this always returns the same position
 
         // assign the cube at the node position
         targetNode.cubeAtPosition = cubeBase;

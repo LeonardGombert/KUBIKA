@@ -23,21 +23,11 @@ namespace Gameplay.Scripts.Cubes.Managers
         [SerializeField, ReadOnly] private CubeBehavior_Movement targetCubeMovement;
 
         private bool canSwipe = true;
-        [SerializeField] private CameraRotation kuboStageRotation;
-        private bool movingCamera;
-
         private KUBIKAInputActions kubikaInput;
-
-        private Vector3 cameraInitPosition;
 
         #region Input Setup
 
         private void Awake() => SetupInputSystem();
-
-        private void Start()
-        {
-            cameraInitPosition = mainCamera.transform.position;
-        }
 
         private void SetupInputSystem()
         {
@@ -101,49 +91,16 @@ namespace Gameplay.Scripts.Cubes.Managers
             if (targetCubeMovement == null)
             {
                 MMVibrationManager.Haptic(HapticTypes.SoftImpact);
-                movingCamera = true;
             }
         }
 
         private void StopMovingCamera()
         {
-            movingCamera = false;
         }
-
-        private Vector2 axis;
-        private float dotProduct;
 
         private void MovingCamera(InputAction.CallbackContext context)
         {
-            axis = context.ReadValue<Vector2>();
-            if (movingCamera)
-            {
-            }
         }
-
-        private void Update()
-        {
-            dotProduct = Vector3.Dot(new Vector3(cameraInitPosition.x, 0, cameraInitPosition.z).normalized,
-                new Vector3(mainCamera.transform.position.x, 0, mainCamera.transform.position.z).normalized);
-            Debug.Log(dotProduct);
-
-            if (movingCamera)
-            {
-                _swipeDirection = (currtouchPosition - startTouchPosition).normalized;
-                _swipeDirX = Mathf.Sign(_swipeDirection.x);
-
-                if (_swipeDirX >= 0)
-                {
-                    kuboStageRotation.MoveRight();
-                }
-
-                if (_swipeDirX <= 0)
-                {
-                    kuboStageRotation.MoveLeft();
-                }
-            }
-        }
-
         #endregion
 
         #region Helper Functions
@@ -165,40 +122,8 @@ namespace Gameplay.Scripts.Cubes.Managers
         public MoveDirection CalculateMoveDirection()
         {
             _swipeDirection = (currtouchPosition - startTouchPosition).normalized;
-            _swipeDirX = Mathf.Sign(_swipeDirection.x) * -Mathf.Sign(mainCamera.transform.position.z);
-            _swipeDirY = Mathf.Sign(_swipeDirection.y) * Mathf.Sign(mainCamera.transform.position.z);
-
-            if (dotProduct <= .9f)
-            {
-                // if on the right side
-                if (Mathf.Sign(mainCamera.transform.position.z) > 0)
-                {
-                    // if signs are the same
-                    if (_swipeDirX > 0 && _swipeDirY > 0 || _swipeDirX < 0 && _swipeDirY < 0)
-                    {
-                        _swipeDirX *= -1;
-                    }
-                    // if signs are different
-                    else
-                    {
-                        _swipeDirY *= -1;
-                    }
-                }
-                // if on the left side
-                else if (Mathf.Sign(mainCamera.transform.position.z) < 0)
-                {
-                    // if signs are the same
-                    if (_swipeDirX > 0 && _swipeDirY > 0 || _swipeDirX < 0 && _swipeDirY < 0)
-                    {
-                        _swipeDirY *= -1;
-                    }
-                    // if signs are different
-                    else
-                    {
-                        _swipeDirX *= -1;
-                    }
-                }
-            }
+            _swipeDirX = -Mathf.Sign(_swipeDirection.x);
+            _swipeDirY = Mathf.Sign(_swipeDirection.y);
 
             if (_swipeDirX >= 0 && _swipeDirY <= 0)
             {

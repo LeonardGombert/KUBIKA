@@ -5,7 +5,7 @@ using UnityEngine;
 public class CubeBehaviour_Base : AbstractCubeBehavior
 {
     public Node currNode;
-    public Vector3Int currCoordinates;
+    public Vector3Int currCoordinates => currNode.GetNodeCoordsInCurrentRotation();
     public ComplexCubeType cubeType;
 
     private void OnEnable()
@@ -29,7 +29,7 @@ public class CubeBehaviour_Base : AbstractCubeBehavior
         Transform parent)
     {
         this.currNode = currNode;
-        this.currCoordinates = currCoordinates;
+        //this.currCoordinates = currCoordinates;
         this.cubeType = cubeType;
         var @ref = transform;
         @ref.position = position;
@@ -44,7 +44,7 @@ public class CubeBehaviour_Base : AbstractCubeBehavior
     public void ConfigCube(Node currNode, Vector3Int currCoordinates, ComplexCubeType cubeType)
     {
         this.currNode = currNode;
-        this.currCoordinates = currCoordinates;
+        //this.currCoordinates = currCoordinates;
         this.cubeType = cubeType;
     }
 }

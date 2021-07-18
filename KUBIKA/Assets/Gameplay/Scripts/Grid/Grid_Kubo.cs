@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class Grid_Kubo : SerializedMonoBehaviour
 {
-    [ShowInInspector, ReadOnly, TableList] public static KuboState State;
-    [SerializeField] private int sizeX, sizeY, sizeZ;
     public Dictionary<Vector3Int, Node> grid;
 
-    public void NodesToDictionary(Node[,,] newGrid)
+    public void FillDictionaryWithLoadedNodes(Node[,,] newGrid)
     {
         grid = new Dictionary<Vector3Int, Node>();
         

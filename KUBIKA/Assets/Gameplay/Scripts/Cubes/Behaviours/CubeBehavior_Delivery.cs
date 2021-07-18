@@ -6,7 +6,7 @@ public class CubeBehavior_Delivery : AbstractCubeBehavior
 {
     public override void InitBehavior()
     {
-        throw new System.NotImplementedException();
+        // throw new System.NotImplementedException();
     }
 
     public bool bHasAVictoryCube()

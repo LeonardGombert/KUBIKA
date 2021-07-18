@@ -15,12 +15,14 @@ public class CubePoolManager_Game : AbstractCubePoolManager
                     if (grid[x, y, z].cubeType == ComplexCubeType.None) continue;
 
                     // hell yes
-                    var newCube = _cubeFactories[(CubeBehaviors) grid[x, y, z].cubeType].SpawnCube();
+                    var newCube = _cubeFactories[(CubeBehaviors)grid[x, y, z].cubeType].SpawnCube();
 
                     var cubeObject = newCube.GetComponent<CubeBehaviour_Base>();
                     
-                    cubeObject.ConfigCube(ref grid[x, y, z], grid[x, y, z].GetNodeCoordinates(), grid[x, y, z].cubeType,
+                    cubeObject.ConfigCube(ref grid[x, y, z], grid[x, y, z].GetNodeCoordsInCurrentRotation(), grid[x, y, z].cubeType,
                         grid[x, y, z].worldPosition, gameGrid.transform);
+
+                    grid[x, y, z].cubeAtPosition = cubeObject;
                 }
             }
         }
