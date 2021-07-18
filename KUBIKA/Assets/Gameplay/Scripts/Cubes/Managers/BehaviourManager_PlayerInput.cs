@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using MoreMountains.NiceVibrations;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -27,9 +28,16 @@ namespace Gameplay.Scripts.Cubes.Managers
 
         private KUBIKAInputActions kubikaInput;
 
+        private Vector3 cameraInitPosition;
+
         #region Input Setup
 
         private void Awake() => SetupInputSystem();
+
+        private void Start()
+        {
+            cameraInitPosition = mainCamera.transform.position;
+        }
 
         private void SetupInputSystem()
         {
@@ -103,6 +111,7 @@ namespace Gameplay.Scripts.Cubes.Managers
         }
 
         private Vector2 axis;
+        private float dotProduct;
 
         private void MovingCamera(InputAction.CallbackContext context)
         {
@@ -114,13 +123,15 @@ namespace Gameplay.Scripts.Cubes.Managers
 
         private void Update()
         {
-            Debug.DrawLine(startTouchPosition, currtouchPosition, Color.white);
-            
-            if(movingCamera)
+            dotProduct = Vector3.Dot(new Vector3(cameraInitPosition.x, 0, cameraInitPosition.z).normalized,
+                new Vector3(mainCamera.transform.position.x, 0, mainCamera.transform.position.z).normalized);
+            Debug.Log(dotProduct);
+
+            if (movingCamera)
             {
                 _swipeDirection = (currtouchPosition - startTouchPosition).normalized;
                 _swipeDirX = Mathf.Sign(_swipeDirection.x);
-                
+
                 if (_swipeDirX >= 0)
                 {
                     kuboStageRotation.MoveRight();
@@ -154,10 +165,40 @@ namespace Gameplay.Scripts.Cubes.Managers
         public MoveDirection CalculateMoveDirection()
         {
             _swipeDirection = (currtouchPosition - startTouchPosition).normalized;
-            _swipeDirX = - Mathf.Sign(_swipeDirection.x);
-            _swipeDirY = Mathf.Sign(_swipeDirection.y);
-            
-            Debug.Log(new Vector2(_swipeDirX, _swipeDirY));
+            _swipeDirX = Mathf.Sign(_swipeDirection.x) * -Mathf.Sign(mainCamera.transform.position.z);
+            _swipeDirY = Mathf.Sign(_swipeDirection.y) * Mathf.Sign(mainCamera.transform.position.z);
+
+            if (dotProduct <= .9f)
+            {
+                // if on the right side
+                if (Mathf.Sign(mainCamera.transform.position.z) > 0)
+                {
+                    // if signs are the same
+                    if (_swipeDirX > 0 && _swipeDirY > 0 || _swipeDirX < 0 && _swipeDirY < 0)
+                    {
+                        _swipeDirX *= -1;
+                    }
+                    // if signs are different
+                    else
+                    {
+                        _swipeDirY *= -1;
+                    }
+                }
+                // if on the left side
+                else if (Mathf.Sign(mainCamera.transform.position.z) < 0)
+                {
+                    // if signs are the same
+                    if (_swipeDirX > 0 && _swipeDirY > 0 || _swipeDirX < 0 && _swipeDirY < 0)
+                    {
+                        _swipeDirY *= -1;
+                    }
+                    // if signs are different
+                    else
+                    {
+                        _swipeDirX *= -1;
+                    }
+                }
+            }
 
             if (_swipeDirX >= 0 && _swipeDirY <= 0)
             {
